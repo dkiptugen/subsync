@@ -1,0 +1,108 @@
+@extends('includes.auth_layout')
+
+@section('content')
+    <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+        <div class="d-table-cell align-middle">
+
+
+
+            <div class="card ">
+                <div class="card-body border-nation">
+                    <div class="m-sm-4">
+                        <div class="text-center">
+                            <img src="{{ $logo }}" height="100" alt="">
+                        </div>
+                        <form  method="POST" class="mb-2" action="{{ route('front.login') }}">
+                            @csrf
+                            <div class="form-group">
+                                <div class="input-group w-100 mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" placeholder="Enter your email or username" class=" form-control-lg form-control @error('email') is-invalid @enderror @error('username') is-invalid @enderror" name="email" value="{{ old('email')??old('username') }}" required autocomplete="email" autofocus />
+
+                                </div>
+                                @error('email')
+                                <div class="text-center text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                                @enderror
+                                @error('username')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group w-100 mb-3 border-nation">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fas fa-key"></i>
+                                        </span>
+                                    </div>
+
+                                    <input class="form-control form-control-lg @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" type="password" placeholder="Enter your password" />
+
+
+
+                                </div>
+
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                            </div>
+                            <div class="d-flex justify-content-between form-group w-100">
+                                <div class="custom-control custom-checkbox align-items-center">
+                                    <input type="checkbox" class="custom-control-input" value="remember-me" name="remember-me" checked>
+                                    <label class="custom-control-label text-small">Remember me next time</label>
+                                </div>
+                                <small>
+                                    <a href="">Forgot password?</a>
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                Don't have an Account? <a href="">Register</a>
+                            </div>
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-block btn-nation">Sign in</button>
+                            </div>
+                        </form>
+                        <div class="social-login-separator my-3">
+                            <span>OR</span>
+                        </div>
+                        <div class="btn-group btn-group-md btn-group-lg w-100">
+                            <a href="" class="btn btn-facebook ">
+                                <i class="fab fa-facebook-f"></i>
+                                Facebook
+                            </a>
+                            <a href="" class="btn btn-google">
+                                <i class="fab fa-google"></i>
+                                Google
+                            </a>
+                            <a href="" class="btn btn-twitter">
+                                <i class="fab fa-twitter"></i>
+                                Twitter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-d.ismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+            @endif
+        </div>
+    </div>
+
+
+
+
+@endsection
+
