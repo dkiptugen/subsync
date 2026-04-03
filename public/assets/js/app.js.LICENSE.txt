@@ -25,6 +25,13 @@
 */
 
 /*!
+ * @copyright Copyright (c) 2017 IcoMoon.io
+ * @license   Licensed under MIT license
+ *            See https://github.com/Keyamoon/svgxuse
+ * @version   1.2.6
+ */
+
+/*!
  * Chart.js v2.9.4
  * https://www.chartjs.org
  * (c) 2020 Chart.js Contributors
@@ -32,11 +39,24 @@
  */
 
 /*!
- * Pusher JavaScript Library v8.4.0
+ * Pusher JavaScript Library v8.5.0
  * https://pusher.com/
  *
  * Copyright 2020, Pusher
  * Released under the MIT licence.
+ */
+
+/*!
+ * TOAST UI Color Picker
+ * @version 2.2.8
+ * @author NHN Cloud FE Development Team <dl_javascript@nhn.com>
+ * @license MIT
+ */
+
+/*!
+ * TOAST UI ImageEditor
+ * @version 3.15.3
+ * @license MIT
  */
 
 /*!
@@ -228,6 +248,12 @@ PERFORMANCE OF THIS SOFTWARE.
 
 /*! /home/runner/work/feather/feather/src/index.js */
 
+/*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js */
+
+/*! Bootstrap 5 integration for DataTables' Responsive
+ * © SpryMedia Ltd - datatables.net/license
+ */
+
 /*! Bootstrap integration for DataTables' Buttons
  * © SpryMedia Ltd - datatables.net/license
  */
@@ -244,7 +270,13 @@ PERFORMANCE OF THIS SOFTWARE.
  * © SpryMedia Ltd - datatables.net/license
  */
 
+/*! Fabric.js Copyright 2008-2015, Printio (Juriy Zaytsev, Maxim Chernyak) */
+
 /*! FixedHeader 4.0.6
+ * © SpryMedia Ltd - datatables.net/license
+ */
+
+/*! Responsive 3.0.8
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -594,6 +626,8 @@ PERFORMANCE OF THIS SOFTWARE.
  * @license Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-licensing-options
  */
+
+// @license RGB <-> HSV conversion utilities based off of http://www.cs.rit.edu/~ncs/color/t_convert.html
 
 //! moment.js
 

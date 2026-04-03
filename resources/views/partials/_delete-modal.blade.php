@@ -12,7 +12,7 @@
                         <div class="text-center">
                                 <input id="target" name="modal" type="hidden" value="{{old('modal')}}">
                             <div class="modal-footer text-center">
-                                <button type="button" class="btn btn-secondary btn-sm btn-rounded" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-secondary btn-sm btn-rounded" data-bs-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn bg-nation btn-sm btn-rounded text-white">Delete</button>
                             </div>
                         </div>

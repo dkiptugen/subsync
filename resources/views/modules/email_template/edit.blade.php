@@ -9,11 +9,11 @@
                 <form action="{{ route('email_template.update',['email_template' => $template->id]) }}" method="post" class="form form-horizontal create-form">
                     @csrf
                     @method('put')
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="name" class="control-label">Name</label>
                         <input type="text" name="template_name" id="name" class="form-control" value="{{ $template->name }}">
                     </div>
-                    <div class="form-group ">
+                    <div class="mb-3 ">
                         
                         <label for="type" class="control-label">Email Type</label>
                         <select  name="template_type" id="template_type" class="form-control select2">
@@ -23,13 +23,13 @@
                         </select>
                     
                     </div>
-                    <div class="form-group ">
+                    <div class="mb-3 ">
                         
                         <label for="subject" class="control-label">Email Subject</label>
                         <input type="text" name="subject" id="subject" class="form-control" value="{{ $template->subject }}">
                     
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col-12 col-md-8 col-xl-10"><label for="email_body" class="control-label">Email Body</label>
                             <textarea name="email_body" id="email_body" class="form-control editor">{{ $template->body }}</textarea>
                         </div>
@@ -44,7 +44,7 @@
                       
                     </div>
                    
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="products" class="control-label">Products</label>
                         <select name="products[]" id="products" class="form-control select2" multiple="multiple">
                             @foreach($products as $product)
@@ -53,7 +53,7 @@
                         </select>
                     </div>
                    
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input"
                                    type="checkbox"
@@ -65,8 +65,8 @@
                             </span>
                         </label>
                     </div>
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">Update Template</button>
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation ms-auto">Update Template</button>
                     </div>
                 </form>
             </div>

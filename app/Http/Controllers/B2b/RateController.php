@@ -209,14 +209,14 @@ class RateController extends Controller
                                     {
                                         return self::success('Rate', 'added successfuly', route('organization.rate.index', $organizationId));
                                     }
-                                return self::fail('Rate', 'Failed to save', route('organization.rate.index', $organizationId));
+                                return self::failed('Rate', 'Failed to save', route('organization.rate.index', $organizationId));
                             }
                         catch (Exception $e)
                             {
-                                return self::fail('Rate', $e->getMessage(), route('organization.rate.index', $organizationId));
+                                return self::failed('Rate', $e->getMessage(), route('organization.rate.index', $organizationId));
                             }
                     }
-                return self::fail('Rate', $validateddata, route('organization.rate.index', $organizationId));
+                return self::failed('Rate', $validateddata, route('organization.rate.index', $organizationId));
             }
 
     /**
@@ -290,14 +290,14 @@ class RateController extends Controller
                                     {
                                         return self::success('Rate', 'added successfuly', route('organization.rate.index', $organizationId));
                                     }
-                                return self::fail('Rate', 'Failed to save', route('organization.rate.index', $organizationId));
+                                return self::failed('Rate', 'Failed to save', route('organization.rate.index', $organizationId));
                             }
                         catch (Exception $e)
                             {
-                                return self::fail('Rate', $e->getMessage(), route('organization.rate.index', $organizationId));
+                                return self::failed('Rate', $e->getMessage(), route('organization.rate.index', $organizationId));
                             }
                     }
-                return self::fail('Rate', $validateddata, route('organization.rate.index', $organizationId));
+                return self::failed('Rate', $validateddata, route('organization.rate.index', $organizationId));
             }
 
     /**

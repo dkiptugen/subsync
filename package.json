@@ -23,6 +23,7 @@
         "@ckeditor/ckeditor5-table": "^47.6.1",
         "@fortawesome/fontawesome-free": "^7.2.0",
         "@popperjs/core": "2.11.8",
+        "@yaireo/tagify": "^4.36.0",
         "bootstrap": "5.3.0",
         "chart.js": "2.9.4",
         "choices.js": "^11.2.1",
@@ -35,12 +36,14 @@
         "datatables.net-dt": "^2.3.7",
         "datatables.net-fixedheader": "^4.0.6",
         "datatables.net-fixedheader-bs5": "^4.0.6",
+        "datatables.net-responsive-bs5": "^3.0.8",
         "feather-icons": "4.29.0",
         "flatpickr": "4.6.13",
         "jsvectormap": "1.5.3",
         "laravel-mix": "^6.0.49",
         "notyf": "^3.10.0",
-        "simplebar": "5.3.9"
+        "simplebar": "5.3.9",
+        "tui-image-editor": "^3.7.2"
     },
     "devDependencies": {
         "@babel/core": "7.22.5",

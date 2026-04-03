@@ -26,7 +26,7 @@ class MpesaService
                         $data->save();
                         return self::success('Mpesa Notification','Successful', route('payment_methods.index'));
                     }
-                return self::fail('Mpesa Notification','failed', route('payment_methods.index'));
+                return self::failed('Mpesa Notification','failed', route('payment_methods.index'));
             }
 		public function update_payment ($transcode, $amount, $receipt, $name, $number, $transtime, $response)
 			{
@@ -43,7 +43,7 @@ class MpesaService
 								$transaction->transaction_date = Carbon::parse ($transtime)->toDateTimeString ();
 								$transaction->save ();
 								$transaction->subscription ()->update (['status' => 1]);
-								
+
 							}
 						else
 							{
@@ -66,5 +66,5 @@ class MpesaService
 
 
 
-	
+
 }

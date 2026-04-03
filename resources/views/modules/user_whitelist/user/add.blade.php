@@ -10,7 +10,7 @@
                         <form action="{{ route('whitelist.type.store','user') }}" method="post" enctype="multipart/form-data" class="form-i form-horizontal create-form">
                            @csrf
 
-                            <div class="form-group form-row">
+                            <div class="row mb-3">
                                 <div class="col">
                                     <label for="email" class="control-label">Email</label>
                                     <input type="email" name="email" id="email" class="form-control">
@@ -29,7 +29,7 @@
                                 </div>
 
                             </div>
-                            <div class="form-group form-row">
+                            <div class="row mb-3">
 
                                 <div class="col">
                                     <label for="startdate" class="control-label">Startdate</label>
@@ -44,12 +44,12 @@
                                     <input type="text" name="tag" value="" class="form-control">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <label for="reason" class="control-label"> Reason</label>
                                 <textarea name="reason" id="reason" cols="30" rows="10" class="form-control"></textarea>
                             </div>
-                            <div class="form-group d-flex">
-                                <button class="btn btn-nation ml-auto">Whitelist User</button>
+                            <div class="mb-3 d-flex">
+                                <button class="btn btn-nation ms-auto">Whitelist User</button>
                             </div>
                         </form>
 

@@ -16,11 +16,11 @@
 
 <script>
     window.appConfig = Object.assign({}, window.appConfig ?? {}, {
-        mediaLibraryIndexUrl: @json(route('dashboard.media-library.index')),
-        mediaLibraryStoreUrl: @json(route('dashboard.media-library.store')),
+        mediaLibraryIndexUrl: @json(route('media-library.index')),
+        mediaLibraryStoreUrl: @json(route('media-library.store')),
     });
 </script>
-<script src="{{ asset('assets/js/app.js?v='.(file_exists(public_path('assets/js/app.js')) ? filemtime(public_path('assets/js/app.js')) : time())) }}" type="module"></script>
+<script src="{{ mix('/assets/js/app.js') }}" type="module"></script>
 
 @yield('footer')
 

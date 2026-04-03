@@ -10,7 +10,7 @@
                 <form action="{{ route('whitelist.type.update',['user',$whitelist->id]) }}" method="POST" class="form form-horizontal create-form">
                     @method('PATCH')
                     @csrf
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="email" class="control-label">Email</label>
                             <input type="text" name="email" id="email" class="form-control" value="{{ @$whitelist->customer->email }}">
@@ -27,7 +27,7 @@
                         </div>
 
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
 
                         <div class="col">
                             <label for="startdate" class="control-label">Startdate {{$whitelist->startdate}}</label>
@@ -53,12 +53,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="reason" class="control-label"> Reason</label>
                         <textarea name="reason" id="reason" cols="30" rows="10" class="form-control">{{$whitelist->reason}}</textarea>
                     </div>
-                    <div class="form-group d-flex">
-                        <button class="btn btn-nation ml-auto">Whitelist User</button>
+                    <div class="mb-3 d-flex">
+                        <button class="btn btn-nation ms-auto">Whitelist User</button>
                     </div>
                 </form>
 

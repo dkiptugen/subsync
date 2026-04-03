@@ -58,7 +58,8 @@
 @endsection
 @section("footer")
     <script>
-        $('#subscription-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#subscription-table', {
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -84,6 +85,7 @@
                 {"data": "action","orderable":false}
             ],
             "order": [[ 8, "desc" ]]
+        });
         });
     </script>
 @endsection

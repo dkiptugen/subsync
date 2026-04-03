@@ -17,7 +17,7 @@
 
                             <form method="post" action="{{ route('login') }}">
                                 @csrf
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <label> {{ __('Username/Email') }}</label>
                                     <input class="form-control form-control-lg  @error('username') is-invalid @enderror   @error('email') is-invalid @enderror" type="text" name="email" value="{{ old('email') }}" placeholder="Enter your email or username"/>
                                     @error('username')
@@ -31,7 +31,7 @@
                                             </span>
                                     @enderror
                                 </div>
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <label>{{ __('Password') }}</label>
                                     <input class="form-control form-control-lg @error('password') is-invalid @enderror"
                                            type="password" name="password" value="{{ old('password') }}"

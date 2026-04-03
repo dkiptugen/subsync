@@ -14,7 +14,7 @@
                     <form class="form form-horizontal" method="POST" action="{{ route('auth.password.post_expired') }}">
                         @csrf
 
-                        <div class="form-group{{ $errors->has('current_password') ? ' has-error' : '' }}">
+                        <div class="mb-3{{ $errors->has('current_password') ? ' has-error' : '' }}">
                             <label for="current_password" class="control-label">Current Password</label>
                             <input id="current_password" type="password" class="form-control" name="current_password" required="" value="{{ old("current_password") }}">
 
@@ -26,7 +26,7 @@
 
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="mb-3{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="control-label">New Password</label>
                             <input id="password" type="password" class="form-control" name="password" required="" value="{{ old("password") }}">
 
@@ -38,7 +38,7 @@
 
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                        <div class="mb-3{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                             <label for="password-confirm" class="control-label">Confirm New Password</label>
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required="" value="{{ old("password_confirmation") }}">
                             @if ($errors->has('password_confirmation'))
@@ -49,7 +49,7 @@
 
                         </div>
 
-                        <div class="form-group ">
+                        <div class="mb-3 ">
                             <button type="submit" class="btn btn-blue w-100">
                             {{ __('Reset Password') }}
                             </button>

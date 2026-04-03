@@ -27,7 +27,7 @@
                     <h2 class="h5 mb-0">Install Plugin</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('dashboard.plugins.upload') }}" enctype="multipart/form-data" class="d-grid gap-3">
+                    <form method="POST" action="{{ route('plugins.upload') }}" enctype="multipart/form-data" class="d-grid gap-3">
                         @csrf
 
                         <div>
@@ -105,7 +105,7 @@
                                         </td>
                                         <td class="text-end">
                                             @if ($plugin['enabled'])
-                                                <form method="POST" action="{{ route('dashboard.plugins.disable') }}" class="d-inline">
+                                                <form method="POST" action="{{ route('plugins.disable') }}" class="d-inline">
                                                     @csrf
                                                     <input type="hidden" name="plugins" value="{{ $plugin['directory'] }}">
                                                     <button type="submit" class="btn btn-sm btn-outline-danger">
@@ -113,7 +113,7 @@
                                                     </button>
                                                 </form>
                                             @else
-                                                <form method="POST" action="{{ route('dashboard.plugins.install') }}" class="d-inline">
+                                                <form method="POST" action="{{ route('plugins.install') }}" class="d-inline">
                                                     @csrf
                                                     <input type="hidden" name="plugins" value="{{ $plugin['directory'] }}">
                                                     <button type="submit" class="btn btn-sm btn-primary">

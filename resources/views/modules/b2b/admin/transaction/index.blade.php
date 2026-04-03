@@ -45,7 +45,8 @@
 @endsection
 @section('footer')
     <script>
-        $('#transaction-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#transaction-table', {
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -67,6 +68,7 @@
                 {"data": "action","orderable":false}
             ],
             "order": [[ 0, "desc" ]]
+        });
         });
     </script>
 @endsection

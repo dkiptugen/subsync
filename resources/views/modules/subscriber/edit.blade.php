@@ -11,7 +11,7 @@
                       class="form form-horizontal create-form">
                     @csrf
                     @method('put')
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                          <div class="col">
                              <label for="name" class="control-label">Name</label>
                              <input type="text" class="form-control" id="name" name="firstname"
@@ -24,7 +24,7 @@
                          </div>
 
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="email" class="control-label">Email</label>
                             <input type="email" class="form-control" name="email" id="email" value="{{ $user->email }}">
@@ -36,7 +36,7 @@
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="status"
                                    @if((bool)$user->status) checked @endif value="1">
@@ -59,8 +59,8 @@
                         </div>
 
                     </div>
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">Update Subscriber</button>
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation ms-auto">Update Subscriber</button>
                     </div>
                 </form>
 

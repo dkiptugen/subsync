@@ -120,11 +120,11 @@
                                     return self::success('Organization User', 'user added successfully', route('organization.user', $orgid));
                                 }
 
-                            return self::fail('Organization User', 'Failed to create user', route('organization.user', $orgid));
+                            return self::failed('Organization User', 'Failed to create user', route('organization.user', $orgid));
                         }
                     else
                         {
-                            return self::fail('Organization User', $validateddata->error, route('organization.user', $orgid));
+                            return self::failed('Organization User', $validateddata->error, route('organization.user', $orgid));
                         }
 
                 }
@@ -134,7 +134,7 @@
 
                     if (!$request->hasFile('files') || !is_array($request->file('files')))
                         {
-                            return self::fail('user accounts import', 'no files were uploaded.', route('organization.user', $orgid));
+                            return self::failed('user accounts import', 'no files were uploaded.', route('organization.user', $orgid));
                         }
                     $files = $request->file('files');
 
@@ -142,7 +142,7 @@
                         {
                             if (!in_array($file->getClientOriginalExtension(), ['xlsx', 'xls', 'csv']))
                                 {
-                                    return self::fail('user accounts import', 'The file must be an Excel file.', route('organization.user', $orgid));
+                                    return self::failed('user accounts import', 'The file must be an Excel file.', route('organization.user', $orgid));
                                 }
                             try
                                 {
@@ -153,12 +153,12 @@
                             catch (ValidationException $e)
                                 {
 
-                                    return self::fail('user accounts import', $e->failures(), route('organization.user', $orgid));
+                                    return self::failed('user accounts import', $e->failures(), route('organization.user', $orgid));
 
                                 }
                             catch (Exception $e)
                                 {
-                                    return self::fail('user accounts import', $e->getMessage(), route('organization.user', $orgid));
+                                    return self::failed('user accounts import', $e->getMessage(), route('organization.user', $orgid));
                                 }
                         }
                 }
@@ -221,7 +221,7 @@
                             return self::success('Organization User', 'user updated successfully', route('organization.user', $orgid));
                         }
 
-                    return self::fail('Organization User', 'Failed to Update user', route('organization.user', $orgid));
+                    return self::failed('Organization User', 'Failed to Update user', route('organization.user', $orgid));
                 }
 
         /**
@@ -251,12 +251,12 @@
                                         }
                                     return self::success('Organization subscription','User removed successfully',route('organization.user', $orgid));
                                 }
-                            return self::fail('Organization subscription','Failed to remove user',route('organization.user', $orgid));
+                            return self::failed('Organization subscription','Failed to remove user',route('organization.user', $orgid));
                         }
                     catch(\Exception $e)
                         {
                             Log::error($e->getMessage());
-                            return self::fail('Organization subscription','Error occured when deleteing user',route('organization.user', $orgid));
+                            return self::failed('Organization subscription','Error occured when deleteing user',route('organization.user', $orgid));
                         }
 
 

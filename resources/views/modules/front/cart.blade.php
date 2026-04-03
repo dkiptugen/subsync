@@ -55,7 +55,7 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <button type="button" class="btn btn-nation btn-block btn-lg">Proceed to Pay</button>
+                                <button type="button" class="btn btn-nation w-100 btn-lg">Proceed to Pay</button>
                             </div>
                         </div>
 

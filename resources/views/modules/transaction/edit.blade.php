@@ -10,7 +10,7 @@
                       class="form form-horizontal create-form">
                     @csrf
                     @method('put')
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="startdate" class="control-label">Start Date</label>
                             <!-- /.control-label -->
@@ -26,7 +26,7 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="receipt" class="control-label">Receipt No</label>
                             <!-- /.control-label -->
@@ -42,11 +42,11 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="reason" class="control-label">Reason</label>
                         <textarea name="reason" id="reason" cols="30" rows="10" class="form-control">{{$transaction->reason}}</textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="status" @if($transaction->status) checked
                                    @endif value="1">
@@ -56,8 +56,8 @@
                         </label>
 
                     </div>
-                    <div class="form-group d-flex">
-                        <button class="btn btn-nation ml-auto">Update Transaction</button>
+                    <div class="mb-3 d-flex">
+                        <button class="btn btn-nation ms-auto">Update Transaction</button>
                     </div>
                 </form>
             </div>

@@ -10,7 +10,7 @@
                     @csrf
                     @method('put')
                     <!-- /.form-group -->
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="receipt" class="control-label">Receipt No</label>
                             <!-- /.control-label -->
@@ -31,7 +31,7 @@
                         <!-- /.col -->
                     </div>
                     <!-- /.form-group -->
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="product" class="control-label">Product</label>
                             <!-- /.control-label -->
@@ -57,7 +57,7 @@
 
                     </div>
                     <!-- /.form-group -->
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col-12 col-md">
                             <label for="amount" class="control-label">Amount Paid</label>
                             <!-- /.control-label -->
@@ -79,13 +79,13 @@
 
                     </div>
                     <!-- /.form-group -->
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="description" class="control-label">Activation Reason</label>
                         <!-- /.control-label -->
                         <textarea name="reason" id="description" class="form-control">{{ $subscription->activator_reason }}</textarea>
                         <!-- /#.form-control -->
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="status"
                                    @if((bool)$subscription->status) checked @endif value="1">
@@ -95,8 +95,8 @@
                         </label>
                     </div>
                     <!-- /.form-group -->
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation btn-sm ml-auto">
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation btn-sm ms-auto">
                             Update Subscription
                         </button>
                         <!-- /.btn btn-outline-nation btn-sm -->

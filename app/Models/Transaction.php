@@ -5,10 +5,10 @@
 	use App\Casts\JsonCast;
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
-	use Spatie\Activitylog\LogOptions;
-	use Spatie\Activitylog\Traits\LogsActivity;
+    use Spatie\Activitylog\Models\Concerns\LogsActivity;
+    use Spatie\Activitylog\Support\LogOptions;
 
-	class Transaction extends Model
+    class Transaction extends Model
 		{
 			use HasFactory;
 			use LogsActivity;

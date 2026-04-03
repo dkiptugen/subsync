@@ -7,7 +7,6 @@
     use App\Events\PaymentMade;
     use App\Http\Controllers\Controller;
     use App\Http\Resources\SubscriptionResource;
-    use App\Jobs\ExtendBundleChildSubscriptions;
     use App\Jobs\Kafka\SuccessPaymentEventJob;
     use App\Jobs\MpesaPaymentJob;
     use App\Jobs\SendWebhook;
@@ -23,13 +22,10 @@
     use App\Models\Subscription;
     use App\Models\SubscriptionGroup;
     use App\Models\Transaction;
-    use App\Models\User;
-    use App\Services\MpesaService;
     use Illuminate\Http\JsonResponse;
     use Illuminate\Http\Request;
     use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\DB;
-    use Illuminate\Support\Facades\Http;
     use Illuminate\Support\Facades\Log;
     use Illuminate\Support\Str;
     use Illuminate\Validation\ValidationException;

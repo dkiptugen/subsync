@@ -112,12 +112,12 @@ class PurchaseController extends Controller
                                                     {
                                                         return self::success('PO Approval', 'Subscription generated successfully', route('organization.purchase.index', [$organizationId]));
                                                     }
-                                                return self::fail('PO Approval', 'PO approved but failed to create subscription', route('organization.purchase.index', [$organizationId]));
+                                                return self::failed('PO Approval', 'PO approved but failed to create subscription', route('organization.purchase.index', [$organizationId]));
                                             }
                                         return self::success('PO Approval', 'PO rejected successfully', route('organization.purchase.index', [$organizationId]));
 
                                     }
-                                return self::fail('PO Approval', 'Failed th make changes', route('organization.purchase.index', [$organizationId]));
+                                return self::failed('PO Approval', 'Failed th make changes', route('organization.purchase.index', [$organizationId]));
                             }
                         catch (Exception $e)
                             {
@@ -126,7 +126,7 @@ class PurchaseController extends Controller
                     }
                 else
                     {
-                        return self::fail('PO Approval', $validateddata, route('organization.purchase.index', [$organizationId, $id]));
+                        return self::failed('PO Approval', $validateddata, route('organization.purchase.index', [$organizationId, $id]));
                     }
             }
 

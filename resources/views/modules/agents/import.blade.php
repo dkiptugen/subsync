@@ -11,14 +11,14 @@
                       class="form form-horizontal create-form">
                     @csrf
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <div class="col">
                             <label for="excel_file" class="control-label">Excel file &nbsp; &nbsp; &nbsp; &nbsp;<a href="{{ asset('assets/agents.xlsx') }}">Download sample</a></label>
                             <input type="file" name="excel_file" accept=".xlsx,.xls,.csv" class="form-control" required>
                         </div>
                     </div>
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">Upload sales agents</button>
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation ms-auto">Upload sales agents</button>
                     </div>
                 </form>
 

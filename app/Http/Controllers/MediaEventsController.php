@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\MediaEvent;
+use App\Traits\Meta;
+use Illuminate\Http\Request;
 
 class MediaEventsController extends Controller
 {
+    use Meta;
+
+    public function __construct(protected array $data = [])
+    {
+        $this->data = self::site_def();
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -32,14 +40,14 @@ class MediaEventsController extends Controller
             'name' => 'required|string',
             'identifier' => 'required|unique:media_events,identifier',
             'status' => 'required|string',
-           
+
         ]);
 
         MediaEvent::create([
             'name' => $request->name,
             'identifier' => $request->identifier,
             'status' => $request->status,
-            
+
         ]);
 
         return self::success('MediaEvents', 'Event entry added successfully', route('media_events.index'));
@@ -73,7 +81,7 @@ class MediaEventsController extends Controller
             'name' => 'required|string',
             'identifier' => 'required|unique:media_events,identifier',
             'status' => 'required|string',
-        
+
         ]);
 
         $mediaevent = MediaEvent::findOrFail($id);
@@ -82,7 +90,7 @@ class MediaEventsController extends Controller
 
             'name' => $request->name,
             'identifier' => $request->identifier,
-            'status' => $request->status
+            'status' => $request->status,
         ]);
 
         return self::success('MediaEvents', 'Events entry updated successfully', route('media_events.index'));
@@ -95,9 +103,8 @@ class MediaEventsController extends Controller
     {
         MediaEvent::where('id', $id)->delete();
 
+        return redirect()->back()->with(['status' => true, 'msg' => 'MediaEvents entry deleted successfully', 'header' => 'MediaEvents']);
 
-        return redirect()->back()->with(['status'=>true,'msg'=>'MediaEvents entry deleted successfully','header'=>'MediaEvents']);
-
-       return self::success('MediaEvents', 'Events entry deleted successfully', route('media_events.index'));
+        return self::success('MediaEvents', 'Events entry deleted successfully', route('media_events.index'));
     }
 }

@@ -20,16 +20,17 @@ import "./modules/ckeditor.js";
 import "./modules/notyf.js";
 
 import "./modules/choices.js";
-
-import "./modules/echo.js";
-
-import "./modules/custom.js";
-
-
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
  * allow your team to quickly build robust real-time web applications.
  */
+import "./modules/echo.js";
+import "./modules/toast-ui-image.js"
+import "./modules/tagify.js"
+import "./modules/custom.js";
 
-import './echo';
+
+
+
+

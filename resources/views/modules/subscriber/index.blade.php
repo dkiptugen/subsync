@@ -54,11 +54,14 @@
 @section('footer')
 
 <script>
-$(document).ready(function() {
-    var table = $('#subscriber-table').DataTable({
+document.addEventListener('DOMContentLoaded', function () {
+    window.renderDataTable('#subscriber-table', {
         "processing": true,
         "serverSide": true,
         "pageLength": 10,
+        "search": {
+            "return": true
+        },
         "ajax": {
             "url": "{{ route('product.subscriber.datatable',0) }}",
             "dataType": "json",
@@ -78,16 +81,12 @@ $(document).ready(function() {
             {"data": "action","orderable":false}
         ],
         "order": [[0, "asc"]],
-	"initComplete": function(settings, json) {
-            $('div.dataTables_filter input').attr('placeholder', 'Please search by email and hit Enter...');
-        }
-    });
+	"initComplete": function() {
+            const searchInput = document.querySelector('div.dataTables_filter input');
 
-    $('.dataTables_filter input')
-    .unbind() // Unbind previous default bindings
-    .bind('keyup', function(e) {
-        if (e.which === 13) {
-            table.search(this.value).draw();
+            if (searchInput) {
+                searchInput.setAttribute('placeholder', 'Please search by email and hit Enter...');
+            }
         }
     });
 });

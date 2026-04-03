@@ -8,7 +8,7 @@
         <div class="card-body">
             <form action="{{ route('user.export') }}" method="post" class="form form-horizontal create-form">
                 @csrf
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col"></div>
                     <div class="col"></div>
                   

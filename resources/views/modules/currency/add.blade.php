@@ -9,7 +9,7 @@
             <!-- /.card-header -->
             <div class="card-body">
                 <form action="{{ route('currency.store') }}" method="post" class="form create-form">
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="region" class="control-label">Country</label>
                         <select name="region" id="region" class="form-control select2">
                             @foreach($regions as $region)
@@ -17,7 +17,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="dollar_amount" class="control-label">Dollar Amount</label>
                             <input type="number" name="dollar_amount" id="dollar_amount" class="form-control" value="1">
@@ -29,7 +29,7 @@
 
                     </div>
 
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="startdate" class="control-label">Start Date</label>
                             <input type="date" name="startdate" id="startdate" class="form-control">
@@ -40,8 +40,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-dark ms-auto">
                             Add Conversion Rate
                         </button>
                         <!-- /.btn btn-outline-nation -->

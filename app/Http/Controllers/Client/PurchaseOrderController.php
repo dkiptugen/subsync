@@ -64,10 +64,10 @@ class PurchaseOrderController extends Controller
                             }
                         catch (\Exception $e)
                             {
-                                return self::fail('Purchase order',$e->getMessage(),route('client_purchase_order.index'));
+                                return self::failed('Purchase order',$e->getMessage(),route('client_purchase_order.index'));
                             }
                     }
-                return self::fail('Purchase order',$validateddata,route('client_purchase_order.index'));
+                return self::failed('Purchase order',$validateddata,route('client_purchase_order.index'));
             }
 
     /**

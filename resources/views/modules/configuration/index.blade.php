@@ -5,7 +5,7 @@
         @foreach($config as $key => $value)
         <div class="card card-border-nation">
             <div class="card-header" id="headingOne">
-              <h3 class="mb-0 card-title text-nation my-0" data-toggle="collapse" data-target="#{{$key}}" aria-expanded="true"
+              <h3 class="mb-0 card-title text-nation my-0" data-bs-toggle="collapse" data-bs-target="#{{$key}}" aria-expanded="true"
                   aria-controls="collapseOne">
                     {{$key}}
               </h3>
@@ -16,13 +16,13 @@
                   <form action="{{ route('configuration.edit') }}" method="post" class="form form form-horizontal create-form">
                       @csrf
                       @foreach($config[$key] as $ob => $val)
-                      <div class="form-group">
+                      <div class="mb-3">
                           <label for="{{ $ob }}" class="control-label">{{ $ob }}</label>
                           <input type="text" name="{{ $ob }}" id="{{ $ob }}" class="form-control" value="{{ $val }}">
                       </div>
                       @endforeach
-                          <div class="form-group d-flex">
-                          <button type="submit" class="btn btn-sm btn-nation ml-auto">
+                          <div class="mb-3 d-flex">
+                          <button type="submit" class="btn btn-sm btn-nation ms-auto">
                               Save configuration
                           </button>
                           </div>

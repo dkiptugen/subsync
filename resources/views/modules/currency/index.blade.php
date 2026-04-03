@@ -4,7 +4,7 @@
         <div class="card card-border-nation">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title my-0 text-nation">Currency Conversion Rate</h3>
-                <a href="{{ route('currency.create') }}" class="btn btn-sm btn-outline-nation">
+                <a href="{{ route('currency.create') }}" class="btn btn-sm btn-outline-dark">
                     <i class="fas fa-plus"></i>
                     Add conversion rate
                 </a>
@@ -52,16 +52,10 @@
 
 @section('footer')
     <script>
-        $('#converstion-rate-table').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax":{
-                "url": "{{ route('currency.datatable') }}",
-                "dataType": "json",
-                "type": "POST",
-                "data":{ _token: "{{csrf_token()}}"}
-            },
-            "columns": [
+        document.addEventListener('DOMContentLoaded', function () {
+            window.initDataTable('#converstion-rate-table',
+                "{{ route('currency.datatable') }}",
+                [
                 { "data": "pos" },
                 { "data": "region" },
                 { "data": "currency" },
@@ -73,7 +67,7 @@
                 { "data": "status" },
                 {"data": "action","orderable":false}
             ],
-            "order": [[ 7, "desc" ]]
+                [[7, 'desc']]);
         });
     </script>
 @endsection

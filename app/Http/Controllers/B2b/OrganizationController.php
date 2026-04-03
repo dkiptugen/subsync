@@ -92,12 +92,12 @@
 
                                 }
 
-                            return self::fail('Organization', 'organization registration failed', route('organization.index'));
+                            return self::failed('Organization', 'organization registration failed', route('organization.index'));
 
 
                         }
 
-                    return self::fail('Organization', $validateddata, route('organization.index'));
+                    return self::failed('Organization', $validateddata, route('organization.index'));
 
                 }
 
@@ -178,12 +178,12 @@
 
                                 }
 
-                            return self::fail('Organization', 'organization registration failed', route('organization.index'));
+                            return self::failed('Organization', 'organization registration failed', route('organization.index'));
 
 
                         }
 
-                    return self::fail('Organization', $validateddata, route('organization.index'));
+                    return self::failed('Organization', $validateddata, route('organization.index'));
                 }
 
         /**
@@ -204,7 +204,7 @@
                             return self::success('Organization', 'organization updated successfully', url('dashboard/organization'));
                         }
 
-                    return self::fail('Organization', 'organization update failed', url('dashboard/organization'));
+                    return self::failed('Organization', 'organization update failed', url('dashboard/organization'));
 
                 }
 
@@ -319,7 +319,7 @@
                             return self::success('Organization', 'organizations default password added successfully. ' . $data . ' records updated', route('organization.index'));
 
                         }
-                    return self::fail('Organization', 'organizations default password failed', route('organization.index'));
+                    return self::failed('Organization', 'organizations default password failed', route('organization.index'));
                 }
 
         }

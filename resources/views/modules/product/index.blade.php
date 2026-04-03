@@ -6,12 +6,12 @@
 				<h3 class="card-title my-0 text-nation">
 					Products
 				</h3>
-				@canaccess('product.create')
+				@can('create_product')
 				<a href="{{ route('product.create') }}"
-						class="btn btn-sm btn-outline-nation">
-					<i class="fas fa-plus mr-2"></i> <span>Add Product</span>
+						class="btn btn-sm btn-outline-dark">
+					<i class="fas fa-plus me-2"></i> <span>Add Product</span>
 				</a>
-				@endcanaccess
+				@endcan
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
@@ -63,7 +63,8 @@
 @endsection
 @section('footer')
 	<script>
-        $('#products-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#products-table', {
             "processing": true,
             "serverSide": true,
             "ajax": {
@@ -91,5 +92,6 @@
             ],
             "order": [[1, "asc"]]
         });
-	</script>
+        });
+    </script>
 @endsection

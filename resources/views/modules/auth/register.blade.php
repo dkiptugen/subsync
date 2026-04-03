@@ -15,15 +15,12 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <div class="form-group ">
+                        <div class="mb-3 ">
 
 
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-
+                                <div class="input-group-text">
+                                    <i class="fas fa-user"></i>
                                 </div>
                                 <input id="name" placeholder="Enter full name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                             </div>
@@ -35,13 +32,10 @@
 
                         </div>
 
-                        <div class="form-group">
+                        <div class="mb-3">
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-
+                                <div class="input-group-text">
+                                    <i class="fas fa-envelope"></i>
                                 </div>
 
                                 <input id="email" type="email" placeholder="Enter email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -54,12 +48,10 @@
 
                         </div>
 
-                        <div class="form-group">
+                        <div class="mb-3">
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-key"></i>
-                                    </div>
+                                <div class="input-group-text">
+                                    <i class="fas fa-key"></i>
                                 </div>
                                 <input id="password" placeholder="Enter password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
                             </div>
@@ -71,21 +63,18 @@
 
                         </div>
 
-                        <div class="form-group">
+                        <div class="mb-3">
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-check"></i>
-                                    </div>
-
+                                <div class="input-group-text">
+                                    <i class="fas fa-check"></i>
                                 </div>
                                 <input id="password-confirm" type="password" placeholder="Confirm password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="mb-3">
 
-                                <button type="submit" class="btn btn-nation btn-block">
+                                <button type="submit" class="btn btn-nation w-100">
                                     {{ __('Register') }}
                                 </button>
                         </div>

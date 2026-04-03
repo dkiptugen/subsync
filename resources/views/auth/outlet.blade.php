@@ -14,7 +14,7 @@
                         <form method="POST" action="{{ route('outlet.select') }}" class="form form-horizontal">
                             @csrf
 
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <label for="product" class="control-label">{{ __('Select Outlet') }}</label>
                                 <select class="form-select" name="product" id="product" autocomplete="product">
                                     @foreach($product as $value)
@@ -23,7 +23,7 @@
 
                                 </select>
                             </div>
-                            <div class="form-group mt-3">
+                            <div class="mb-3 mt-3">
                                 <button type="submit" class="btn btn-black w-100">Proceed</button>
                             </div>
                         </form>

@@ -8,19 +8,19 @@
             <div class="card-body">
                 <form action="{{ route('organization.store') }}" method="post" class="form form-horizontal create-form">
                     @csrf
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="organization_name" class="control-label">Organization Name</label>
                         <input type="text" name="name" id="organization_name" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="address" class="control-label">Address</label>
                         <input type="text" name="address" id="address" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="phone" class="control-label">Phone No</label>
                         <input type="text" name="phone_number" id="phone" class="form-control">
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="admin_name" class="control-label">Admin Name</label>
                             <input type="text" name="admin_name" id="admin_name" class="form-control">
@@ -31,7 +31,7 @@
                         </div>
 
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="kra_pin" class="control-label">KRA Pin</label>
                             <input type="text" name="kra_pin" id="kra_pin" class="form-control">
@@ -42,8 +42,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">Add Organization</button>
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation ms-auto">Add Organization</button>
                     </div>
                 </form>
             </div>

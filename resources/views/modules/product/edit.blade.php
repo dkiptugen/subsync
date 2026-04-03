@@ -38,7 +38,7 @@
 						class="form form-horizontal create-form">
 					@csrf
 					@method('put')
-					<div class="form-group form-row">
+					<div class="row mb-3">
 						<div class="col-12 col-md-6">
 							<label for="product_name"
 									class="control-label">Product Name</label>
@@ -83,7 +83,7 @@
 						</div>
 
 					</div>
-					<div class="form-group form-row">
+					<div class="row mb-3">
 						<div class="col">
 							<label for="payment_prefix"
 									class="control-label">Product Identifier</label>
@@ -120,7 +120,7 @@
 
 					</div>
 
-					<div class="form-group form-row">
+					<div class="row mb-3">
                         <div class="col">
                             <label for="product_link"
                                    class="control-label">Product Link</label>
@@ -142,7 +142,7 @@
                             </select>
                         </div>
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="payment_notification_link"
 								class="control-label">Other Payment Notification Links</label>
 						<textarea name="notification_link"
@@ -150,7 +150,7 @@
 								class="form-control"
 								placeholder="separate with comma for multiple notification Links">{{ $product->payment_notification_link }}</textarea>
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<label class="form-check form-check-inline">
 							<input class="form-check-input"
 									type="checkbox"
@@ -184,7 +184,7 @@
 					</div>
                     <fieldset class="bundle-section">
                         <legend>For Bundles Only</legend>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <label class="control-label fw-800">Other sites</label>
                             <select name="sites[]"
                                     id="other_sites"
@@ -199,7 +199,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <label class="control-label fw-800">Bundle Products</label>
                             <select name="children[]"
                                     id="children"
@@ -216,13 +216,13 @@
                         </div>
                     </fieldset>
 					<!-- /.form-group -->
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="description" class="control-label">Description</label>
                         <textarea name="description" id="description" rows="4" class="form-control editor">{{$product->description}}</textarea>
                     </div>
-					<div class="form-group d-flex">
+					<div class="mb-3 d-flex">
 						<button type="submit"
-								class="btn btn-nation ml-auto">Update Product
+								class="btn btn-nation ms-auto">Update Product
 						</button>
 					</div>
 				</form>

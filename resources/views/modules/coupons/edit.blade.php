@@ -15,20 +15,20 @@
                   method="post">
                 @csrf
                 @method('put')
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col">
                         <label for="code" class="control-label">Coupon Code</label>
                         <input type="text" name="code" id="code" class="form-control" value="{{ $promo->code }}">
                     </div>
                     <div class="col">
                         <label for="type" class="control-label">Type</label>
-                        <select name="type" id="type" class="custom-select">
+                        <select name="type" id="type" class="form-select">
                             <option value="1" @if($promo->type === 1) selected @endif>Fixed </option>
                             <option value="0" @if($promo->type === 0) selected @endif>Percentage</option>
                         </select>
                     </div>
                 </div>
-                <div class="form-group form-row w-100">
+                <div class="mb-3 row w-100">
                     <div class="col">
                         <label for="products" class="control-label">Product</label>
                         <select name="products[]" class="form-control select2" id="products" multiple>
@@ -51,7 +51,7 @@
                     <!-- /.col-2 -->
 
                 </div>
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col">
                         <label for="start_date_date" class="control-label">Start Date</label>
                         <input type="text" name="start_date" id="start_date_timestamp"
@@ -65,7 +65,7 @@
                     </div>
 
                 </div>
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col">
                         <label for="discount" class="control-label">Discount</label>
                         <input type="text" name="discount" id="discount" class="form-control"
@@ -90,8 +90,8 @@
 
                 </div>
 
-                <div class="form-group">
-                    <div class="form-group">
+                <div class="mb-3">
+                    <div class="mb-3">
                         <label class="control-label fw-600">Other Subscription Types</label>
                         <select name="ratetypes[]"
                                 id="ratetypes"
@@ -105,7 +105,7 @@
                         </select>
                     </div>
                 </div>
-                 <div class="form-group">
+                 <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="status" @if($promo->status) checked
                                    @endif value="1">
@@ -132,8 +132,8 @@
                          </span>
                      </label>
                  </div>
-                <div class="form-group d-flex">
-                    <button type="submit" class="btn btn-sm btn-nation ml-auto">Update Coupon</button>
+                <div class="mb-3 d-flex">
+                    <button type="submit" class="btn btn-sm btn-nation ms-auto">Update Coupon</button>
                 </div>
             </form>
         </div>

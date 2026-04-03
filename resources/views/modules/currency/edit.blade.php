@@ -11,7 +11,7 @@
                 <form action="{{ route('currency.update',$currency->id) }}" method="post" class="form create-form">
                     @csrf
                     @method('put')
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="region" class="control-label">Country</label>
                         <select name="region" id="region" class="form-control select2">
                             @foreach($regions as $region)
@@ -20,7 +20,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="dollar_amount" class="control-label">Dollar Amount</label>
                             <input type="number" name="dollar_amount" id="dollar_amount" class="form-control"
@@ -34,7 +34,7 @@
 
                     </div>
 
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="startdate" class="control-label">Start Date</label>
                             <input type="date" name="startdate" id="startdate" class="form-control"
@@ -46,7 +46,7 @@
                                    value="{{ $currency->enddate }}">
                         </div>
                     </div>
-                     <div class="form-group">
+                     <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="status" @if($currency->status) checked
                                    @endif value="1">
@@ -56,8 +56,8 @@
                         </label>
 
                     </div>
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-dark ms-auto">
                             Add Conversion Rate
                         </button>
                         <!-- /.btn btn-outline-nation -->

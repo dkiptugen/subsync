@@ -2,15 +2,18 @@
     "agents": [
         "claude_code",
         "codex",
-        "amp",
         "cursor",
         "gemini",
         "copilot",
-        "opencode"
+        "opencode",
+        "junie"
     ],
     "guidelines": true,
     "mcp": true,
     "nightwatch_mcp": false,
+    "packages": [
+        "spatie/laravel-activitylog"
+    ],
     "sail": false,
     "skills": [
         "laravel-best-practices",

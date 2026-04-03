@@ -73,16 +73,16 @@
                                             return self::success('Transaction', "Successful update", route('organization.transaction.index', $organizationId));
                                         }
 
-                                    return self::fail('Transaction', "failed to update transaction", route('organization.transaction.index', $organizationId));
+                                    return self::failed('Transaction', "failed to update transaction", route('organization.transaction.index', $organizationId));
                                 }
                             catch (\Exception $e)
                                 {
-                                    return self::fail('Transaction', $e->getMessage(), route('organization.transaction.index', $organizationId));
+                                    return self::failed('Transaction', $e->getMessage(), route('organization.transaction.index', $organizationId));
                                 }
                         }
                     else
                         {
-                            return self::fail('Transaction', $validateddated, route('organization.transaction.index', $organizationId));
+                            return self::failed('Transaction', $validateddated, route('organization.transaction.index', $organizationId));
                         }
                 }
 
@@ -151,16 +151,16 @@
                                             return self::success('Transaction', "Successful update", route('organization.transaction.index', $organizationId));
                                         }
 
-                                    return self::fail('Transaction', "failed to update transaction", route('organization.transaction.index', $organizationId));
+                                    return self::failed('Transaction', "failed to update transaction", route('organization.transaction.index', $organizationId));
                                 }
                             catch (\Exception $e)
                                 {
-                                    return self::fail('Transaction', $e->getMessage(), route('organization.transaction.index', $organizationId));
+                                    return self::failed('Transaction', $e->getMessage(), route('organization.transaction.index', $organizationId));
                                 }
                         }
                     else
                         {
-                            return self::fail('Transaction', $validateddated, route('organization.transaction.index', $organizationId));
+                            return self::failed('Transaction', $validateddated, route('organization.transaction.index', $organizationId));
                         }
 
                 }

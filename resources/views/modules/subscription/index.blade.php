@@ -1,18 +1,4 @@
 @extends('includes.body')
-<style>
-    .content{
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
-
-    td{
-        font-size: .9rem !important;
-    }
-
-    .table td, .table th{
-        padding: 0.7rem !important;
-    }
-</style>
 @section('content')
     <div class="col-12">
         <div class="card card-border-nation w-100">
@@ -20,11 +6,12 @@
             <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
 
                 <h3 class="card-title my-0 text-nation">Subscriptions</h3>
-                <a href="{{ route('subscription.create') }}" class="btn btn-outline-nation btn-sm">
+                @can('create_subscription')
+                <a href="{{ route('subscription.create') }}" class="btn btn-outline-dark btn-sm">
                     <i class="fas fa-plus"></i>
                     Add Subscription
                 </a>
-
+                @endcan
             </div>
             <div class="card-body">
                 <div
@@ -76,7 +63,8 @@
 @endsection
 @section('footer')
     <script>
-        $('#subscription-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#subscription-table', {
                                                "processing": true,
                                                "serverSide": true,
                                                "ajax": {
@@ -106,5 +94,6 @@
                                                "order": [[0, "desc"]],
 
                                            });
+        });
     </script>
 @endsection

@@ -11,7 +11,7 @@
                       class="form form-horizontal create-form">
                     @csrf
                     @method('patch')
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                          <div class="col">
                              <label for="name" class="control-label">Name</label>
                              <input type="readonly" disabled class="form-control" id="name" name="name"
@@ -24,18 +24,18 @@
                          </div>
                         
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                          <label for="password" class="control-label">Password</label>
                          <input type="password" class="form-control" id="password" name="password">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                          <label for="password_confirmation" class="control-label">Confirm Password</label>
                          <input type="password" class="form-control" id="password_confirmation"
                                 name="password_confirmation">
                     </div>
                    
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">Change password</button>
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation ms-auto">Change password</button>
                     </div>
                 </form>
               

@@ -8,15 +8,15 @@
             <div class="card-body">
                 <form action="{{ route('organization.user_save',$organization->id) }}" class="form form-horizontal create-form" method="post">
                     @csrf
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="name" class="control-label">Name</label>
                         <input type="text" name="name" id="name" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="email" class="control-label">Email</label>
                         <input type="text" name="email" id="email" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="phone" class="control-label">Phone</label>
                         <div class="row">
                             <div class="col-4">
@@ -34,15 +34,15 @@
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="password" class="control-label">Password</label>
                         <input type="text" name="password" id="password" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="password_confirmation" class="control-label">Confirm Password</label>
                         <input type="text" name="password_confirmation" id="password_confirmation" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="changepass" value="1">
                             <span class="form-check-label">
@@ -62,8 +62,8 @@
                             </span>
                         </label>
                     </div>
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-outline-nation ml-auto">
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-outline-nation ms-auto">
                             Add Organization User
                         </button>
                         <!-- /.btn btn-outline-nation -->

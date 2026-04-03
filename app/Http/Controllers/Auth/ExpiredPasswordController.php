@@ -41,7 +41,7 @@ class ExpiredPasswordController extends Controller
                     }
                 else
                     {
-                        return self::fail('Password Change',$validate->errors(),route('password.expired'));
+                        return self::failed('Password Change',$validate->errors(),route('password.expired'));
                     }
 
             }

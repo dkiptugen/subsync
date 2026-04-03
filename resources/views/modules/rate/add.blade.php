@@ -8,7 +8,7 @@
             <div class="card-body">
                 <form action="{{ route('product.rate.store',$productid) }}" method="post" class="form form-horizontal create-form">
                     @csrf
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col-12 col-md-8">
                             <label for="rate_type" class="control-label">Subscription Type</label>
                             <select name="rate_type_id" id="rate_type" class="form-control select2">
@@ -27,7 +27,7 @@
                         </div>
 
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="cost" class="control-label">Cost</label>
                             <input type="number" step="0.10" name="cost" id="cost" class="form-control">
@@ -59,7 +59,7 @@
                         <!-- /.col -->
 
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="free_product" class="control-label">Free Product</label>
                             <select name="free_product" id="free_product" class="form-control select2">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col-4">
                             <label for="apple_product_id" class="control-label">Apple Product ID</label>
                             <input type="text" name="apple_product_id" id="apple_product_id" class="form-control">
@@ -98,11 +98,11 @@
                             <input type="number" name="compensation_days" id="compensation_days" class="form-control" value="0" min="0">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="description" class="control-label">Description</label>
                         <textarea name="description" id="description" rows="4" class="form-control editor"></textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
 
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="best_value" value="1">
@@ -112,8 +112,8 @@
                         </label>
 
                     </div>
-                    <div class="form-group d-flex">
-                        <button class="btn btn-nation ml-auto">Save Rate</button>
+                    <div class="mb-3 d-flex">
+                        <button class="btn btn-nation ms-auto">Save Rate</button>
                     </div>
                 </form>
             </div>

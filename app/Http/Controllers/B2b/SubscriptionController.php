@@ -118,12 +118,12 @@ class                                                                           
                             }
                         catch (Exception $e)
                             {
-                                return self::fail('Corporate Subscription', $e->getMessage(), route('organization.subscription.index', $organizationId));
+                                return self::failed('Corporate Subscription', $e->getMessage(), route('organization.subscription.index', $organizationId));
                             }
                     }
                 else
                     {
-                        return self::fail('Corporate Subscription', $validateddata, route('organization.subscription.index', $organizationId));
+                        return self::failed('Corporate Subscription', $validateddata, route('organization.subscription.index', $organizationId));
                     }
             }
 
@@ -315,12 +315,12 @@ class                                                                           
                             }
                         catch (Exception $e)
                             {
-                                return self::fail('Corporate Subscription', $e->getMessage(), route('organization.subscription.index', $organizationId));
+                                return self::failed('Corporate Subscription', $e->getMessage(), route('organization.subscription.index', $organizationId));
                             }
                     }
                 else
                     {
-                        return self::fail('Corporate Subscription', $validateddata, route('organization.subscription.index', $organizationId));
+                        return self::failed('Corporate Subscription', $validateddata, route('organization.subscription.index', $organizationId));
                     }
             }
 
@@ -351,12 +351,12 @@ class                                                                           
                             }
                         else
                             {
-                                return self::fail('Corporate Subscription', 'failed ', route('organization.subscription.index', $organizationId));
+                                return self::failed('Corporate Subscription', 'failed ', route('organization.subscription.index', $organizationId));
                             }
                     }
                 catch (Exception $e)
                     {
-                        return self::fail('Corporate Subscription', $e->getMessage(), route('organization.subscription.index', $organizationId));
+                        return self::failed('Corporate Subscription', $e->getMessage(), route('organization.subscription.index', $organizationId));
                     }
 
 
@@ -383,7 +383,7 @@ class                                                                           
             {
                 if (!$request->hasFile('files') || !is_array($request->file('files')))
                     {
-                        return self::fail('Corporate Mass Assignment', 'no files were uploaded.', route('organization.subscription.assign', [$organizationId, $id]));
+                        return self::failed('Corporate Mass Assignment', 'no files were uploaded.', route('organization.subscription.assign', [$organizationId, $id]));
                     }
 
                 $files = $request->file('files');
@@ -392,7 +392,7 @@ class                                                                           
                         $extension = $file->getClientOriginalExtension();
                         if (!in_array($extension, ['xlsx', 'xls', 'csv']))
                             {
-                                return self::fail('Corporate Mass Assignment', 'The file must be an Excel file.', route('organization.subscription.assign', [$organizationId, $id]));
+                                return self::failed('Corporate Mass Assignment', 'The file must be an Excel file.', route('organization.subscription.assign', [$organizationId, $id]));
                             }
                         try
                             {
@@ -408,12 +408,12 @@ class                                                                           
                         catch (ValidationException $e)
                             {
 
-                                return self::fail('Corporate Mass Assignment', $e->failures(), route('organization.subscription.assign', [$organizationId, $id]));
+                                return self::failed('Corporate Mass Assignment', $e->failures(), route('organization.subscription.assign', [$organizationId, $id]));
 
                             }
                         catch (Exception $e)
                             {
-                                return self::fail('Corporate Mass Assignment', $e->getMessage(), route('organization.subscription.assign', [$organizationId, $id]));
+                                return self::failed('Corporate Mass Assignment', $e->getMessage(), route('organization.subscription.assign', [$organizationId, $id]));
                             }
 
 
@@ -631,7 +631,7 @@ class                                                                           
                                     }
 
 
-                                return self::fail('Corporate Assignment', 'User not removed from subscription', route('organization.subscription.assign', [$organizationId, $id]));
+                                return self::failed('Corporate Assignment', 'User not removed from subscription', route('organization.subscription.assign', [$organizationId, $id]));
                             }
                         elseif ($request->status == 1)
                             {
@@ -648,17 +648,17 @@ class                                                                           
                                         return self::success('Corporate Assignment', 'User assigned to subscription', route('organization.subscription.assign', [$organizationId, $id]));
                                     }
 
-                                return self::fail('Corporate Assignment', 'User not assigned to subscription', route('organization.subscription.assign', [$organizationId, $id]));
+                                return self::failed('Corporate Assignment', 'User not assigned to subscription', route('organization.subscription.assign', [$organizationId, $id]));
                             }
                         else
                             {
-                                return self::fail('Corporate Assignment', 'Status is inavlid', route('organization.subscription.assign', [$organizationId, $id]));
+                                return self::failed('Corporate Assignment', 'Status is inavlid', route('organization.subscription.assign', [$organizationId, $id]));
                             }
 
                     }
                 catch (Exception    $e)
                     {
-                        return self::fail('Corporate Assignment', $e->getMessage(), route('organization.subscription.assign', [$organizationId, $id]));
+                        return self::failed('Corporate Assignment', $e->getMessage(), route('organization.subscription.assign', [$organizationId, $id]));
                     }
 
             }
@@ -679,12 +679,12 @@ class                                                                           
                         $sub = B2bSubscription::find($id);
                         if ($sub->records >= $sub->accounts)
                             {
-                                return self::fail('Corporate Subscription Assignment', 'Maximum number of users exceeded', route('organization.subscription.index', $organizationId));
+                                return self::failed('Corporate Subscription Assignment', 'Maximum number of users exceeded', route('organization.subscription.index', $organizationId));
                             }
 
                         if (Carbon::parse($sub->expiry_date)->lt(Carbon::now()))
                             {
-                                return self::fail('Corporate Subscription Assignment', 'Cannot Assign to expired subscription', route('organization.subscription.index', $organizationId));
+                                return self::failed('Corporate Subscription Assignment', 'Cannot Assign to expired subscription', route('organization.subscription.index', $organizationId));
                             }
 
                         $token = Str::ulid();
@@ -735,13 +735,13 @@ class                                                                           
                             }
                         else
                             {
-                                return self::fail('Corporate Subscription Assignment', 'User already exists on this subscription', route('organization.subscription.index', $organizationId));
+                                return self::failed('Corporate Subscription Assignment', 'User already exists on this subscription', route('organization.subscription.index', $organizationId));
                             }
 
                     }
                 else
                     {
-                        return self::fail('Corporate Subscription Assignment', $validateddata, route('organization.subscription.index', $organizationId));
+                        return self::failed('Corporate Subscription Assignment', $validateddata, route('organization.subscription.index', $organizationId));
                     }
 
             }

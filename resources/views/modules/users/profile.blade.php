@@ -10,7 +10,7 @@
                   class="form form-horizontal create-form">
                 @csrf
                 @method('put')
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col">
                         <label for="name" class="control-label">Name</label>
                         <input type="text" name="name" id="name" class="form-control" value="{{ $user->name }}">
@@ -21,7 +21,7 @@
                                value="{{ $user->surname }}">
                     </div>
                 </div>
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col">
                         <label for="email" class="control-label">Email</label>
                         <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
@@ -34,7 +34,7 @@
 
                 </div>
 
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col">
                         <label for="password" class="control-label">Password</label>
                         <input type="password" name="password" id="password" class="form-control">
@@ -46,8 +46,8 @@
 
                 </div>
 
-                <div class="form-group form-row">
-                    <button type="submit" class="btn  btn-dark ml-auto">Update Account</button>
+                <div class="row mb-3">
+                    <button type="submit" class="btn  btn-dark ms-auto">Update Account</button>
                 </div>
 
             </form>

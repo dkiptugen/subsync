@@ -10,12 +10,12 @@
             <form action="{{ route('user.roles.store',$userid??0) }}" method="post"
                   class="form form-horizontal create-form" enctype="multipart/form-data">
                 @csrf
-                <div class="form-group">
+                <div class="mb-3">
 
                     <label for="role" class="control-label">Role Name</label>
                     <input type="text" name="role" id="role" class="form-control">
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <label class="control-label">Access</label>
                     @php($x=1)
 
@@ -45,8 +45,8 @@
 
 
                 </div>
-                <div class="form-row form-group">
-                    <button type="submit" class="ml-auto mr-2 btn btn-dark btn-sm">Save Roles</button>
+                <div class="row mb-3">
+                    <button type="submit" class="ms-auto me-2 btn btn-dark btn-sm">Save Roles</button>
                 </div>
             </form>
 

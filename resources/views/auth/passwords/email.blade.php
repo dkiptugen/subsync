@@ -34,7 +34,7 @@
                             @endif
                             <div class="m-sm-4">
                                 <form  method="POST" action="{{ route('password.email') }}">
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <label>{{ __('E-Mail Address') }}</label>
                                         <input class="form-control form-control-  @error('email') is-invalid @enderror " type="email" name="email" placeholder="Enter your email" />
                                         @error('email')

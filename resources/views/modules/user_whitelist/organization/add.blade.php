@@ -10,7 +10,7 @@
 
                         <form action="{{ route('whitelist.type.store','organization') }}" method="post" class="form form-horizontal create-form">
                             @csrf
-                            <div class="form-group form-row">
+                            <div class="row mb-3">
                                 <div class="col">
                                     <label for="organization" class="control-label">Organization</label>
                                     <select name="organization" id="organization" class="form-control select2">
@@ -29,7 +29,7 @@
                                 </div>
 
                             </div>
-                            <div class="form-group form-row">
+                            <div class="row mb-3">
 
                                 <div class="col">
                                     <label for="org-startdate" class="control-label">Startdate</label>
@@ -40,12 +40,12 @@
                                     <input type="date" name="enddate" id="org-enddate" class="form-control">
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <label for="org-reason" class="control-label"> Reason</label>
                                 <textarea name="reason" id="org-reason" cols="30" rows="10" class="form-control"></textarea>
                             </div>
-                            <div class="form-group d-flex">
-                                <button class="btn btn-nation ml-auto">Whitelist Organization</button>
+                            <div class="mb-3 d-flex">
+                                <button class="btn btn-nation ms-auto">Whitelist Organization</button>
                             </div>
                         </form>
 

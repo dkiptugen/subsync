@@ -1,29 +1,76 @@
 <?php
 
+use App\Http\Controllers\AgentsController;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\DPOCallbackController;
+use App\Http\Controllers\API\FastHubController;
+use App\Http\Controllers\Auth\ExpiredPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\B2b\OrganizationController;
+use App\Http\Controllers\B2b\PurchaseController;
+use App\Http\Controllers\B2b\RateController as B2BRateController;
+use App\Http\Controllers\B2b\SubscriptionController as B2BSubscriptionController;
+use App\Http\Controllers\B2b\TransactionController as B2BTransactionController;
+use App\Http\Controllers\B2b\UserController as B2BUserController;
+use App\Http\Controllers\ChurnController;
+use App\Http\Controllers\ConfigurationController;
+use App\Http\Controllers\CouponController;
+use App\Http\Controllers\CurrencyConvertorController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Debug\DebugController;
+use App\Http\Controllers\EmailTemplateController;
+use App\Http\Controllers\FinanceApprovalController;
+use App\Http\Controllers\LeadsController;
+use App\Http\Controllers\LogsController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\PluginInstallerController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RateController;
+use App\Http\Controllers\RateTypeController;
+use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\ReportTSController;
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\SubscriberSubsController;
+use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserWhitelistController;
+use App\Http\Resources\RateResource;
+use App\Models\Rate;
+use App\Models\Region;
+use App\Utils\Helper;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Pusher\Pusher;
+use function Deployer\Support\starts_with;
+use App\Http\Controllers\MpesaBlacklistController;
+use App\Http\Controllers\MediaEventsController;
 
-Route::prefix('plugins')->name('plugins.')->group(function (): void {
-    Route::get('/', [PluginInstallerController::class, 'index'])->name('index');
-    Route::post('/upload', [PluginInstallerController::class, 'upload'])->name('upload');
-    Route::post('/install', [PluginInstallerController::class, 'install'])->name('install');
-    Route::post('/enable', [PluginInstallerController::class, 'enable'])->name('enable');
-    Route::post('/disable', [PluginInstallerController::class, 'disable'])->name('disable');
+Route::prefix('plugins')->name('plugins.')->group(function (): void
+    {
+        Route::get('/', [PluginInstallerController::class, 'index'])->name('index');
+        Route::post('/upload', [PluginInstallerController::class, 'upload'])->name('upload');
+        Route::post('/install', [PluginInstallerController::class, 'install'])->name('install');
+        Route::post('/enable', [PluginInstallerController::class, 'enable'])->name('enable');
+        Route::post('/disable', [PluginInstallerController::class, 'disable'])->name('disable');
 
-});
+    });
 
-Route::controller(MediaLibraryController::class)->prefix('media-library')->name('media-library.')->group(function (): void {
-    Route::get('/', 'index')->name('index');
-    Route::post('/', 'store')->name('store');
-});
+Route::controller(MediaLibraryController::class)->prefix('media-library')->name('media-library.')->group(function (): void
+    {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+    });
 Route::get('/', [LoginController::class, 'showLoginForm']);
 Auth::routes(['register' => false]);
 Route::get('/reset/{token}', [LoginController::class, 'reset_form']);
 
-
-//Route::middleware(['auth:api'])->post('/pusher/auth', [PusherController::class, 'authenticate']);
-
+// Route::middleware(['auth:api'])->post('/pusher/auth', [PusherController::class, 'authenticate']);
 
 Route::get('success', function ()
     {
@@ -31,11 +78,10 @@ Route::get('success', function ()
         return view('modules.auth.success', Helper::site_def());
     });
 
-
-Route::group(['role' => ['admin'], 'middleware' => ['auth', 'auth.role', 'is_owner'], 'access_level' => ['owner']], function ()
+Route::group(['role' => ['admin'], 'middleware' => ['auth'], 'access_level' => ['owner']], function ()
     {
 
-        Route::middleware(['password_expired'])->prefix('manage')->group(function ()
+        Route::middleware(['password.expired'])->prefix('manage')->group(function ()
             {
 
                 Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -74,7 +120,6 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth', 'auth.role', 'is_own
                 Route::post('/currency/get', [CurrencyConvertorController::class, 'get'])->name('currency.datatable');
                 Route::get('/currency/autocomplete/{id}', [CurrencyConvertorController::class, 'autocomplete'])->name('currency.autocomplete');
 
-
                 Route::resource('subscription', SubscriptionController::class, ['except' => ['show']]);
                 Route::post('/subscription/get', [SubscriptionController::class, 'get'])->name('subscription.datatable');
 
@@ -82,7 +127,7 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth', 'auth.role', 'is_own
                 Route::post('/subscription/{subscription_id}/transaction/get', [TransactionController::class, 'get'])->name('subscription.transaction.datatable');
                 Route::get('subscription/{subscriptionid}/transaction/{transactionid}/recheck', [TransactionController::class, 'recycle'])->name('subscription.transaction.recheck');
 
-                Route::get('subscription-approval', [FinanceApprovalController::class,'index'])->name('subscription-approval.index');
+                Route::get('subscription-approval', [FinanceApprovalController::class, 'index'])->name('subscription-approval.index');
                 Route::post('/subscription-approval/get', [FinanceApprovalController::class, 'get'])->name('subscription-approval.datatable');
                 Route::put('/subscription-approval/{subscription}/approve', [FinanceApprovalController::class, 'approve'])->name('subscription-approval.approve');
                 Route::put('/subscription-approval/{subscription}/disapprove', [FinanceApprovalController::class, 'disapprove'])->name('subscription-approval.disapprove');
@@ -105,7 +150,6 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth', 'auth.role', 'is_own
                 Route::get('/configuration', [ConfigurationController::class, 'index'])->name('configuration.index');
                 Route::post('/configuration/edit', [ConfigurationController::class, 'edit'])->name('configuration.edit');
 
-
                 Route::resource('user.roles', RolesController::class, ['except' => ['show']]);
                 Route::post('/user/{user}/roles/get', [RolesController::class, 'get'])->name('user.roles.datatable');
                 Route::get('/user/{user}/roles/export', [RolesController::class, 'export_view'])->name('user.roles.export_view');
@@ -116,10 +160,10 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth', 'auth.role', 'is_own
                 Route::get('/user/{user}/permissions/export', [PermissionsController::class, 'export_view'])->name('user.permissions.export_view');
                 Route::post('/user/{user}/permissions/export', [PermissionsController::class, 'export'])->name('user.permissions.export');
 
-                Route::resource('logs.user', LogsController::class, ['except' => ['show']]);
-                Route::post('/logs/user/{id}/get', [LogsController::class, 'get'])->name('logs.user.datatable');
-                Route::get('/logs/user/{id}/export', [LogsController::class, 'export_view'])->name('logs.user.export_view');
-                Route::post('/logs/user/{id}/export', [LogsController::class, 'export'])->name('logs.user.export');
+                Route::resource('user.logs', LogsController::class, ['except' => ['show']]);
+                Route::post('user/{user}/logs/get', [LogsController::class, 'get'])->name('user.logs.datatable');
+                Route::get('user/{user}/logs/export', [LogsController::class, 'export_view'])->name('user.logs.export_view');
+                Route::post('user/{user}/logs/export', [LogsController::class, 'export'])->name('user.logs.export');
 
                 Route::get('profile', [SubscriberController::class, 'profile'])->name('profile.index');
                 Route::put('profile/{id}/update', [SubscriberController::class, 'profile_update'])->name('profile.update');
@@ -158,50 +202,46 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth', 'auth.role', 'is_own
                 Route::get('/organization/{organization}/set_password', [OrganizationController::class, 'password'])->name('organization.password');
                 Route::post('/organization/{organization}/save_pass', [OrganizationController::class, 'set_default_password'])->name('organization.password.store');
 
-
                 Route::get('report/subscriber-form', [ReportsController::class, 'reg_index'])->name('report.subscriber_form');
                 Route::post('report/subscriber-export', [ReportTSController::class, 'subscribers_export'])->name('report.subscriber');
 
                 Route::get('report/subscription-form', [ReportTSController::class, 'subscriptions_form'])->name('report.subscription_form');
                 Route::post('report/subscription', [ReportTSController::class, 'subscriptions'])->name('report.subscription');
 
-
                 Route::resource('organization.transaction', B2BTransactionController::class);
                 Route::post('/organization/{organization}/transaction/get', [B2BTransactionController::class, 'get'])->name('organization.transaction.datatable');
 
-                /* Route::get('migration/rates', [DataMigController::class, 'rate_form'])->name('migrates.index');
-                 Route::post('migration/ratesstore', [DataMigController::class, 'rate'])->name('migrates.store');
+                Route::get('migration/rates', [DataMigController::class, 'rate_form'])->name('migrates.index');
+                Route::post('migration/ratesstore', [DataMigController::class, 'rate'])->name('migrates.store');
 
-                 Route::get('migration/individuals', [DataMigController::class, 'individual_form'])->name('migindividuals.index');
-                 Route::post('migration/individualsstore', [DataMigController::class, 'individual'])->name('migindividuals.store');
+                Route::get('migration/individuals', [DataMigController::class, 'individual_form'])->name('migindividuals.index');
+                Route::post('migration/individualsstore', [DataMigController::class, 'individual'])->name('migindividuals.store');
 
-                 Route::get('migration/organizations', [DataMigController::class, 'organization_form'])->name('migorganizations.index');
-                 Route::post('migration/organizations', [DataMigController::class, 'organization'])->name('migorganizations.store');
+                Route::get('migration/organizations', [DataMigController::class, 'organization_form'])->name('migorganizations.index');
+                Route::post('migration/organizations', [DataMigController::class, 'organization'])->name('migorganizations.store');
 
-                 Route::get('migration/organization-users', [DataMigController::class, 'corporate_users_form'])->name('migorganizationusers.index');
-                 Route::post('migration/organization-users', [DataMigController::class, 'corporate_users'])->name('migorganizationusers.store');*/
+                Route::get('migration/organization-users', [DataMigController::class, 'corporate_users_form'])->name('migorganizationusers.index');
+                Route::post('migration/organization-users', [DataMigController::class, 'corporate_users'])->name('migorganizationusers.store');
 
-                Route::resource ('email_template',EmailTemplateController::class);
-                Route::post('email_template/get',[EmailTemplateController::class,'datatable'])->name('email_template.datatable');
+                Route::resource('email_template', EmailTemplateController::class);
+                Route::post('email_template/get', [EmailTemplateController::class, 'datatable'])->name('email_template.datatable');
 
-                Route::get('simulate',[DebugController::class,'simulate'])->name('simulate');
+                Route::get('simulate', [DebugController::class, 'simulate'])->name('simulate');
 
-                Route::resource('mpesa_blacklist',MpesaBlacklistController::class);
-                Route::resource('media_events',MediaEventsController::class);
+                Route::resource('mpesa_blacklist', MpesaBlacklistController::class);
+                Route::resource('media_events', MediaEventsController::class);
 
-                Route::get('subscribers/bulk',[SubscriberController::class,'bulkform'])->name('subscribers.bulk');
-                Route::post('subscribers/upload',[SubscriberController::class,'upload'])->name('subscribers.upload');
+                Route::get('subscribers/bulk', [SubscriberController::class, 'bulkform'])->name('subscribers.bulk');
+                Route::post('subscribers/upload', [SubscriberController::class, 'upload'])->name('subscribers.upload');
 
-                Route::resource('agents',AgentsController::class);
-                Route::get('agents/bulk/import',[AgentsController::class,'import'])->name('agents.import');
-                Route::post('agents/bulk/upload',[AgentsController::class,'upload'])->name('agents.upload');
+                Route::resource('agents', AgentsController::class);
+                Route::get('agents/bulk/import', [AgentsController::class, 'import'])->name('agents.import');
+                Route::post('agents/bulk/upload', [AgentsController::class, 'upload'])->name('agents.upload');
             });
-
 
     });
 
-//Dedoc\Scramble\Scramble::routes();
-
+// Dedoc\Scramble\Scramble::routes();
 
 Route::middleware(['auth', 'is_owner'])->group(function ()
     {
@@ -211,40 +251,40 @@ Route::middleware(['auth', 'is_owner'])->group(function ()
     });
 Route::get('/user-unsubscribe/{token}', [AuthController::class, 'email_unsubscribe'])->name('user.unsubscribe');
 
+Route::get('dpo_callback', [DPOCallbackController::class, 'dpo_callback'])->name('dpo_callback');
 
-Route::get('dpo_callback',[DPOCallbackController::class,'dpo_callback'])->name('dpo_callback');
+Route::get('debug', [DebugController::class, 'generateUserToken']);
+Route::get('check', [DebugController::class, 'checkDPOPayment']);
+Route::get('check-mpesa', [DebugController::class, 'checkMpesa']);
+Route::get('checkstatus', [DebugController::class, 'transactionStatus']);
 
-Route::get('debug',[DebugController::class,'generateUserToken']);
-Route::get('check',[DebugController::class,'checkDPOPayment']);
-Route::get('check-mpesa',[DebugController::class,'checkMpesa']);
-Route::get('checkstatus',[DebugController::class,'transactionStatus']);
+Route::post('fasthub/callback', [FastHubController::class, 'callback'])->name('fasthub.callback');
 
-Route::post('fasthub/callback',[FastHubController::class,'callback'])->name('fasthub.callback');
+Route::get('test', function (Request $request)
+    {
+        //        $coupon="TESTMANY1";
+        //        $region = Region::where('code','KE')->first();
+        //        $amount = 100;
+        //        $con =  new \App\Http\Controllers\API\MpesaCallbackController();
+        //        $rate = 3;
+        //        $res = $con->discount_calc($coupon,$amount,$region,4,5613189,$rate);
 
-Route::get('test',function(Request $request){
-//        $coupon="TESTMANY1";
-//        $region = Region::where('code','KE')->first();
-//        $amount = 100;
-//        $con =  new \App\Http\Controllers\API\MpesaCallbackController();
-//        $rate = 3;
-//        $res = $con->discount_calc($coupon,$amount,$region,4,5613189,$rate);
+        // $method = \App\Models\PaymentMethod::where('type','fasthub')->first();
+        // $util = new \App\Libs\FastHub($method);
+        // $res = $util->stkPush(100,'255750900766','PW_MWANASPOTI_ZXVCBOYU','C2B','https://dev-subscribe.nation.africa/fasthub/callback');
 
-    //$method = \App\Models\PaymentMethod::where('type','fasthub')->first();
-    //$util = new \App\Libs\FastHub($method);
-    //$res = $util->stkPush(100,'255750900766','PW_MWANASPOTI_ZXVCBOYU','C2B','https://dev-subscribe.nation.africa/fasthub/callback');
+        $bundled = Rate::where('product_id', 38)
+                       ->where('status', 1)
+                       ->where('category', '!=', 'normal')
+                       ->where('name', '!=', 'article')
+                       ->where('currency', 'KES')
+                       ->orderBy('listorder', 'ASC')
+                       ->get();
 
-    $bundled = Rate::where('product_id',38)
-                   ->where('status',1)
-                   ->where('category','!=','normal')
-                   ->where('name','!=','article')
-                   ->where('currency','KES')
-                   ->orderBy('listorder', 'ASC')
-                   ->get();
+        $temp[] = RateResource::collection($bundled);
 
-    $temp[] = RateResource::collection($bundled);
+        $is_compensatable = (Carbon::parse($request->subscription_date)->gte(today()->subDays(6)) && Carbon::parse($request->subscription_date)->lt(today()));
+        $res              = $is_compensatable;
+        dd($bundled);
 
-    $is_compensatable = (Carbon::parse($request->subscription_date)->gte( today()->subDays(6) ) &&  Carbon::parse($request->subscription_date)->lt(today()));
-    $res = $is_compensatable;
-    dd($bundled);
-
-});
+    });

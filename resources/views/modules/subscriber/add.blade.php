@@ -10,7 +10,7 @@
                 <form action="{{  route('product.subscriber.store',0) }}" method="post"
                       class="form form-horizontal create-form">
                     @csrf
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                          <div class="col">
                              <label for="name" class="control-label">Name</label>
                              <input type="text" class="form-control" id="name" name="firstname">
@@ -21,7 +21,7 @@
                          </div>
 
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="email" class="control-label">Email</label>
                             <input type="text" class="form-control" name="email" id="email">
@@ -33,7 +33,7 @@
 
                     </div>
 
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                          <div class="col">
                              <label for="password" class="control-label">Password</label>
                              <input type="password" class="form-control" id="password" name="password">
@@ -44,7 +44,7 @@
                                     name="password_confirmation">
                          </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="status" value="1" checked>
                             <span class="form-check-label">
@@ -66,8 +66,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">Add Subscriber</button>
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation ms-auto">Add Subscriber</button>
                     </div>
                 </form>
 

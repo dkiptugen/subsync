@@ -1,102 +1,109 @@
 <?php
 
-    namespace App\Http\Controllers;
+namespace App\Http\Controllers;
 
-    use App\Models\Campaign;
-    use Illuminate\Http\Request;
+use App\Models\Campaign;
+use App\Traits\Meta;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
-    class CampaignController extends Controller
-        {
-        /**
-         * Display a listing of the resource.
-         *
-         * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-         */
-            public function index()
-                {
-                    return view('modules.campaign.index' ,$this->data);
-                }
+class CampaignController extends Controller
+{
+    use Meta;
 
-        /**
-         * Show the form for creating a new resource.
-         *
-         * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-         */
-            public function create()
-                {
-                    return view('modules.campaign.add' ,$this->data);
-                }
+    public function __construct(protected array $data = [])
+    {
+        $this->data = self::site_def();
+    }
 
-        /**
-         * Store a newly created resource in storage.
-         *
-         * @param \Illuminate\Http\Request $request
-         *
-         * @return \Illuminate\Http\Response
-         */
-            public function store(Request $request)
-                {
-                    //
-                }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Application|Factory|View|Response
+     */
+    public function index()
+    {
+        return view('modules.campaign.index', $this->data);
+    }
 
-        /**
-         * Display the specified resource.
-         *
-         * @param int $id
-         *
-         * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-         */
-            public function show($id)
-                {
-                    $this->data['campaign'] = Campaign::find($id);
-                    return view('modules.campaign.show' ,$this->data);
-                }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Application|Factory|View|Response
+     */
+    public function create()
+    {
+        return view('modules.campaign.add', $this->data);
+    }
 
-        /**
-         * Show the form for editing the specified resource.
-         *
-         * @param int $id
-         *
-         * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
-         */
-            public function edit($id)
-                {
-                    $this->data['campaign'] = Campaign::find($id);
-                    return view('modules.campaign.edit' ,$this->data);
-                }
+    /**
+     * Store a newly created resource in storage.
+     *
+     *
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
 
-        /**
-         * Update the specified resource in storage.
-         *
-         * @param \Illuminate\Http\Request $request
-         * @param int                      $id
-         *
-         * @return \Illuminate\Http\Response
-         */
-            public function update(Request $request ,$id)
-                {
-                    //
-                }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Application|Factory|View|Response
+     */
+    public function show($id)
+    {
+        $this->data['campaign'] = Campaign::find($id);
 
-        /**
-         * Remove the specified resource from storage.
-         *
-         * @param int $id
-         *
-         * @return \Illuminate\Http\Response
-         */
-            public function destroy($id)
-                {
-                    //
-                }
+        return view('modules.campaign.show', $this->data);
+    }
 
-        /**
-         * @param Request $request
-         *
-         * @return \Illuminate\Http\JsonResponse
-         */
-            public function get(Request $request)
-                {
-                    return response()->json([]);
-                }
-        }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Application|Factory|View|Response
+     */
+    public function edit($id)
+    {
+        $this->data['campaign'] = Campaign::find($id);
+
+        return view('modules.campaign.edit', $this->data);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function get(Request $request)
+    {
+        return response()->json([]);
+    }
+}

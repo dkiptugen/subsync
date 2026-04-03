@@ -1,9 +1,9 @@
 <?php
-	
+
 	namespace App\Providers;
-	
+
 	use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-	
+
 	class EventServiceProvider extends ServiceProvider
 		{
 		/**
@@ -13,26 +13,19 @@
 		 */
 			protected $observers
 				= [
-				
+
 				];
 			protected $listen
 				= [
-					/* Registered::class => [
-						 SendEmailVerificationNotification::class,
-					 ],*/
+
 					'Illuminate\Auth\Events\Registered'          => [
 						'App\Listeners\LogRegisteredUser',
 					],
-					'Laravel\Passport\Events\AccessTokenCreated' => [
-						'App\Listeners\RevokeOldTokens',
-					],
-					
-					'Laravel\Passport\Events\RefreshTokenCreated' => [
-						'App\Listeners\PruneOldTokens',
-					],
-				
+
+
+
 				];
-		
+
 		/**
 		 * Register any events for your application.
 		 *
@@ -42,7 +35,7 @@
 				{
 					//
 				}
-		
+
 		/**
 		 * Determine if events and listeners should be automatically discovered.
 		 *
@@ -50,7 +43,7 @@
 		 */
 			public function shouldDiscoverEvents()
 				{
-					
+
 					return true;
 				}
 		}

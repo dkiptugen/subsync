@@ -7,11 +7,8 @@
                 <div class="toast hidden bg-white shadow-sm"  data-animation="true" data-delay="6000" id="toast" style="position: absolute; top: 0; right: 0;">
                     <div class="toast-header">
 
-                        <strong class="mr-auto">DPO</strong>
-
-                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <strong class="me-auto">DPO</strong>
+                        <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
 
                 </div>
@@ -25,7 +22,7 @@
 
                                             <iframe src="{{ $iframe }}" class="w-100 vh-100" height="800" width="500" frameborder="0" allowtransparency="true"></iframe>
 
-                                        <a class="btn btn-primary form-control different" href="javascript:;" data-subid="">Select a different option</a>
+                                        <a class="btn btn-primary w-100 different" href="javascript:;" data-subid="">Select a different option</a>
                                     </div>
                                 </div>
 

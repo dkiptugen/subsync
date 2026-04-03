@@ -10,7 +10,7 @@
             <form action="{{ route('user.roles.update',[$userid??0,$role->id]) }}" method="post" class="form form-horizontal create-form" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col-3">
                         <label for="role" class="control-label">Role Name</label>
                         <input type="text" name="role" id="edit-role" class="form-control" value="{{ $role->name }}">
@@ -30,8 +30,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-row form-group">
-                    <button type="submit" class="ml-auto  btn btn-nation">Save</button>
+                <div class="row mb-3">
+                    <button type="submit" class="ms-auto  btn btn-nation">Save</button>
 
                 </div>
             </form>

@@ -15,7 +15,7 @@
 						class="form form-horizontal create-form">
 					@csrf
 					@method('put')
-					<div class="form-group form-row">
+					<div class="row mb-3">
 						<div class="col">
 							<label for="organization"
 									class="control-label">Organization</label>
@@ -42,7 +42,7 @@
 						</div>
 
 					</div>
-					<div class="form-group form-row">
+					<div class="row mb-3">
 
 						<div class="col">
 							<label for="org-startdate"
@@ -63,7 +63,7 @@
 									value="{{ Carbon::parse($whitelist->enddate)->format('Y-m-d') }}">
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="org-reason"
 								class="control-label"> Reason</label>
 						<textarea name="reason"
@@ -72,7 +72,7 @@
 								rows="10"
 								class="form-control">{{$whitelist->reason }}</textarea>
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<label class="form-check form-check-inline">
 							<input class="form-check-input"
 									type="checkbox"
@@ -85,8 +85,8 @@
 						</label>
 
 					</div>
-					<div class="form-group d-flex">
-						<button class="btn btn-nation ml-auto">Whitelist Organization</button>
+					<div class="mb-3 d-flex">
+						<button class="btn btn-nation ms-auto">Whitelist Organization</button>
 					</div>
 				</form>
 

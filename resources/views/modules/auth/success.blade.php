@@ -5,7 +5,7 @@
         <div class="d-table-cell align-middle">
             <div class="card ">
                 <div class="card-body border-nation">
-                    <div class="jumbotron text-center bg-white">
+                    <div class="p-5 mb-4 bg-light rounded-3 text-center bg-white">
                         <h1 class="display-3">Success!</h1>
                         <p class="lead">
                             Congratulations! Your password has been successfully reset. You can now log in to your account with your new password and continue to enjoy our services.

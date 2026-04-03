@@ -13,7 +13,7 @@
     <div class="card-body">
         <form action="{{ route('coupon.store') }}" class="form form-horizontal create-form" method="post">
             @csrf
-            <div class="form-group form-row">
+            <div class="row mb-3">
                  <div class="col">
                      <label for="code" class="control-label">Coupon Code</label>
                      <input type="text" name="code" id="code" class="form-control">
@@ -26,7 +26,7 @@
                      </select>
                  </div>
              </div>
-            <div class="form-group form-row">
+            <div class="row mb-3">
                 <div class="col">
                     <label for="products" class="control-label">Product</label>
                 <select name="products[]" class="form-control select2" id="products" multiple>
@@ -48,7 +48,7 @@
 
 
             </div>
-            <div class="form-group form-row">
+            <div class="row mb-3">
                 <div class="col-6">
                     <label for="start_date_date" class="control-label">Start Date</label>
                     <input type="text" name="start_date" id="start_date_timestamp" class="form-control">
@@ -60,7 +60,7 @@
                 </div>
 
             </div>
-            <div class="form-group form-row">
+            <div class="row mb-3">
                 <div class="col">
                     <label for="discount" class="control-label">Discount</label>
                     <input type="text" name="discount" id="discount" class="form-control">
@@ -81,8 +81,8 @@
                     <input type="email" name="agent_email" id="agent_email" class="form-control">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="form-group">
+            <div class="mb-3">
+                <div class="mb-3">
                     <label class="control-label fw-600">Other Subscription Types</label>
                     <select name="ratetypes[]"
                             id="ratetypes"
@@ -94,7 +94,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <label class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" name="expires" value="1">
                     <span class="form-check-label">
@@ -108,8 +108,8 @@
                     </span>
                 </label>
             </div>
-            <div class="form-group d-flex">
-                <button type="submit" class="btn btn-nation ml-auto">Save Coupon</button>
+            <div class="mb-3 d-flex">
+                <button type="submit" class="btn btn-nation ms-auto">Save Coupon</button>
             </div>
         </form>
     </div>

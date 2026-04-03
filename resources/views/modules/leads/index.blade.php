@@ -44,7 +44,8 @@
 @section('footer')
 
     <script>
-            $('#leads-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+            window.renderDataTable('#leads-table', {
                 "processing": true,
                 "serverSide": true,
                 "ajax":{
@@ -66,6 +67,7 @@
                 ],
                 "order": [[ 4, "desc" ]]
             });
-        </script>
+        });
+    </script>
 
 @endsection

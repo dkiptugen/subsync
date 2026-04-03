@@ -11,14 +11,14 @@
                   class="form form-horizontal create-form" enctype="multipart/form-data">
                   @method('PATCH')
                 @csrf
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="role" class="control-label">Name</label>
                     <input type="text" name="name" id="role" class="form-control" value="{{$record->name}}" required>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                 <label for="role" class="control-label">Identifier</label>
                 <input type="text" name="identifier" id="identifier" class="form-control" value="{{$record->identifier}}" required>
-                <div class="form-group">
+                <div class="mb-3">
                 <label for="status" class="control-label">Status</label>
                 <select name="status" id="status" class="form-control" value="{{$record->status}}" required>
                 <option value="active">Active</option>
@@ -27,8 +27,8 @@
                 </div>
                     
                 </div>
-                <div class="form-row form-group">
-                    <button type="submit" class="ml-auto mr-2 btn btn-dark btn-sm">Update</button>
+                <div class="row mb-3">
+                    <button type="submit" class="ms-auto me-2 btn btn-dark btn-sm">Update</button>
                 </div>
             </form>
 

@@ -9,7 +9,7 @@
                 <form action="{{ route('organization.purchase.update',[$organizationId,$po->id]) }}" method="post" class="form form-horizontal create-form">
                     @csrf
                     @method('put')
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="organization" class="control-label">Organization</label>
                             <input type="text" name="organization" id="organization" class="form-control" disabled
@@ -19,7 +19,7 @@
 
                     </div>
 
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
 
                         <div class="col">
                             <label for="startdate" class="control-label">Start date</label>
@@ -28,11 +28,11 @@
 
                     </div>
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="reason" class="control-label">Reason</label>
                         <textarea name="reason" id="reason" class="form-control">{{ $po->reason }}</textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="status" value="1" @if($po->status ==1 ) checked @endif>
                             <span class="form-check-label">Approve</span>
@@ -42,8 +42,8 @@
                             <span class="form-check-label">Disapprove</span>
                         </label>
                     </div>
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-sm btn-nation ml-auto">Change Status</button>
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-sm btn-nation ms-auto">Change Status</button>
                     </div>
                 </form>
             </div>

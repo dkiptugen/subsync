@@ -10,7 +10,7 @@
                 <form action="{{  route('agents.store') }}" method="post"
                       class="form form-horizontal create-form">
                     @csrf
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="name" class="control-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name">
@@ -20,7 +20,7 @@
                             <input type="text" class="form-control" name="email" id="email">
                         </div>
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="phone" class="control-label">Phone No</label>
                             <input type="text" class="form-control" name="phone" placeholder="+254711000000" id="phone_no">
@@ -36,7 +36,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="dept" class="control-label">Department</label>
                             <input type="text" class="form-control" id="dept" name="department">
@@ -47,8 +47,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">Add Agent</button>
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation ms-auto">Add Agent</button>
                     </div>
                 </form>
 

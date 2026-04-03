@@ -11,7 +11,7 @@
                       class="form form-horizontal create-form">
                     @method('PATCH')
                     @csrf
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="name" class="control-label">Name</label>
                             <input type="text" class="form-control" id="name" name="name" value="{{ $agent->name }}">
@@ -21,7 +21,7 @@
                             <input type="text" class="form-control" name="email" id="email" value="{{ $agent->email }}">
                         </div>
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="phone" class="control-label">Phone No</label>
                             <input type="text" class="form-control" name="phone" placeholder="+254711000000" id="phone" value="{{ $agent->phone }}">
@@ -41,7 +41,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="dept" class="control-label">Department</label>
                             <input type="text" class="form-control" id="dept" name="department" value="{{ $agent->department }}">
@@ -52,8 +52,8 @@
                         </div>
                     </div>
 
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">Edit Agent</button>
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation ms-auto">Edit Agent</button>
                     </div>
                 </form>
 

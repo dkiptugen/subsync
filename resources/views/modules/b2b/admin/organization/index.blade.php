@@ -49,7 +49,8 @@
 @endsection
 @section('footer')
     <script>
-        $('#organization-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#organization-table', {
             "processing": true,
             "serverSide": true,
             "ajax": {
@@ -73,6 +74,7 @@
             "order": [[1, "asc"]]
 
 
+        });
         });
     </script>
 @endsection

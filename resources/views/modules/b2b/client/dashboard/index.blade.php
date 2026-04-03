@@ -8,7 +8,7 @@
                     <h5 class="card-title my-0 text-nation">Users</h5>
                 </div>
                 <div class="card-body my-1  text-left">
-                    <h2 class=" font-weight-light my-0">
+                    <h2 class=" fw-light my-0">
                         120
                     </h2>
                 </div>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="card-body my-1  text-left">
 
-                    <h2 class="font-weight-light my-0">
+                    <h2 class="fw-light my-0">
                         Ksh 28,200/=
                     </h2>
 
@@ -36,7 +36,7 @@
                 </div>
                 <div class="card-body my-1   text-left">
 
-                    <h2 class="font-weight-light my-0">
+                    <h2 class="fw-light my-0">
                         19
                     </h2>
                 </div>
@@ -49,7 +49,7 @@
                     <h5 class="card-title my-0 text-nation"> Total Balance Accrued</h5>
                 </div>
                 <div class="card-body my-1 text-left">
-                    <h2 class="font-weight-light my-0">
+                    <h2 class="fw-light my-0">
                         Ksh 82,400/=
                     </h2>
                 </div>

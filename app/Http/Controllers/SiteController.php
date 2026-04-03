@@ -1,198 +1,188 @@
 <?php
 
-	namespace App\Http\Controllers;
+namespace App\Http\Controllers;
 
-	use App\Http\Requests\storeSiteRequest;
-	use App\Http\Requests\updateSiteRequest;
-	use App\Models\Product;
-	use App\Models\Region;
-	use App\Models\Site;
-	use Exception;
-	use Illuminate\Http\Request;
+use App\Http\Requests\storeSiteRequest;
+use App\Http\Requests\updateSiteRequest;
+use App\Models\Product;
+use App\Models\Region;
+use App\Models\Site;
+use App\Traits\Meta;
+use Exception;
+use Illuminate\Http\Request;
 
-	class SiteController extends Controller
-		{
-		/**
-		 * Display a listing of the resource.
-		 */
-			public function index()
-				{
+class SiteController extends Controller
+{
+    use Meta;
 
-					return view('modules.site.index', $this->data);
-				}
+    public function __construct(protected array $data = [])
+    {
+        $this->data = self::site_def();
+    }
 
-		/**
-		 * Show the form for creating a new resource.
-		 */
-			public function create()
-				{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
 
-					$this->data['regions'] = Region::get();
+        return view('modules.site.index', $this->data);
+    }
 
-					return view('modules.site.add', $this->data);
-				}
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
 
-			public function get(Request $request)
-				{
-					$columns = [
-						0 => 'id',
-						1 => 'site_name',
-						3 => 'site_url',
-                        4 => 'callback_url'
-					];
-					$site    = Site::query();
-					$site->withCount('products');
+        $this->data['regions'] = Region::get();
 
-					$totalFiltered = $totalData = $site->count();
-					$limit         = $request->input('length');
-					$start         = $request->input('start');
-					$order         = $columns[$request->input('order.0.column')];
-					$dir           = $request->input('order.0.dir');
+        return view('modules.site.add', $this->data);
+    }
 
-					if (empty($request->input('search.value')))
-						{
-							$site->offset($start)->limit($limit)->orderBy($order, $dir);
+    public function get(Request $request)
+    {
+        $columns = [
+            0 => 'id',
+            1 => 'site_name',
+            3 => 'site_url',
+            4 => 'callback_url',
+        ];
+        $site = Site::query();
+        $site->withCount('products');
 
+        $totalFiltered = $totalData = $site->count();
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
 
-							$posts = $site->get();
-						}
-					else
-						{
+        if (empty($request->input('search.value'))) {
+            $site->offset($start)->limit($limit)->orderBy($order, $dir);
 
-							$search = $request->input('search.value');
+            $posts = $site->get();
+        } else {
 
-							$site->where('site_name', 'like', "%{$search}%")->orWhere('site_url', 'like', "%{$search}")->offset($start)->limit($limit)->orderBy($order, $dir);
+            $search = $request->input('search.value');
 
-							$posts = $site->get();
+            $site->where('site_name', 'like', "%{$search}%")->orWhere('site_url', 'like', "%{$search}")->offset($start)->limit($limit)->orderBy($order, $dir);
 
-							$totalFiltered = $site->count();
-						}
+            $posts = $site->get();
 
-					$data = [];
-					if (!empty($posts))
-						{
-							$pos = $start + 1;
-							foreach ($posts as $post)
-								{
-									$btn                     = self::button_generate('site', $post->id, [], ['destroy']);
-									$nestedData['pos']       = $pos;
-									$nestedData['site_name'] = $post->site_name;
-									$nestedData['products']  = $post->products_count;
-									$nestedData['site_url']  = $post->site_url;
-									$nestedData['region']    = $post->region->name;
-                                    $nestedData["callback_url"] = $post->callback_url;
-									$nestedData['action']    = $btn;
-									$data[]                  = $nestedData;
-									$pos++;
-								}
-						}
+            $totalFiltered = $site->count();
+        }
 
-					$json_data = [
-						'draw'            => (int)$request->input('draw'),
-						'recordsTotal'    => $totalData,
-						'recordsFiltered' => $totalFiltered,
-						'data'            => $data
-					];
+        $data = [];
+        if (! empty($posts)) {
+            $pos = $start + 1;
+            foreach ($posts as $post) {
+                $btn = self::button_generate('site', $post->id, [], ['destroy']);
+                $nestedData['pos'] = $pos;
+                $nestedData['site_name'] = $post->site_name;
+                $nestedData['products'] = $post->products_count;
+                $nestedData['site_url'] = $post->site_url;
+                $nestedData['region'] = $post->region->name;
+                $nestedData['callback_url'] = $post->callback_url;
+                $nestedData['action'] = $btn;
+                $data[] = $nestedData;
+                $pos++;
+            }
+        }
 
-					return response()->json($json_data);
-				}
+        $json_data = [
+            'draw' => (int) $request->input('draw'),
+            'recordsTotal' => $totalData,
+            'recordsFiltered' => $totalFiltered,
+            'data' => $data,
+        ];
 
-		/**
-		 * Store a newly created resource in storage.
-		 */
-			public function store(storeSiteRequest $request)
-				{
-					$validateddata = $request->validated();
-					if ($validateddata)
-						{
-							try
-								{
-									$site            = new Site();
-									$site->site_name = $request->site_name;
-									$site->site_url  = $request->site_url;
-									$site->region_id = $request->region_id;
-                                    $site->callback_url = $request->webhook_url;
-									$res             = $site->save();
-									if ($res)
-										{
-											return self::success('Site', 'saved successfully', route('site.index'));
-										}
-									return self::fail('Site', 'failed to save', route('site.index'));
-								}
-							catch (Exception $e)
-								{
-									return self::fail('Site', $e->getMessage(), route('site.index'));
-								}
+        return response()->json($json_data);
+    }
 
-						}
-					else
-						{
-							return self::fail('Site', $validateddata, route('site.index'));
-						}
-				}
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(storeSiteRequest $request)
+    {
+        $validateddata = $request->validated();
+        if ($validateddata) {
+            try {
+                $site = new Site;
+                $site->site_name = $request->site_name;
+                $site->site_url = $request->site_url;
+                $site->region_id = $request->region_id;
+                $site->callback_url = $request->webhook_url;
+                $res = $site->save();
+                if ($res) {
+                    return self::success('Site', 'saved successfully', route('site.index'));
+                }
 
-		/**
-		 * Display the specified resource.
-		 */
-			public function show(int $id)
-				{
+                return self::failed('Site', 'failed to save', route('site.index'));
+            } catch (Exception $e) {
+                return self::failed('Site', $e->getMessage(), route('site.index'));
+            }
 
-					$this->data['site'] = Product::find($id);
+        } else {
+            return self::failed('Site', $validateddata, route('site.index'));
+        }
+    }
 
-					return view('modules.site.view', $this->data);
-				}
+    /**
+     * Display the specified resource.
+     */
+    public function show(int $id)
+    {
 
-		/**
-		 * Show the form for editing the specified resource.
-		 */
-			public function edit(int $id)
-				{
+        $this->data['site'] = Product::find($id);
 
-					$this->data['regions'] = Region::get();
-					$this->data['site']    = Site::find($id);
+        return view('modules.site.view', $this->data);
+    }
 
-					return view('modules.site.edit', $this->data);
-				}
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(int $id)
+    {
 
-		/**
-		 * Update the specified resource in storage.
-		 */
-			public function update(updateSiteRequest $request, int $id)
-				{
-					$validateddata = $request->validated();
-					if ($validateddata)
-						{
-							try
-								{
-									$site            = Site::find($id);
-									$site->site_name = $request->site_name;
-									$site->site_url  = $request->site_url;
-									$site->region_id = $request->region_id;
-                                    $site->callback_url = $request->webhook_url;
-									$res             = $site->save();
-									if ($res)
-										{
-											return self::success('Site', 'saved successfully', route('site.index'));
-										}
-									return self::fail('Site', 'failed to save', route('site.index'));
-								}
-							catch (Exception $e)
-								{
-									return self::fail('Site', $e->getMessage(), route('site.index'));
-								}
+        $this->data['regions'] = Region::get();
+        $this->data['site'] = Site::find($id);
 
-						}
-					else
-						{
-							return self::fail('Site', $validateddata, route('site.index'));
-						}
-				}
+        return view('modules.site.edit', $this->data);
+    }
 
-		/**
-		 * Remove the specified resource from storage.
-		 */
-			public function destroy(int $id)
-				{
-					//
-				}
-		}
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(updateSiteRequest $request, int $id)
+    {
+        $validateddata = $request->validated();
+        if ($validateddata) {
+            try {
+                $site = Site::find($id);
+                $site->site_name = $request->site_name;
+                $site->site_url = $request->site_url;
+                $site->region_id = $request->region_id;
+                $site->callback_url = $request->webhook_url;
+                $res = $site->save();
+                if ($res) {
+                    return self::success('Site', 'saved successfully', route('site.index'));
+                }
+
+                return self::failed('Site', 'failed to save', route('site.index'));
+            } catch (Exception $e) {
+                return self::failed('Site', $e->getMessage(), route('site.index'));
+            }
+
+        } else {
+            return self::failed('Site', $validateddata, route('site.index'));
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(int $id)
+    {
+        //
+    }
+}

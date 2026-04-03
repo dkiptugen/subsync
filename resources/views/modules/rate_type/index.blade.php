@@ -4,12 +4,12 @@
         <div class="card card-border-nation">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title my-0 text-nation">Subscription Types</h3>
-                @canaccess('rate_type.create')
+                @can('create_subscription_type')
                 <a href="{{ route('rate_type.create') }}" class="btn btn-outline-nation btn-sm">
                     <i class="fas fa-plus"></i>
                     <span>Add Subscription Type</span>
                 </a>
-                @endcanaccess
+                @endcan
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -49,7 +49,8 @@
 @endsection
 @section('footer')
     <script>
-        $('#rate-type-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#rate-type-table', {
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -69,6 +70,7 @@
                 { "data": "action","orderable":false }
             ],
             "order": [[ 1, "asc" ]]
+        });
         });
     </script>
 

@@ -51,11 +51,12 @@
 @endsection
 @section('footer')
     <script>
-        $('#logger').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#logger', {
             "processing": true,
             "serverSide": true,
             "ajax":{
-                "url": "{{ route('logs.user.datatable',$user) }}",
+                "url": "{{ route('user.logs.datatable',$user) }}",
                 "dataType": "json",
                 "type": "POST",
                 "data":{ _token: "{{csrf_token()}}"}
@@ -71,6 +72,7 @@
 
             ],
             "order": [[ 6, "desc" ]]
+        });
         });
     </script>
 

@@ -6,7 +6,7 @@
         </div>
         <div class="card-body">
             <form action="" method="post" class="form form-horizontal create-form">
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col">
                         <label for="product" class="control-label">Product</label>
                         <select name="product" id="product" multiple="multiple" class="form-control select2">
@@ -25,20 +25,20 @@
                     </div>
 
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="accounts" class="control-label">No Of Users</label>
                     <input type="number" name="accounts" id="accounts" class="form-control">
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="startdate" class="control-label">Estimated Start Date</label>
                     <input type="date" name="startdate" id="startdate"class="form-control">
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="description" class="control-label">Description</label>
                     <textarea name="description" id="" class="form-control"></textarea>
                 </div>
-                <div class="form-group d-flex">
-                    <button type="submit" class="btn btn-sm btn-nation ml-auto">Create</button>
+                <div class="mb-3 d-flex">
+                    <button type="submit" class="btn btn-sm btn-nation ms-auto">Create</button>
                 </div>
             </form>
         </div>

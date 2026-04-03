@@ -9,16 +9,30 @@ use App\Models\Coupon;
 use App\Models\Product;
 use App\Models\RateType;
 use App\Models\Region;
+use App\Traits\Meta;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 class CouponController extends Controller
 {
+    use Meta;
+
+    public function __construct(protected array $data = [])
+    {
+        $this->data = self::site_def();
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return Application|Factory|\Illuminate\Contracts\View\View|Response|View
      */
     public function index()
     {
@@ -29,7 +43,7 @@ class CouponController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return Application|Factory|\Illuminate\Contracts\View\View|Response|View
      */
     public function create()
     {
@@ -44,12 +58,11 @@ class CouponController extends Controller
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function get(Request $request)
     {
-        //dd($this->discount_r('percentage'));
+        // dd($this->discount_r('percentage'));
         $columns = ['id', 'code', 'type', 'products', 'rate_type', 'discount', 'status', 'startdate', 'enddate', 'usage'];
         $totalData = Coupon::count();
         $totalFiltered = $totalData;
@@ -59,7 +72,7 @@ class CouponController extends Controller
         $dir = $request->input('order.0.dir');
 
         if (empty($request->input('search.value'))) {
-            $posts = Coupon::with(['agent','rateTypes'])->offset($start)
+            $posts = Coupon::with(['agent', 'rateTypes'])->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
@@ -67,13 +80,12 @@ class CouponController extends Controller
 
             $search = $request->input('search.value');
             $discount = $this->discount_r($search);
-            $posts = Coupon::with(['agent','rateTypes'])
+            $posts = Coupon::with(['agent', 'rateTypes'])
                 ->where(function ($query) use ($search, $discount) {
                     $query->where('code', 'LIKE', "%{$search}%")
                         ->orWhere('type', 'LIKE', "%{ $discount }%")
                         ->orWhere('discount', 'LIKE', "%{$search}%")
-                        ->orWhere('agent_email', 'LIKE', "%{$search}%")
-                    ;
+                        ->orWhere('agent_email', 'LIKE', "%{$search}%");
                 })
                 ->offset($start)
                 ->limit($limit)
@@ -85,14 +97,13 @@ class CouponController extends Controller
                     $query->where('code', 'LIKE', "%{$search}%")
                         ->orWhere('type', 'LIKE', "%{ $discount }%")
                         ->orWhere('discount', 'LIKE', "%{$search}%")
-                        ->orWhere('agent_email', 'LIKE', "%{$search}%")
-                    ;
+                        ->orWhere('agent_email', 'LIKE', "%{$search}%");
                 })
                 ->count();
         }
 
         $data = [];
-        if (!empty($posts)) {
+        if (! empty($posts)) {
             $pos = $start + 1;
             foreach ($posts as $post) {
                 $btn = self::button_generate('coupon', $post->id, [], ['destroy']);
@@ -103,9 +114,9 @@ class CouponController extends Controller
                 $nestedData['discount'] = number_format($post->discount, 0);
                 $nestedData['status'] = $this->check($post->status);
                 $nestedData['usage'] = $post->usage;
-                $nestedData['agent'] = !is_null($post->agent) ? $post->agent->name.' '.$post->agent->email.'' : '';
+                $nestedData['agent'] = ! is_null($post->agent) ? $post->agent->name.' '.$post->agent->email.'' : '';
                 $nestedData['region'] = $post->region->name;
-                $nestedData['rate_type'] = collect($post->rateTypes->pluck('name')->toArray())->push($post->rateType->name); ;
+                $nestedData['rate_type'] = collect($post->rateTypes->pluck('name')->toArray())->push($post->rateType->name);
                 $nestedData['startdate'] = Carbon::parse($post->start_date)
                     ->toDateTimeString();
                 $nestedData['expirydate'] = Carbon::parse($post->expiry_date)
@@ -116,7 +127,7 @@ class CouponController extends Controller
             }
         }
 
-        $json_data = ['draw' => (int)$request->input('draw'), 'recordsTotal' => $totalData, 'recordsFiltered' => $totalFiltered, 'data' => $data];
+        $json_data = ['draw' => (int) $request->input('draw'), 'recordsTotal' => $totalData, 'recordsFiltered' => $totalFiltered, 'data' => $data];
 
         return response()->json($json_data);
     }
@@ -124,9 +135,8 @@ class CouponController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return array|\Illuminate\Http\RedirectResponse
+     * @param  Request  $request
+     * @return array|RedirectResponse
      */
     public function store(StoreCoupon $request)
     {
@@ -135,15 +145,13 @@ class CouponController extends Controller
         if ($validateddata) {
             try {
                 $agent = null;
-                if($request->has('agent_email') && !is_null($request->agent_email) )
-                {
-                    $agent = Agent::where('email',$request->agent_email)->limit(1)->first();
-                    if(!$agent)
-                    {
+                if ($request->has('agent_email') && ! is_null($request->agent_email)) {
+                    $agent = Agent::where('email', $request->agent_email)->limit(1)->first();
+                    if (! $agent) {
                         throw new Exception('agent email not registered under agents');
                     }
                 }
-                $coupon = new Coupon();
+                $coupon = new Coupon;
                 $coupon->code = $request->code;
                 $coupon->type = $request->type;
                 $coupon->products = array_map('intval', $request->products);
@@ -163,23 +171,20 @@ class CouponController extends Controller
                     return self::success('Coupon', 'added successfully', route('coupon.index'));
                 }
 
-                return self::fail('coupon', 'Failed to add record', route('coupon.index'));
+                return self::failed('coupon', 'Failed to add record', route('coupon.index'));
             } catch (Exception $e) {
-                return self::fail('coupon', $e->getMessage(), route('coupon.index'));
+                return self::failed('coupon', $e->getMessage(), route('coupon.index'));
             }
         }
 
-        return self::fail('coupon', $validateddata, route('coupon.index'));
+        return self::failed('coupon', $validateddata, route('coupon.index'));
     }
-
-
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Coupon $coupon
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
+     * @param  Coupon  $coupon
+     * @return Application|Factory|\Illuminate\Contracts\View\View|View
      */
     public function edit($id)
     {
@@ -197,10 +202,9 @@ class CouponController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Coupon $coupon
-     *
-     * @return array|\Illuminate\Http\RedirectResponse
+     * @param  Request  $request
+     * @param  Coupon  $coupon
+     * @return array|RedirectResponse
      */
     public function update(UpdateCoupon $request, $id)
     {
@@ -209,11 +213,9 @@ class CouponController extends Controller
         if ($validateddata) {
             try {
                 $agent = null;
-                if($request->has('agent_email') && !is_null($request->agent_email))
-                {
-                    $agent = Agent::where('email',$request->agent_email)->limit(1)->first();
-                    if(!$agent)
-                    {
+                if ($request->has('agent_email') && ! is_null($request->agent_email)) {
+                    $agent = Agent::where('email', $request->agent_email)->limit(1)->first();
+                    if (! $agent) {
                         throw new Exception('agent email not registered under agents');
                     }
                 }
@@ -238,21 +240,20 @@ class CouponController extends Controller
                     return self::success('Coupon', 'added successfully', route('coupon.index'));
                 }
 
-                return self::fail('coupon', 'Failed to add record', route('coupon.index'));
+                return self::failed('coupon', 'Failed to add record', route('coupon.index'));
             } catch (Exception $e) {
-                return self::fail('coupon', $e->getMessage(), route('coupon.index'));
+                return self::failed('coupon', $e->getMessage(), route('coupon.index'));
             }
         }
 
-        return self::fail('coupon', $validateddata, route('coupon.index'));
+        return self::failed('coupon', $validateddata, route('coupon.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Coupon $coupon
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Coupon $coupon)
     {

@@ -28,12 +28,12 @@
                                         <input type="hidden" name="account" value="{{ $account }}">
                                         <input type="hidden" name="identifier" value="{{ $payment_method->identifier }}">
                                         <input type="hidden" name="description" value="payment">
-                                        <div class="form-group">
+                                        <div class="mb-3">
                                             <label for="checkout_phone">M-PESA Registered Phone Number</label>
                                             <div class="input-group">
                                                 <input type="text" name="msisdn" id="checkout_phone"
                                                        class="form-control" placeholder="Phone Number">
-                                                <div class="input-group-append">
+                                                <div class="input-group-text p-0 border-0 bg-transparent">
                                                     <button type="submit" class="btn btn-nation" id="pay-now-btn">Pay Now</button>
                                                 </div>
                                             </div>

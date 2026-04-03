@@ -5,7 +5,7 @@
             <div class="card-header d-flex align-items-center justify-content-between">
                 <h3 class="my-0 text-nation card-title">Purchase Order</h3>
                 <a href="{{ route('client_purchase_order.create') }}" class="btn btn-outline-nation btn-sm">
-                    <i class="fas fa-plus mr-2"></i>
+                    <i class="fas fa-plus me-2"></i>
                     Create Purchase Order
                 </a>
             </div>

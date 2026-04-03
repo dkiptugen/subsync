@@ -42,7 +42,8 @@
 
 @section("footer")
     <script>
-        $('#permissions-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#permissions-table', {
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -59,6 +60,7 @@
                 {"data": "action","orderable":false}
             ],
             "order": [[ 1, "asc" ]]
+        });
         });
     </script>
 @endsection

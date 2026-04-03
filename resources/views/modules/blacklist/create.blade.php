@@ -10,17 +10,17 @@
             <form action="{{ route('mpesa_blacklist.store') }}" method="post"
                   class="form form-horizontal create-form" enctype="multipart/form-data">
                 @csrf
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="role" class="control-label">Phone Number</label>
                     <input type="text" name="phone_number" id="role" class="form-control" required>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                 <label for="role" class="control-label">Reason</label>
                 <input type="text" name="reason" id="reason" class="form-control" required>
                     
                 </div>
-                <div class="form-row form-group">
-                    <button type="submit" class="ml-auto mr-2 btn btn-dark btn-sm">Save</button>
+                <div class="row mb-3">
+                    <button type="submit" class="ms-auto me-2 btn btn-dark btn-sm">Save</button>
                 </div>
             </form>
 

@@ -48,8 +48,9 @@
 @endsection
 @section("footer")
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
         $(document).ready(function() {
-            $('#roles-table').DataTable({
+            window.renderDataTable('#roles-table', {
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
@@ -68,6 +69,7 @@
                 responsive: true
 
             });
+        });
         });
     </script>
 @endsection

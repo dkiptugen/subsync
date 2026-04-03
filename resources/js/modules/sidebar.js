@@ -33,8 +33,6 @@ const initializeSidebarCollapse = () => {
   if(sidebarElement && sidebarToggleElement) {
     sidebarToggleElement.addEventListener("click", () => {
       sidebarElement.classList.toggle("collapsed");
-      const isExpanded = !sidebarElement.classList.contains("collapsed");
-      sidebarToggleElement.setAttribute("aria-expanded", String(isExpanded));
 
       sidebarElement.addEventListener("transitionend", () => {
         window.dispatchEvent(new Event("resize"));

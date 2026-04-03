@@ -8,19 +8,19 @@
             <div class="card-body">
                 <form action="{{ route('rate_type.store') }}" method="post" class="form form-horizontal create-form">
                     @csrf
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="rate-type" class="control-label">Subscription Type</label>
                         <input type="text" name="name" id="rate-type" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="swahili-name" class="control-label">Swahili Name</label>
                         <input type="text" name="swahili_name" id="swahili-name" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="period" class="control-label">Period</label>
                         <input type="number" name="period" id="period" class="form-control" placeholder="Number of Days">
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="days-of-week" class="control-label">Days of the Week</label>
                         <select name="days_of_week[]" id="days-of-week" class="form-control select2" multiple>
                             <option value="Sunday">Sunday</option>
@@ -32,8 +32,8 @@
                             <option value="Saturday">Saturday</option>
                         </select>
                     </div>
-                    <div class="form-group d-flex">
-                        <button class="btn btn-nation ml-auto">Add Subscription Type</button>
+                    <div class="mb-3 d-flex">
+                        <button class="btn btn-nation ms-auto">Add Subscription Type</button>
                     </div>
                 </form>
             </div>

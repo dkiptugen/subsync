@@ -21,13 +21,11 @@
                     <form method="POST" class="mt-3" action="{{ route('password.email') }}">
                         @csrf
 
-                        <div class="form-group">
+                        <div class="mb-3">
 
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text text-black">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
+                                <div class="input-group-text text-black">
+                                    <i class="fas fa-envelope"></i>
                                 </div>
                                 <input id="email" placeholder="Enter Email Address" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                             </div>
@@ -40,9 +38,9 @@
 
                         </div>
 
-                        <div class="form-group d-flex mb-4">
+                        <div class="mb-3 d-flex mb-4">
 
-                                <button type="submit" class="btn btn-nation ml-auto">
+                                <button type="submit" class="btn btn-nation ms-auto">
                                     {{ __('Send Reset Link') }}
                                 </button>
 

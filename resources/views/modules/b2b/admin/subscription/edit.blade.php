@@ -11,7 +11,7 @@
 						class="form form-horizontal create-form">
 					@csrf
 					@method('put')
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="title"
 								class="control-label">Title</label>
 						<input type="text"
@@ -20,7 +20,7 @@
 								class="form-control"
 								value="{{ $subscription->title }}">
 					</div>
-					<div class="form-group form-row">
+					<div class="row mb-3">
 						<div class="col">
 							<label for="organization"
 									class="control-label">Organization</label>
@@ -52,8 +52,8 @@
 						</div>
 						<!-- /.col -->
 					</div>
-					<!-- /.form-group form-row -->
-					<div class="form-group form-row">
+					<!-- /.form-group row -->
+					<div class="row mb-3">
 						<div class="col">
 							<label for="ratetype"
 									class="control-label">Subscription Type</label>
@@ -81,8 +81,8 @@
 						</div>
 						<!-- /.col -->
 					</div>
-					<!-- /.form-group form-row -->
-					<div class="form-group form-row">
+					<!-- /.form-group row -->
+					<div class="row mb-3">
 						<div class="col">
 							<label for="users"
 									class="control-label">No of User</label>
@@ -110,7 +110,7 @@
 					
 					
 					</div>
-					<div class="form-group form-row">
+					<div class="row mb-3">
 						<div class="col">
 							<label for="receipt"
 									class="control-label">Receipt No</label>
@@ -136,7 +136,7 @@
 						</div>
 						<!-- /.col -->
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<label class="form-check form-check-inline">
 							<input class="form-check-input"
 									type="checkbox"
@@ -149,7 +149,7 @@
 						</label>
 					
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="reason"
 								class="control-label">Reason</label>
 						<textarea name="reason"
@@ -158,8 +158,8 @@
 								rows="10"
 								class="form-control">{{ $subscription->activator_reason }}</textarea>
 					</div>
-					<div class="form-group d-flex">
-						<button class="btn btn-nation ml-auto">Update Subscription</button>
+					<div class="mb-3 d-flex">
+						<button class="btn btn-nation ms-auto">Update Subscription</button>
 					</div>
 				</form>
 			</div>

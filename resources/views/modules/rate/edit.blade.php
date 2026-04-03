@@ -10,7 +10,7 @@
                       class="form form-horizontal create-form">
                     @csrf
                     @method('put')
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col-12 col-md-8">
                             <label for="rate_name" class="control-label">Name</label>
                             <input type="text" name="name" id="name" class="form-control"
@@ -29,7 +29,7 @@
 
                     </div>
 
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="period" class="control-label">Period in days</label>
                             <input type="text" name="period" id="period" class="form-control"
@@ -64,7 +64,7 @@
                         </div>
                         <!-- /.col -->
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="free_product" class="control-label">Free Product</label>
                             <select name="free_product" id="free_product" class="form-control select2">
@@ -85,7 +85,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col-8">
                             <label for="apple_product_id" class="control-label">AppLe Product ID</label>
                             <input type="text" name="apple_product_id" id="apple_product_id" class="form-control"
@@ -104,12 +104,12 @@
                             <input type="number" name="compensation_days" id="compensation_days" class="form-control" value="{{ $rate->compensation_days }}" min="0">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="description" class="control-label">Description</label>
                         <textarea name="description" id="description" rows="4"
                                   class="form-control">{{ $rate->description }}</textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="status" @if($rate->status) checked
                                    @endif value="1">
@@ -128,8 +128,8 @@
 
                     </div>
                     <!-- /.form-group -->
-                    <div class="form-group d-flex">
-                        <button class="btn btn-nation ml-auto">Update Rate</button>
+                    <div class="mb-3 d-flex">
+                        <button class="btn btn-nation ms-auto">Update Rate</button>
                     </div>
                 </form>
             </div>

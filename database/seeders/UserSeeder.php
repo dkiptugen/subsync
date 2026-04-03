@@ -3,30 +3,28 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
     {
-        /**
-         * Run the database seeds.
-         *
-         * @return void
-         */
-        public function run()
-            {
-                (new User)->updateOrCreate(
-                                            [
-                                                'email'=>'info@radioafricagroup.co.ke'
-                                            ],
-                                            [
-                                                "username"  =>  "admin",
-                                                "name"      =>  "Default Administrator",
-                                                "password"  =>  bcrypt('1234567'),
-                                                "status"    =>  true,
-                                                "type"      =>  "owner",
-                                                "role_id"   =>  1
-                                            ]
-                                        );
-            }
+        (new User)->updateOrCreate(
+            [
+                'email' => 'info@radioafricagroup.co.ke',
+            ],
+            [
+                'username' => 'admin',
+                'name' => 'Default Administrator',
+                'password' => bcrypt('1234567'),
+                'status' => true,
+                'type' => 'owner',
+            ]
+        );
     }
+}

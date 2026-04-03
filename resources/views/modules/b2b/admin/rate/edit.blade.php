@@ -10,7 +10,7 @@
                       class="form form-horizontal create-form">
                     @csrf
                     @method('put')
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="rate_type" class="control-label">Subscription Type</label>
                             <select name="rate_type_id" id="rate_type" class="form-control select2">
@@ -32,7 +32,7 @@
 
                     </div>
 
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="cost" class="control-label">Cost</label>
                             <input type="number" step="0.10" name="cost" id="cost" class="form-control"
@@ -47,7 +47,7 @@
                         </div>
 
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="organization" class="control-label">Organization</label>
                         <select name="organization_id" id="organization" class="form-control select2">
 
@@ -58,12 +58,12 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="description" class="control-label">Description</label>
                         <textarea name="description" id="description" rows="4"
                                   class="form-control">{{ $rate->description }}</textarea>
                     </div>
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" name="status" @if($rate->status) checked
                                    @endif value="1">
@@ -73,8 +73,8 @@
                         </label>
 
                     </div>
-                    <div class="form-group d-flex">
-                        <button class="btn btn-nation ml-auto">Update Rate</button>
+                    <div class="mb-3 d-flex">
+                        <button class="btn btn-nation ms-auto">Update Rate</button>
                     </div>
                 </form>
             </div>

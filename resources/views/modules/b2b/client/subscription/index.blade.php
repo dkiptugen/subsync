@@ -4,7 +4,7 @@
         <div class="card card-border-nation">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title my-0 text-nation">Subscriptions</h3>
-                <a href="" class="btn btn-sm btn-outline-nation"><i class="fas fa-check mr-2"></i>Subscribe</a>
+                <a href="" class="btn btn-sm btn-outline-nation"><i class="fas fa-check me-2"></i>Subscribe</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -47,7 +47,8 @@
 @endsection
 @section('footer')
     <script>
-        $('#subscriptions-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#subscriptions-table', {
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -74,6 +75,7 @@
                 {"data": "action","orderable":false}
             ],
             "order": [[ 8, "desc" ]]
+        });
         });
     </script>
 @endsection

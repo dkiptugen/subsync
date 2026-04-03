@@ -7,17 +7,17 @@
                 <div class="tns">
                     @canaccess('organization.user_create')
                     <a href="{{ route('organization.user_create',$organization->id) }}" class="btn btn-sm btn-outline-nation">
-                        <i class="fas fa-plus mr-1"></i>Add Dependants
+                        <i class="fas fa-plus me-1"></i>Add Dependants
                     </a>
                     @endcanaccess
                     @canaccess('organization.user_uploads')
                     <a href="{{ route('organization.upload',$organization->id) }}" class="btn btn-sm btn-outline-nation">
-                        <i class="fas fa-upload mr-1"></i>Bulk Upload
+                        <i class="fas fa-upload me-1"></i>Bulk Upload
                     </a>
                     @endcanaccess
                     @canaccess('organization.user_export')
                     <a href="{{ route('organization.user_export',$organization->id) }}" class="btn btn-sm btn-outline-nation">
-                        <i class="fas fa-file-export mr-1"></i>Export
+                        <i class="fas fa-file-export me-1"></i>Export
                     </a>
                     @endcanaccess
                 </div>
@@ -58,7 +58,8 @@
 @endsection
 @section('footer')
     <script>
-        $('#User-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#User-table', {
             "processing": true,
             "serverSide": true,
             "ajax":{
@@ -78,6 +79,7 @@
                 {"data": "action","orderable":false}
             ],
             "order": [[ 1, "asc" ]]
+        });
         });
     </script>
 @endsection

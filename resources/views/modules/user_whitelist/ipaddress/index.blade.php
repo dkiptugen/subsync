@@ -4,11 +4,11 @@
         <div class="card card-border-nation">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title my-0 text-nation">IP Address Whitelist</h3>
-                @canaccess('whitelist.type.create')
+                @can('create_whitelist')
                 <a href="{{ route('whitelist.type.create','ipaddress') }}" class="btn btn-outline-nation btn-sm">
                     Whitelist IP Address
                 </a>
-                @endcanaccess
+                @endcan
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -50,7 +50,8 @@
 @endsection
 @section('footer')
     <script>
-        $('#whitelist-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#whitelist-table', {
             "processing": true,
             "serverSide": true,
             "ajax": {
@@ -71,6 +72,7 @@
                 {"data": "action","orderable":false}
             ],
             "order": [[1, "asc"]]
+        });
         });
     </script>
 @endsection

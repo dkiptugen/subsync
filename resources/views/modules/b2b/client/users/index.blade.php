@@ -7,13 +7,13 @@
                 <div class="tns">
                     @canaccess('client_users.create')
                     <a href="{{ route('client_users.create') }}" class="btn btn-sm btn-outline-nation">
-                        <i class="fas fa-plus mr-1"></i>Add Dependants
+                        <i class="fas fa-plus me-1"></i>Add Dependants
                     </a>
                     @endcanaccess
                     @canaccess('client_users.uploadform')
                     <a href="{{ route('client_users.uploadform',\Illuminate\Support\Facades\Auth::user()->organization_id) }}"
                        class="btn btn-sm btn-outline-nation">
-                        <i class="fas fa-upload mr-1"></i>Bulk Upload
+                        <i class="fas fa-upload me-1"></i>Bulk Upload
                     </a>
                     @endcanaccess
                 </div>
@@ -48,7 +48,8 @@
 @endsection
 @section('footer')
     <script>
-        $('#User-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#User-table', {
             "processing": true,
             "serverSide": true,
             "ajax": {
@@ -65,6 +66,7 @@
                 {"data": "action","orderable":false}
             ],
             "order": [[1, "asc"]]
+        });
         });
     </script>
 @endsection

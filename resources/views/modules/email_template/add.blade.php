@@ -8,7 +8,7 @@
             <div class="card-body">
                 <form action="{{ route('email_template.store') }}" method="post" class="form form-horizontal create-form">
                     @csrf
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         
                         <div class="col">
                             <label for="name" class="control-label">Name</label>
@@ -24,14 +24,14 @@
                         </div>
                         
                     </div>
-                    <div class="form-group ">
+                    <div class="mb-3 ">
                         
                         <label for="subject" class="control-label">Email Subject</label>
                         <input type="text" name="subject" id="subject" class="form-control">
 
                     </div>
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="products" class="control-label">Products</label>
                         <select name="products[]" id="products" class="form-control select2" multiple="multiple">
                             @foreach($products as $product)
@@ -40,8 +40,8 @@
                         </select>
                     </div>
 
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation ml-auto">Create Template</button>
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation ms-auto">Create Template</button>
                     </div>
                 </form>
             </div>

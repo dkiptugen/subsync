@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ImportAgents;
 use App\Models\Agent;
+use App\Traits\Meta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -11,17 +12,24 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class AgentsController extends Controller
 {
+    use Meta;
+
+    public function __construct(protected array $data = [])
+    {
+        $this->data = self::site_def();
+    }
+
     public function index()
     {
-        return view('modules.agents.index',$this->data);
+        return view('modules.agents.index', $this->data);
     }
 
     public function create()
     {
 
-        $this->data['types'] = ['staff','external'];
+        $this->data['types'] = ['staff', 'external'];
 
-        return view('modules.agents.create',$this->data);
+        return view('modules.agents.create', $this->data);
     }
 
     public function store(Request $request)
@@ -31,7 +39,7 @@ class AgentsController extends Controller
             'email' => 'required|email|unique:agents',
         ]);
         if ($validator->fails()) {
-            return self::fail("Sales Agents", $validator->errors()->first(),route('agents.create'));
+            return self::failed('Sales Agents', $validator->errors()->first(), route('agents.create'));
         }
 
         $agent = Agent::create([
@@ -40,22 +48,19 @@ class AgentsController extends Controller
             'type' => $request->type,
             'phone' => $request->phone,
             'department' => $request->department,
-            'country' => $request->country
+            'country' => $request->country,
         ]);
 
         return self::success('Sales Agents', 'Agent added successfully', route('agents.index'));
     }
 
-    public function show(Agent $agent)
-    {
-
-    }
+    public function show(Agent $agent) {}
 
     public function edit(Agent $agent)
     {
 
         $this->data['agent'] = $agent;
-        $this->data['types'] = ['staff','external'];
+        $this->data['types'] = ['staff', 'external'];
 
         return view('modules.agents.edit', $this->data);
     }
@@ -64,10 +69,10 @@ class AgentsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'email' => 'required|email|unique:agents,email,' . $agent->id,
+            'email' => 'required|email|unique:agents,email,'.$agent->id,
         ]);
         if ($validator->fails()) {
-            return self::fail("Sales Agents", $validator->errors()->first(),route('agents.edit',$agent));
+            return self::failed('Sales Agents', $validator->errors()->first(), route('agents.edit', $agent));
         }
 
         $agent->update([
@@ -76,7 +81,7 @@ class AgentsController extends Controller
             'type' => $request->type,
             'phone' => $request->phone,
             'department' => $request->department,
-            'country' => $request->country
+            'country' => $request->country,
         ]);
 
         return self::success('Sales Agents', 'Agent updated successfully', route('agents.index'));
@@ -85,24 +90,24 @@ class AgentsController extends Controller
     public function destroy(Agent $agent)
     {
         $agent->delete();
+
         return redirect()->route('agents.index');
     }
 
     public function import(Request $request)
     {
-        return view('modules.agents.import',$this->data);
+        return view('modules.agents.import', $this->data);
     }
 
     public function upload(Request $request)
     {
-        try{
+        try {
             $request->validate([
                 'excel_file' => 'required|file|mimes:xlsx,xls,csv',
             ]);
 
-        }catch (ValidationException $e)
-        {
-            return self::fail('Sales Agents', $e->validator->errors()->first(), route('agents.import'));
+        } catch (ValidationException $e) {
+            return self::failed('Sales Agents', $e->validator->errors()->first(), route('agents.import'));
         }
 
         $data = Excel::toCollection(null, $request->file('excel_file'));

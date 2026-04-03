@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\MpesaBlacklist;
+use App\Traits\Meta;
+use Illuminate\Http\Request;
 
 class MpesaBlacklistController extends Controller
 {
+    use Meta;
+
+    public function __construct(protected array $data = [])
+    {
+        $this->data = self::site_def();
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -21,9 +29,8 @@ class MpesaBlacklistController extends Controller
      */
     public function create()
     {
-        return view('modules.blacklist.create',$this->data);
+        return view('modules.blacklist.create', $this->data);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -37,13 +44,12 @@ class MpesaBlacklistController extends Controller
 
         MpesaBlacklist::create([
             'phone' => $request->phone_number,
-            'description' => $request->reason
+            'description' => $request->reason,
         ]);
 
         return self::success('Blacklist', 'Blacklist entry added successfully', route('mpesa_blacklist.index'));
     }
 
-    
     public function edit(string $id)
     {
         $blacklist = MpesaBlacklist::findOrFail($id);
@@ -58,17 +64,17 @@ class MpesaBlacklistController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'phone_number' => 'required|unique:mpesa_blacklists,phone,' . $id,
+            'phone_number' => 'required|unique:mpesa_blacklists,phone,'.$id,
             'reason' => 'nullable|string|max:255',
         ]);
-    
+
         $blacklist = MpesaBlacklist::findOrFail($id);
 
         $blacklist->update([
             'phone' => $request->phone_number,
-            'description' => $request->reason
+            'description' => $request->reason,
         ]);
-    
+
         return self::success('Blacklist', 'Blacklist entry updated successfully', route('mpesa_blacklist.index'));
     }
 
@@ -80,11 +86,9 @@ class MpesaBlacklistController extends Controller
         //
         MpesaBlacklist::where('id', $id)->delete();
 
+        return redirect()->back()->with(['status' => true, 'msg' => 'Blacklist entry deleted successfully', 'header' => 'Blacklist']);
 
-        return redirect()->back()->with(['status'=>true,'msg'=>'Blacklist entry deleted successfully','header'=>'Blacklist']);
-
-       return self::success('Blacklist', 'Blacklist entry deleted successfully', route('mpesa_blacklist.index'));
+        return self::success('Blacklist', 'Blacklist entry deleted successfully', route('mpesa_blacklist.index'));
 
     }
 }
-

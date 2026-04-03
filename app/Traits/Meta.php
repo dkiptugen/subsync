@@ -59,7 +59,7 @@ trait Meta
      *
      * @return array
      */
-        public static function fail($title, $message, $redirecturl = ''): array
+        public static function failed($title, $message, $redirecturl = ''): array
             {
 
                 return [

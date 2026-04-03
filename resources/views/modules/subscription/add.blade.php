@@ -8,14 +8,14 @@
             <div class="card-body">
                 <form action="{{ route('subscription.store' , 0) }}" method="post" class="form form-horizontal create-form">
                     @csrf
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="email" class="control-label">Email</label>
                         <!-- /.control-label -->
                         <input type="text" name="email" id="email" class="form-control">
                         <!-- /#.form-control -->
                     </div>
                     <!-- /.form-group -->
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="receipt" class="control-label">Receipt No</label>
                             <!-- /.control-label -->
@@ -36,7 +36,7 @@
                         <!-- /.col -->
                     </div>
                     <!-- /.form-group -->
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col">
                             <label for="product" class="control-label">Product</label>
                             <!-- /.control-label -->
@@ -72,7 +72,7 @@
 
                     </div>
                     <!-- /.form-group -->
-                    <div class="form-group form-row">
+                    <div class="row mb-3">
                         <div class="col-12 col-md">
                             <label for="currency" class="control-label">Currency</label>
                             <!-- /.control-label -->
@@ -100,15 +100,15 @@
 
                     </div>
                     <!-- /.form-group -->
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="description" class="control-label">Activation Reason</label>
                         <!-- /.control-label -->
                         <textarea name="reason" id="description" class="form-control"></textarea>
                         <!-- /#.form-control -->
                     </div>
                     <!-- /.form-group -->
-                    <div class="form-group d-flex">
-                        <button type="submit" class="btn btn-nation btn-sm ml-auto">
+                    <div class="mb-3 d-flex">
+                        <button type="submit" class="btn btn-nation btn-sm ms-auto">
                             Save Subscription
                         </button>
                         <!-- /.btn btn-outline-nation btn-sm -->

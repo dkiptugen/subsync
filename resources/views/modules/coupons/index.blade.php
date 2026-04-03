@@ -8,9 +8,11 @@
     <section class="card card-border-nation">
     <div class="card-header d-flex justify-content-between">
         <h3 class="card-title my-0 text-nation">Coupon</h3>
+        @can('create_coupon')
         <a href="{{ route('coupon.create') }}" class="btn btn-sm btn-outline-nation">
             <i class="fas fa-plus "></i> <span>Add Coupon</span>
         </a>
+        @endcan
     </div>
     <div class="card-body">
         <table class="table table-striped" id="promo-table">
@@ -59,7 +61,8 @@
 @endsection
 @section('footer')
     <script>
-        $('#promo-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#promo-table', {
             "processing": true,
             "serverSide": true,
             "ajax": {
@@ -86,6 +89,7 @@
             "order": [[1, "asc"]]
 
 
+        });
         });
     </script>
 @endsection

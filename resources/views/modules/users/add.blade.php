@@ -8,7 +8,7 @@
         <div class="card-body">
             <form action="{{ route('user.store') }}" method="post" class="form form-horizontal create-form">
                 @csrf
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col col-md-8">
                         <label for="name" class="control-label">Name</label>
                         <input type="text" name="name" id="name" class="form-control">
@@ -23,12 +23,12 @@
                     </div>
 
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <label for="email" class="control-label">Email</label>
                     <input type="email" name="email" id="email" class="form-control">
                 </div>
 
-                <div class="form-group form-row">
+                <div class="row mb-3">
                     <div class="col">
                         <label for="password" class="control-label">Password</label>
                         <input type="password" name="password" id="password" class="form-control">
@@ -46,8 +46,8 @@
                     </label>
                 </div>
 
-                <div class="form-group form-row">
-                    <button type="submit" class="btn  btn-dark ml-auto">Add User</button>
+                <div class="row mb-3">
+                    <button type="submit" class="btn  btn-dark ms-auto">Add User</button>
                 </div>
 
             </form>

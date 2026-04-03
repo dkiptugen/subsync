@@ -4,13 +4,13 @@
         <div class="card card-border-nation">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title my-0 text-nation">
-                    Sites
+                    Email Templates
                 </h3>
-                @canaccess('email_template.create')
-                    <a href="{{ route('email_template.create') }}" class="btn btn-sm btn-outline-nation">
-                        <i class="fas fa-plus mr-2"></i> <span>Create Email Template</span>
+                @can('create_email_template')
+                    <a href="{{ route('email_template.create') }}" class="btn btn-sm btn-outline-dark">
+                        <i class="fas fa-plus me-2"></i> <span>Create Email Template</span>
                     </a>
-                @endcanaccess
+                @endcan
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -45,7 +45,8 @@
 @endsection
 @section('footer')
     <script>
-        $('#email-template-table').DataTable({
+        document.addEventListener('DOMContentLoaded', function () {
+        window.renderDataTable('#email-template-table', {
             "processing": true,
             "serverSide": true,
             "ajax": {
@@ -65,6 +66,7 @@
 
             ],
             "order": [[1, "asc"]]
+        });
         });
     </script>
 @endsection

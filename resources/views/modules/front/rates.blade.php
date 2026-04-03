@@ -32,7 +32,7 @@
             @endforeach
 
 
-            <div class="form-group form-row">
+            <div class="row mb-3">
 
             </div>
 

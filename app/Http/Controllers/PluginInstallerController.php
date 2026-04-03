@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Core\Plugins\PluginManager;
+use App\Traits\Meta;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,13 @@ use RuntimeException;
 
 class PluginInstallerController extends Controller
 {
+    use Meta;
+
+    public function __construct(protected array $data = [])
+    {
+        $this->data = self::site_def();
+    }
+
     public function index(PluginManager $manager): View
     {
         $plugins = collect($manager->all())
