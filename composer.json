@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "caydeesoft/datatable-generator": "^1.0",
         "caydeesoft/menu-manager": "^1.0",
         "google/apiclient": "^2.19",
         "grosv/laravel-passwordless-login": "^2.0",
