@@ -16,7 +16,7 @@
         "guzzlehttp/guzzle": "^7.10",
         "laravel-notification-channels/webpush": "^10.5",
         "laravel/framework": "^13.0",
-        "laravel/reverb": "^1.0",
+        "laravel/reverb": "^1.10",
         "laravel/sanctum": "^4.3",
         "laravel/socialite": "^5.26",
         "laravel/tinker": "^3.0",
