@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('b2b_subscriptions', function (Blueprint $table) {
-            $table->double('amount_paid')->nullable()->after('amount')->change();
-            $table->double('amount')->nullable()->after('amount')->change();
+            $table->double('amount_paid')->nullable()->change();
+            $table->double('amount')->nullable()->change();
         });
         Schema::table('b2b_transactions', function (Blueprint $table) {
-            $table->double('amount_paid')->nullable()->after('amount')->change();
-            $table->double('amount')->nullable()->after('amount')->change();
+            $table->double('amount_paid')->nullable()->change();
+            $table->double('amount')->nullable()->change();
         });
     }
 

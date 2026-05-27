@@ -12,14 +12,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement('
+       /* DB::statement('
             ALTER TABLE cart_items
             ALTER COLUMN release_id TYPE bigint
             USING release_id::bigint
-        ');
-        /*Schema::table('cart_items', function (Blueprint $table) {
+        ');*/
+        Schema::table('cart_items', function (Blueprint $table) {
             $table->unsignedBigInteger('release_id')->change();
-        });*/
+        });
     }
 
     /**

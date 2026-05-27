@@ -8,7 +8,7 @@ class PushNotificationService
     {
         private function save(Request $request)
             {
-                $user = \App\User::find($request->user_id);
+                $user = \App\Models\User::find($request->user_id);
 
                 $user->updatePushSubscription($request->endpoint, $request->key, $request->token, $request->contentEncoding);
 
@@ -16,7 +16,7 @@ class PushNotificationService
 
         public function delete(Request $request)
             {
-                $user = \App\User::find($request->user_id);
+                $user = \App\Models\User::find($request->user_id);
 
                 $user->deletePushSubscription($request->endpoint);
 
