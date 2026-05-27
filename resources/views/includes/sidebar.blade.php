@@ -304,6 +304,24 @@
 
                         @include('includes.sidebar-menu-item', ['item' => $item])
                     @endforeach
+                    @php
+                        $saasMenus = app(\Caydeesoft\MenuManager\Services\MenuBuilder::class)->build('saas');
+                    @endphp
+                    @foreach($saasMenus as $item)
+                        @if(($item['type'] ?? 'item') === 'header')
+                            <li class="sidebar-header">{{ $item['title'] }}</li>
+                            @continue
+                        @endif
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link fw-bold" href="{{ route($item['route'], $item['params'] ?? []) }}">
+                                @if(!empty($item['icon']))
+                                    <i class="align-middle" data-feather="{{ $item['icon'] }}"></i>
+                                @endif
+                                <span class="align-middle">{{ $item['title'] }}</span>
+                            </a>
+                        </li>
+                    @endforeach
                     <li class="sidebar-item">
                         <a class="sidebar-link fw-bold" href="{{ route('plugins.index') }}">
                             <i class="align-middle" data-feather="package"></i> <span class="align-middle">Plugins</span>
