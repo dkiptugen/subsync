@@ -27,7 +27,7 @@ class SaasLandingController extends Controller
                 url: route('landing'),
                 image: asset('assets/img/logo.png'),
                 siteName: (string) ($brand['name'] ?? config('app.name')),
-                keywords: ['subscription management', 'saas billing', 'laravel saas', 'subscriber platform'],
+                keywords: ['subscription management', 'saas billing', 'subscriber platform'],
             )),
         ]);
     }
