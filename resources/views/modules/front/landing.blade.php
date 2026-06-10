@@ -70,7 +70,7 @@
         }
 
         .brand-mark img {
-            width: 112px;
+            width: 200px;
             height: auto;
             display: block;
         }
