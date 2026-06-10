@@ -118,13 +118,13 @@
             align-items: end;
             padding: 128px clamp(20px, 6vw, 86px) 72px;
             background:
-                linear-gradient(90deg, rgba(247, 250, 248, 0.98) 0%, rgba(247, 250, 248, 0.84) 42%, rgba(247, 250, 248, 0.34) 100%),
+                linear-gradient(90deg, rgba(247, 250, 248, 1) 0%, rgba(247, 250, 248, 0.98) 48%, rgba(247, 250, 248, 0.72) 62%, rgba(247, 250, 248, 0.24) 100%),
                 linear-gradient(135deg, #e7f3ef 0%, #fff6eb 52%, #e9f1f3 100%);
         }
 
         .hero-media {
             position: absolute;
-            inset: 116px -140px 54px 43%;
+            inset: 116px -140px 54px 49%;
             border: 1px solid rgba(20, 33, 61, 0.14);
             box-shadow: 0 26px 70px rgba(20, 33, 61, 0.18);
             overflow: hidden;
@@ -142,7 +142,7 @@
         .hero-copy {
             position: relative;
             z-index: 2;
-            width: min(720px, 100%);
+            width: min(640px, 100%);
         }
 
         .eyebrow {
@@ -165,7 +165,7 @@
         }
 
         .hero-copy p {
-            max-width: 650px;
+            max-width: 590px;
             margin: 24px 0 0;
             color: #344a5e;
             font-size: clamp(1.05rem, 2vw, 1.35rem);
@@ -185,7 +185,7 @@
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 1px;
-            width: min(760px, 100%);
+            width: min(670px, 100%);
             margin-top: 52px;
             border: 1px solid var(--line);
             border-radius: 0;
@@ -451,7 +451,7 @@
 
         @media (max-width: 980px) {
             .hero-media {
-                inset: 92px -170px 28px 26%;
+                inset: 92px -170px 28px 36%;
                 opacity: 0.42;
             }
 
