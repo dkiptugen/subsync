@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 601 180" role="img" aria-labelledby="title desc">
+    <title id="title">Subsync</title>
+    <desc id="desc">Subsync media subscription management logo</desc>
+    <rect width="601" height="180" fill="none"/>
+    <g transform="translate(24 22)">
+        <path fill="#14213d" d="M78 0h88l-38 38H62L38 62h104l-38 38H0V62L62 0h16Z"/>
+        <path fill="#087f8c" d="M0 102h104l24 24h66l-38 38H68L0 96v6Z"/>
+        <path fill="#2d936c" d="M138 38h56l-38 38h-56l38-38Z"/>
+        <path fill="#e76f51" d="M38 86h56l-38 38H0l38-38Z"/>
+        <path fill="#f4a261" d="M128 126h66l-38 38H90l38-38Z"/>
+        <path fill="#ffffff" d="M54 72h76l-28 28H26l28-28Z"/>
+        <path fill="#ffffff" d="M102 64h20v48h-20z"/>
+    </g>
+    <g transform="translate(230 48)">
+        <text x="0" y="72" fill="#14213d" font-family="Inter, Arial, Helvetica, sans-serif" font-size="82" font-weight="800" letter-spacing="-2">Subsync</text>
+        <path fill="#087f8c" d="M4 98h290v10H4z"/>
+    </g>
+</svg>
