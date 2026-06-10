@@ -38,7 +38,7 @@ class DebugController extends Controller
             {
                 Passport::actingAs($user);
 
-                $tokenResult = $user->createToken('Laravel Password Grant Client');
+                $tokenResult = $user->createToken('Subsync Password Grant Client');
 
                 $token = @$tokenResult->accessToken;
 

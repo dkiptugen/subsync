@@ -87,7 +87,7 @@ class AuthController extends Controller
 
             if (Hash::check($request->password, $user->password))
             {
-                $token            = $user->createToken('Laravel Password Grant Client')->accessToken;
+                $token            = $user->createToken('Subsync Password Grant Client')->accessToken;
                 $user->last_login = Carbon::now();
                 $user->save();
                 //Auth::logoutOtherDevices($request->password);
@@ -164,7 +164,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
         if (!is_null($user))
         {
-            $token    = $user->createToken('Laravel Password Grant Client')->accessToken;
+            $token    = $user->createToken('Subsync Password Grant Client')->accessToken;
             $response = [
                 'token'      => $token,
                 'expires_in' => config('custom.CUSTOMER.TOKEN_EXPIRY') * 24 * 60 * 60,
