@@ -122,81 +122,21 @@
                 linear-gradient(135deg, #e7f3ef 0%, #fff6eb 52%, #e9f1f3 100%);
         }
 
-        .product-backdrop {
+        .hero-media {
             position: absolute;
-            inset: 96px -90px 34px 42%;
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 16px;
-            transform: rotate(-2deg);
-            opacity: 0.96;
-        }
-
-        .product-panel {
-            min-height: 320px;
-            border: 1px solid rgba(20, 33, 61, 0.12);
-            border-radius: 0;
-            background: rgba(255, 255, 255, 0.82);
-            box-shadow: 0 26px 70px rgba(20, 33, 61, 0.14);
+            inset: 116px -140px 54px 43%;
+            border: 1px solid rgba(20, 33, 61, 0.14);
+            box-shadow: 0 26px 70px rgba(20, 33, 61, 0.18);
             overflow: hidden;
+            transform: rotate(-1.5deg);
         }
 
-        .product-panel header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            border-bottom: 1px solid var(--line);
-        }
-
-        .panel-pill {
-            width: 112px;
-            height: 10px;
-            border-radius: 0;
-            background: var(--teal);
-        }
-
-        .panel-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 0;
-            background: var(--coral);
-        }
-
-        .chart-bars {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 12px;
-            align-items: end;
-            height: 176px;
-            padding: 26px 18px;
-        }
-
-        .chart-bars span {
-            min-height: 34px;
-            border-radius: 0;
-            background: var(--green);
-        }
-
-        .chart-bars span:nth-child(2n) {
-            background: var(--gold);
-        }
-
-        .chart-bars span:nth-child(3n) {
-            background: var(--teal);
-        }
-
-        .feed {
-            display: grid;
-            gap: 12px;
-            padding: 18px;
-        }
-
-        .feed span {
-            height: 46px;
-            border-radius: 0;
-            background: #eef4f1;
-            border-left: 5px solid var(--coral);
+        .hero-media img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
         }
 
         .hero-copy {
@@ -337,6 +277,58 @@
             line-height: 1.6;
         }
 
+        .media-showcase {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+            margin-top: 42px;
+        }
+
+        .media-panel {
+            position: relative;
+            min-height: 360px;
+            border: 1px solid var(--line);
+            background: var(--white);
+            overflow: hidden;
+        }
+
+        .media-panel img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .media-panel-copy {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 18px;
+            color: var(--white);
+            background: linear-gradient(180deg, rgba(16, 33, 51, 0) 0%, rgba(16, 33, 51, 0.92) 58%);
+        }
+
+        .media-panel-copy h3 {
+            margin: 0 0 6px;
+            font-size: 1.1rem;
+        }
+
+        .media-panel-copy p {
+            margin: 0;
+            color: #d9e4e8;
+            line-height: 1.5;
+        }
+
+        .media-stack {
+            display: grid;
+            gap: 18px;
+        }
+
+        .media-stack .media-panel {
+            min-height: 255px;
+        }
+
         .plans {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -458,12 +450,13 @@
         }
 
         @media (max-width: 980px) {
-            .product-backdrop {
+            .hero-media {
                 inset: 92px -170px 28px 26%;
                 opacity: 0.42;
             }
 
             .feature-grid,
+            .media-showcase,
             .plans,
             .ops-grid {
                 grid-template-columns: 1fr;
@@ -492,8 +485,8 @@
                 padding: 112px 20px 54px;
             }
 
-            .product-backdrop {
-                inset: 80px -300px 80px 12%;
+            .hero-media {
+                inset: 78px -360px 90px 10%;
             }
 
             .metric-strip {
@@ -523,34 +516,8 @@
 </nav>
 
 <section class="hero">
-    <div class="product-backdrop" aria-hidden="true">
-        <div class="product-panel">
-            <header>
-                <span class="panel-pill"></span>
-                <span class="panel-dot"></span>
-            </header>
-            <div class="chart-bars">
-                <span style="height: 38%"></span>
-                <span style="height: 58%"></span>
-                <span style="height: 72%"></span>
-                <span style="height: 48%"></span>
-                <span style="height: 86%"></span>
-                <span style="height: 64%"></span>
-                <span style="height: 92%"></span>
-            </div>
-        </div>
-        <div class="product-panel">
-            <header>
-                <span class="panel-pill"></span>
-                <span class="panel-dot"></span>
-            </header>
-            <div class="feed">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+    <div class="hero-media" aria-hidden="true">
+        <img src="{{ asset('assets/img/landing/subscription-operations.png') }}" alt="">
     </div>
 
     <div class="hero-copy">
@@ -585,6 +552,31 @@
                 <p>{{ $feature['description'] }}</p>
             </article>
         @endforeach
+    </div>
+    <div class="media-showcase">
+        <article class="media-panel">
+            <img src="{{ asset('assets/img/landing/subscription-operations.png') }}" alt="Subscription operations dashboard for media products" loading="lazy">
+            <div class="media-panel-copy">
+                <h3>Subscriptions at scale</h3>
+                <p>Track plans, renewals, products, payment performance, and revenue movement from one operational screen.</p>
+            </div>
+        </article>
+        <div class="media-stack">
+            <article class="media-panel">
+                <img src="{{ asset('assets/img/landing/user-management.png') }}" alt="User management and access control workspace" loading="lazy">
+                <div class="media-panel-copy">
+                    <h3>User management</h3>
+                    <p>Manage readers, corporate seats, roles, permissions, whitelists, and audit activity with governance built in.</p>
+                </div>
+            </article>
+            <article class="media-panel">
+                <img src="{{ asset('assets/img/landing/paywall-access.png') }}" alt="Paywall access flow across devices" loading="lazy">
+                <div class="media-panel-copy">
+                    <h3>Paywall and access</h3>
+                    <p>Protect premium journalism with entitlement checks, payment status, and cross-device subscriber access.</p>
+                </div>
+            </article>
+        </div>
     </div>
 </section>
 
