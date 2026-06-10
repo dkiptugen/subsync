@@ -9,7 +9,7 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "node scripts/mix-build.cjs --production"
     },
     "dependencies": {
         "@babel/polyfill": "7.12.1",
@@ -69,7 +69,7 @@
         "sass-loader": "13.3.1",
         "terser-webpack-plugin": "^5.4.0",
         "url-loader": "4.1.1",
-        "webpack": "^5.105.4",
+        "webpack": "5.88.2",
         "webpack-cli": "5.1.4",
         "webpack-dev-server": "^5.2.3"
     }

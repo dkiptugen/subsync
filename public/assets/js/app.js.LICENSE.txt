@@ -262,7 +262,7 @@ PERFORMANCE OF THIS SOFTWARE.
  * © SpryMedia Ltd - datatables.net/license
  */
 
-/*! DataTables 2.3.7
+/*! DataTables 2.3.8
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -280,7 +280,7 @@ PERFORMANCE OF THIS SOFTWARE.
  * © SpryMedia Ltd - datatables.net/license
  */
 
-/*! choices.js v11.2.1 | © 2026 Josh Johnson | https://github.com/Choices-js/Choices#readme */
+/*! choices.js v11.2.3 | © 2026 Josh Johnson | https://github.com/Choices-js/Choices#readme */
 
 /*! classnames/dedupe */
 
