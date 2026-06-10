@@ -13,7 +13,7 @@ class SaasLandingController extends Controller
     public function __invoke(SaasCatalog $catalog, SeoMetadataGeneratorInterface $seo): View
     {
         $brand = $catalog->brand();
-        $description = (string) ($brand['description'] ?? 'Subscription operations for growing SaaS teams.');
+        $description = (string) ($brand['description'] ?? 'Subscription operations for growing media teams.');
 
         return view('modules.front.landing', [
             'brand' => $brand,
@@ -27,7 +27,7 @@ class SaasLandingController extends Controller
                 url: route('landing'),
                 image: asset('assets/img/logo.png'),
                 siteName: (string) ($brand['name'] ?? config('app.name')),
-                keywords: ['subscription management', 'saas billing', 'subscriber platform'],
+                keywords: ['subscription management', 'media subscriptions', 'subscriber platform'],
             )),
         ]);
     }

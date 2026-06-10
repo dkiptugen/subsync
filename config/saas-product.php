@@ -3,8 +3,8 @@
 return [
     'brand' => [
         'name' => env('APP_NAME', 'SubSync'),
-        'tagline' => 'Subscription operations for growing media and membership teams.',
-        'description' => 'Launch plans, collect payments, reconcile renewals, and manage subscriber access from one Laravel SaaS workspace.',
+        'tagline' => 'Enterprise subscription infrastructure for media companies.',
+        'description' => 'Manage digital subscriptions, corporate access, payment reconciliation, renewals, and subscriber operations from one governed media platform.',
     ],
 
     'navigation' => [
@@ -14,41 +14,41 @@ return [
     ],
 
     'metrics' => [
-        ['label' => 'Payment channels', 'value' => '6+'],
-        ['label' => 'Subscriber workflows', 'value' => '24/7'],
-        ['label' => 'Plan setup', 'value' => 'Backend'],
+        ['label' => 'Used by', 'value' => 'Nation Media Group'],
+        ['label' => 'Payment and access operations', 'value' => '24/7'],
+        ['label' => 'Individual and corporate subscriptions', 'value' => 'Unified'],
     ],
 
     'features' => [
         [
             'key' => 'subscriber_management',
             'name' => 'Subscriber management',
-            'description' => 'Organize individual and corporate subscribers with controlled access, whitelists, renewals, and account lifecycle tools.',
+            'description' => 'Control individual readers, corporate accounts, access whitelists, renewals, and lifecycle changes across publication products.',
         ],
         [
             'key' => 'billing_automation',
             'name' => 'Billing automation',
-            'description' => 'Run plans, coupons, checkout callbacks, invoices, approvals, and reconciliations through a single billing layer.',
+            'description' => 'Run plans, coupons, checkout callbacks, invoices, approvals, and reconciliation workflows through a single billing layer.',
         ],
         [
             'key' => 'corporate_accounts',
             'name' => 'Corporate accounts',
-            'description' => 'Support B2B subscriptions, purchase orders, seats, invoice records, and customer-managed organization users.',
+            'description' => 'Support B2B subscriptions, purchase orders, seats, invoice records, and organization-managed users for enterprise readers.',
         ],
         [
             'key' => 'analytics_exports',
             'name' => 'Analytics and exports',
-            'description' => 'Track conversions, transactions, subscriptions, churn, and operational reports without leaving the workspace.',
+            'description' => 'Track transactions, active subscriptions, churn, corporate usage, and finance reports without leaving the workspace.',
         ],
         [
             'key' => 'access_controls',
             'name' => 'Access controls',
-            'description' => 'Use roles, permissions, audit logs, and feature gates to keep subscription operations governed as teams grow.',
+            'description' => 'Use roles, permissions, audit logs, and approval controls to keep subscription operations governed as teams grow.',
         ],
         [
             'key' => 'integration_hooks',
             'name' => 'Integration hooks',
-            'description' => 'Connect payment providers, webhooks, MCP tools, and product sites with Laravel-native extension points.',
+            'description' => 'Connect payment providers, webhooks, product sites, finance systems, and subscriber identity workflows.',
         ],
     ],
 
@@ -56,7 +56,7 @@ return [
         [
             'key' => 'launch',
             'name' => 'Launch',
-            'summary' => 'For teams turning a single publication or membership product into a managed subscription offer.',
+            'summary' => 'For media teams turning a single publication or membership product into a managed subscription offer.',
             'badge' => 'Start',
             'amount' => 290000,
             'currency' => 'kes',
@@ -75,7 +75,7 @@ return [
         [
             'key' => 'scale',
             'name' => 'Scale',
-            'summary' => 'For subscription businesses managing multiple products, approvals, finance handoffs, and retention workflows.',
+            'summary' => 'For publishers managing multiple products, approvals, finance handoffs, and retention workflows.',
             'badge' => 'Most popular',
             'amount' => 790000,
             'currency' => 'kes',
@@ -83,7 +83,7 @@ return [
             'trial_days' => 14,
             'popular' => true,
             'cta' => 'Choose Scale',
-            'audience' => 'Growing SaaS operations',
+            'audience' => 'Growing media operations',
             'features' => [
                 'subscriber_management' => ['label' => 'Up to 50,000 subscribers', 'limit' => 50000],
                 'billing_automation' => ['label' => 'Automated renewals, coupons, and approvals'],
@@ -95,7 +95,7 @@ return [
         [
             'key' => 'enterprise',
             'name' => 'Enterprise',
-            'summary' => 'For large publishers and membership platforms needing custom integrations, governance, and high-volume operations.',
+            'summary' => 'For large publishers and media groups needing custom integrations, governance, and high-volume operations.',
             'badge' => 'Custom',
             'amount' => 1490000,
             'currency' => 'kes',

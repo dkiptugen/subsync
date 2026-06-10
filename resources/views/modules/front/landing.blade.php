@@ -96,7 +96,7 @@
             min-height: 42px;
             padding: 0 18px;
             border: 1px solid var(--ink);
-            border-radius: 8px;
+            border-radius: 0;
             font-weight: 800;
         }
 
@@ -135,7 +135,7 @@
         .product-panel {
             min-height: 320px;
             border: 1px solid rgba(20, 33, 61, 0.12);
-            border-radius: 8px;
+            border-radius: 0;
             background: rgba(255, 255, 255, 0.82);
             box-shadow: 0 26px 70px rgba(20, 33, 61, 0.14);
             overflow: hidden;
@@ -152,14 +152,14 @@
         .panel-pill {
             width: 112px;
             height: 10px;
-            border-radius: 999px;
+            border-radius: 0;
             background: var(--teal);
         }
 
         .panel-dot {
             width: 10px;
             height: 10px;
-            border-radius: 999px;
+            border-radius: 0;
             background: var(--coral);
         }
 
@@ -174,7 +174,7 @@
 
         .chart-bars span {
             min-height: 34px;
-            border-radius: 6px 6px 0 0;
+            border-radius: 0;
             background: var(--green);
         }
 
@@ -194,7 +194,7 @@
 
         .feed span {
             height: 46px;
-            border-radius: 8px;
+            border-radius: 0;
             background: #eef4f1;
             border-left: 5px solid var(--coral);
         }
@@ -248,7 +248,7 @@
             width: min(760px, 100%);
             margin-top: 52px;
             border: 1px solid var(--line);
-            border-radius: 8px;
+            border-radius: 0;
             overflow: hidden;
             background: var(--line);
         }
@@ -299,7 +299,7 @@
         .plan-card,
         .ops-card {
             border: 1px solid var(--line);
-            border-radius: 8px;
+            border-radius: 0;
             background: var(--white);
         }
 
@@ -311,7 +311,7 @@
             width: 42px;
             height: 5px;
             margin-bottom: 18px;
-            border-radius: 999px;
+            border-radius: 0;
             background: var(--coral);
         }
 
@@ -360,7 +360,7 @@
             align-self: flex-start;
             margin-bottom: 18px;
             padding: 7px 10px;
-            border-radius: 999px;
+            border-radius: 0;
             color: var(--teal);
             background: #e6f3f4;
             font-weight: 800;
@@ -397,7 +397,7 @@
         .check {
             width: 18px;
             height: 18px;
-            border-radius: 999px;
+            border-radius: 0;
             background: var(--green);
             color: var(--white);
             display: inline-flex;
@@ -518,7 +518,7 @@
     </div>
     <div class="nav-actions">
         <a class="button button-light" href="{{ route('login') }}">Sign in</a>
-        <a class="button button-primary" href="#plans">View plans</a>
+        <a class="button button-primary" href="#plans">View options</a>
     </div>
 </nav>
 
@@ -554,11 +554,11 @@
     </div>
 
     <div class="hero-copy">
-        <p class="eyebrow">{{ $brand['tagline'] ?? 'Laravel SaaS operations' }}</p>
+        <p class="eyebrow">{{ $brand['tagline'] ?? 'Enterprise subscription infrastructure for media companies.' }}</p>
         <h1>{{ $brand['name'] ?? config('app.name') }}</h1>
         <p>{{ $brand['description'] ?? '' }}</p>
         <div class="hero-actions">
-            <a class="button button-primary" href="#plans">Compare plans</a>
+            <a class="button button-primary" href="#plans">Compare options</a>
             <a class="button button-light" href="{{ route('login') }}">Open workspace</a>
         </div>
         <div class="metric-strip">
@@ -574,8 +574,8 @@
 
 <section class="section" id="platform">
     <div class="section-heading">
-        <h2>Everything a subscription team needs after launch.</h2>
-        <p>Product, billing, access, finance, and customer operations stay connected, so teams can move from first sale to renewals without stitching together separate back-office tools.</p>
+        <h2>Subscription infrastructure for serious media operators.</h2>
+        <p>Product, billing, access, finance, and subscriber teams stay connected, so publishers can run reader revenue across publications, payment channels, and corporate accounts without fragmented back-office tools.</p>
     </div>
     <div class="feature-grid">
         @foreach($features as $feature)
@@ -590,8 +590,8 @@
 
 <section class="section" id="plans">
     <div class="section-heading">
-        <h2>Plans powered by the backend catalog.</h2>
-        <p>Pricing and feature availability are loaded from SaaS Kit plan and feature records, with backend configuration as the source for seed data.</p>
+        <h2>Operating models for every stage of media growth.</h2>
+        <p>Start with a focused publication, scale into multi-product reader revenue, or run governed enterprise subscription operations across markets and teams.</p>
     </div>
     <div class="plans">
         @foreach($plans as $plan)
@@ -616,29 +616,29 @@
 
 <section class="section ops-band" id="operations">
     <div class="section-heading">
-        <h2>Built for the operational middle.</h2>
+        <h2>Built for the operational core of reader revenue.</h2>
         <p>SubSync is shaped for the work that happens between checkout and customer success: approvals, reconciliation, subscriber support, and product entitlement.</p>
     </div>
     <div class="ops-grid">
         <article class="ops-card">
             <h3>Finance-ready billing</h3>
-            <p>Keep transaction state, receipts, payment metadata, subscription approvals, and reconciliation workflows close to the plan catalog.</p>
+            <p>Keep transaction state, receipts, payment metadata, subscription approvals, and reconciliation workflows close to every subscription product.</p>
         </article>
         <article class="ops-card">
-            <h3>Team controls</h3>
-            <p>Give operators, finance teams, and administrators the right access through roles, permissions, and audit-ready activity.</p>
+            <h3>Publisher-grade controls</h3>
+            <p>Give operators, finance teams, sales teams, and administrators the right access through roles, permissions, and audit-ready activity.</p>
         </article>
         <article class="ops-card">
-            <h3>Extensible platform</h3>
-            <p>Use Laravel-native packages, SaaS Kit services, Menu Manager navigation, and existing product modules as the foundation for expansion.</p>
+            <h3>Media ecosystem fit</h3>
+            <p>Connect product sites, payment providers, finance workflows, corporate access rules, and subscriber support around one operational source of truth.</p>
         </article>
     </div>
 </section>
 
 <section class="section footer-cta">
     <div>
-        <h2>Ready to run subscriptions like a product?</h2>
-        <p>Start with the backend plan catalog, then adapt the workspace around your subscribers, finance flows, and product access rules.</p>
+        <h2>Ready to run reader revenue with authority?</h2>
+        <p>Adopt the platform already used by Nation Media Group, then adapt the workspace around your publications, subscribers, finance flows, and access rules.</p>
     </div>
     <a class="button button-primary" href="{{ route('login') }}">Sign in to workspace</a>
 </section>
