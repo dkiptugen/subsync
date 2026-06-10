@@ -519,7 +519,6 @@
     <div class="hero-media" aria-hidden="true">
         <img src="{{ asset('assets/img/landing/subscription-operations.png') }}" alt="">
     </div>
-
     <div class="hero-copy">
         <p class="eyebrow">{{ $brand['tagline'] ?? 'Enterprise subscription infrastructure for media companies.' }}</p>
         <h1>{{ $brand['name'] ?? config('app.name') }}</h1>
