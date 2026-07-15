@@ -3,7 +3,7 @@
     <div class="col-12">
 
            @if(($payment_method->provider =='mpesa') && ($payment_method->type =='paybill'))
-            <div class="card card-border-nation">
+            <div class="card">
                     <div class="card-header">
                         <h3 class="card-title text-nation my-0">Mpesa Paybill Update</h3>
                     </div>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
         @elseif(($payment_method->provider =='mpesa') && ($payment_method->type =='buygoods'))
-            <div class="card card-border-nation">
+            <div class="card">
                     <div class="card-header">
                         <h3 class="card-title text-nation my-0">Mpesa Buy Goods Update</h3>
                     </div>
@@ -152,7 +152,7 @@
                     </div>
                 </div>
         @elseif(($payment_method->provider =='dpo'))
-            <div class="card card-border-nation">
+            <div class="card">
                     <div class="card-header">
                         <h3 class="card-title text-nation my-0">DPO Update</h3>
                     </div>
@@ -225,7 +225,7 @@
                     </div>
                 </div>
         @elseif(($payment_method->provider =='pesapal') )
-            <div class="card card-border-nation">
+            <div class="card">
                     <div class="card-header">
                         <h3 class="card-title text-nation my-0">Pesapal Update</h3>
                     </div>

@@ -4,7 +4,7 @@
     <div class="col-12">
         <div class="row g-3 mb-3">
             <div class="col-md-4">
-                <div class="card card-border-nation">
+                <div class="card">
                     <div class="card-body">
                         <div class="text-muted small">Plans</div>
                         <h2 class="mb-0">{{ $metrics['plans'] }}</h2>
@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-border-nation">
+                <div class="card">
                     <div class="card-body">
                         <div class="text-muted small">Features</div>
                         <h2 class="mb-0">{{ $metrics['features'] }}</h2>
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card card-border-nation">
+                <div class="card">
                     <div class="card-body">
                         <div class="text-muted small">Entry plan</div>
                         <h2 class="mb-0">{{ $metrics['entry_price'] }}</h2>
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div class="card card-border-nation mb-3">
+        <div class="card mb-3">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
                     <h3 class="card-title my-0 text-nation">{{ $brand['name'] ?? 'SaaS Product' }}</h3>
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <div class="card card-border-nation">
+        <div class="card">
             <div class="card-header">
                 <h3 class="card-title my-0 text-nation">Backend Features</h3>
             </div>

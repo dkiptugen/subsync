@@ -1,7 +1,7 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card card-border-nation" id="view-table" aria-labelledby="view-table">
+        <div class="card" id="view-table" aria-labelledby="view-table">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title my-0 text-nation">Sales Agents</h3>
                 <div>

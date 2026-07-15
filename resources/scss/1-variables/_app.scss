@@ -245,30 +245,30 @@ $sidebar-brand-font-size: 1.15rem !default;
 $sidebar-brand-color: $gray-100 !default;
 
 // Sidebar header
-$sidebar-header-padding: 1.5rem 1.5rem 0.375rem !default;
-$sidebar-header-font-size: $font-size-sm !default;
-$sidebar-header-color: $gray-400 !default;
+$sidebar-header-padding: 1.125rem 1.5rem 0.25rem !default;
+$sidebar-header-font-size: .6875rem !default;
+$sidebar-header-color: rgba($white, 0.42) !default;
 
 // Sidebar link
-$sidebar-link-padding: .625rem 1.625rem !default;
+$sidebar-link-padding: .625rem 1.5rem !default;
 $sidebar-link-font-weight: 400 !default;
 $sidebar-link-bg: #101628 !default;
-$sidebar-link-color: rgba($white, 0.5) !default;
+$sidebar-link-color: rgba($white, 0.68) !default;
 $sidebar-link-border-left-color: transparent !default;
 
 $sidebar-link-hover-font-weight: $font-weight-normal !default;
-$sidebar-link-hover-bg: #101628 !default;
-$sidebar-link-hover-color: #{rgba($white, 0.75)} !default;
+$sidebar-link-hover-bg: #{rgba($white, 0.045)} !default;
+$sidebar-link-hover-color: #{rgba($white, 0.9)} !default;
 $sidebar-link-hover-border-left-color: transparent !default;
 
 $sidebar-link-active-font-weight: $font-weight-normal !default;
-$sidebar-link-active-bg: #{linear-gradient(90deg, rgba($primary,0.1) 0%, rgba($primary,0.0875) 50%, rgba($black, 0) 100%)} !default;
+$sidebar-link-active-bg: #{rgba($primary, 0.14)} !default;
 $sidebar-link-active-color: $white !default;
-$sidebar-link-active-border-left-color: $primary !default;
+$sidebar-link-active-border-left-color: transparent !default;
 
 // Sidebar link icon
 $sidebar-link-icon-color: #{rgba($white, 0.5)} !default;
-$sidebar-link-icon-hover-color: #{rgba($white, 0.75)} !default;
+$sidebar-link-icon-hover-color: #{rgba($white, 0.82)} !default;
 $sidebar-link-icon-active-color: $white !default;
 
 // Sidebar bottom

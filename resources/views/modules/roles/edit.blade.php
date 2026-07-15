@@ -1,6 +1,6 @@
 @extends('includes.body')
 @section('content')
-    <div class="card card-border-nation" aria-labelledby="add-role" id="edit-role-collapse">
+    <div class="card" aria-labelledby="add-role" id="edit-role-collapse">
         <div class="card-header">
             <h3 class="card-title my-0 text-nation">
                 Edit Role

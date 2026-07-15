@@ -16,6 +16,8 @@
 
 .sidebar-nav {
   padding-left: 0;
+  padding-top: .375rem;
+  padding-bottom: 1rem;
   margin-bottom: 0;
   list-style: none;
   flex-grow: 1;
@@ -24,28 +26,39 @@
 // Sidebar links
 .sidebar-link,
 a.sidebar-link {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
   padding: $sidebar-link-padding;
   font-weight: $sidebar-link-font-weight;
-  transition: background .1s ease-in-out;
+  line-height: 1.35;
+  transition: background-color .15s ease-in-out, color .15s ease-in-out;
   position: relative;
   text-decoration: none;
   cursor: pointer;
   border-left-style: solid;
-  border-left-width: 3px;
+  border-left-width: 0;
   color: $sidebar-link-color;
   background: $sidebar-link-bg;
   border-left-color: $sidebar-link-border-left-color;
 
   i,
   svg {
-    margin-right: .75rem;
+    flex: 0 0 1.125rem;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-right: 0;
     color: $sidebar-link-icon-color;
+  }
+
+  span {
+    min-width: 0;
   }
 }
 
 .sidebar-link:focus {
-  outline: 0;
+  outline: 2px solid rgba($white, .28);
+  outline-offset: -2px;
 }
 
 .sidebar-link:hover {
@@ -125,7 +138,21 @@ a.sidebar-link {
   background: transparent;
   padding: $sidebar-header-padding;
   font-size: $sidebar-header-font-size;
+  font-weight: $font-weight-semibold;
+  letter-spacing: .08em;
+  line-height: 1.2;
+  text-transform: uppercase;
   color: $sidebar-header-color;
+}
+
+.sidebar-dropdown {
+  padding-left: 1.875rem;
+
+  .sidebar-link {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    color: rgba($white, .56);
+  }
 }
 
 // Badge

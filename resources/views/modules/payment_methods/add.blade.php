@@ -3,7 +3,7 @@
     <div class="col-12">
         <div class="row ">
             <div class="col-12 col-md-6 ">
-                <div class="card card-border-nation">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-title text-nation my-0">Mpesa Paybill</h3>
                     </div>
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                {{--<div class="card card-border-nation">
+                {{--<div class="card">
                     <div class="card-header">
                         <h3 class="card-title text-nation my-0">Mpesa Buy Goods</h3>
                     </div>
@@ -107,7 +107,7 @@
                         </form>
                     </div>
                 </div>--}}
-                <div class="card card-border-nation">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-title text-nation my-0">DPO - Digital Payments Online</h3>
                     </div>
@@ -157,7 +157,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="card card-border-nation">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-title text-nation my-0">FASTHUB</h3>
                     </div>
@@ -206,7 +206,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="card card-border-nation">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-title text-nation my-0">Pesapal</h3>
                     </div>

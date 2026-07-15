@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="col-12">
-    <div class="card card-border-nation">
+    <div class="card">
         <div class="card-header">
             <h3 class="card-title my-0 text-nation">Failed Jobs</h3>
         </div>

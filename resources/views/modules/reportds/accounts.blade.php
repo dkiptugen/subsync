@@ -18,7 +18,7 @@
 
         <div class="row mb-4">
             <div class="col-lg-8">
-                <div class="card card-border-nation report-panel h-100">
+                <div class="card report-panel h-100">
                     <div class="card-header">
                         <h5 class="card-title mb-0 text-nation">Daily Accounts</h5>
                     </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card card-border-nation report-panel h-100">
+                <div class="card report-panel h-100">
                     <div class="card-header">
                         <h5 class="card-title mb-0 text-nation">Account Status</h5>
                     </div>
@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class="card card-border-nation report-panel report-results-card">
+        <div class="card report-panel report-results-card">
             <div class="card-header">
                 <h3 class="card-title my-0 text-nation">Account Results</h3>
             </div>

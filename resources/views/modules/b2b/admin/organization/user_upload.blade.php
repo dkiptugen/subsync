@@ -1,7 +1,7 @@
 @extends('includes.body')
 @section('content')
 <div class="col-12">
-    <div class="card card-border-nation">
+    <div class="card">
         <div class="card-header d-flex align-item-center justify-content-between">
             <h3 class="my-0 card-title text-nation">{{ $organization->name }} : Bulk  Users upload</h3>
 

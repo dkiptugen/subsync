@@ -5,7 +5,7 @@
 @section('logo',$logo)
 @section('image',$image)
 @section('content')
-    <section class="card card-border-nation">
+    <section class="card">
     <div class="card-header d-flex justify-content-between">
         <h3 class="card-title my-0 text-nation">Coupon</h3>
         @can('create_coupon')

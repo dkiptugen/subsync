@@ -6,7 +6,7 @@
 
 
 
-            <div class="card card-border-nation">
+            <div class="card">
                 <div class="card-body pb-5">
                     <div class="m-sm-4">
                         <div class="text-center">

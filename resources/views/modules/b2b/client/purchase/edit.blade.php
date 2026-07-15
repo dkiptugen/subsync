@@ -1,6 +1,6 @@
 @extends('includes.body')
 @section('content')
-    <div class="col-12 card card-border-nation">
+    <div class="col-12 card">
         <div class="card-header">
             <h3 class="card-title my-0 text-nation">Edit Purchase Order</h3>
         </div>

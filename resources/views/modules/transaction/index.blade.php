@@ -4,7 +4,7 @@
         @if(Session::has('message'))
             <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
         @endif
-        <div class="card card-border-nation">
+        <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="my-0 card-title text-nation">Transactions</h3>
                 <a href="" class="btn btn-sm btn-outline-nation">

@@ -1,7 +1,7 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card card-border-nation">
+        <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title my-0 text-nation">Subscriptions</h3>
                 <a href="" class="btn btn-sm btn-outline-nation"><i class="fas fa-check me-2"></i>Subscribe</a>

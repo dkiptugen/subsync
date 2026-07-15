@@ -1,7 +1,7 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card card-border-nation">
+        <div class="card">
             <div class="card-header">
                 <h3 class="card-title my-0 text-nation">Edit Transaction : {{ $transaction->subscription->company_name .' '.$transaction->subscription->product->product_name }}</h3>
             </div>

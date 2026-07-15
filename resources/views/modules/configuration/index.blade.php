@@ -3,7 +3,7 @@
     <div id="accordion">
         @php($x=1)
         @foreach($config as $key => $value)
-        <div class="card card-border-nation">
+        <div class="card">
             <div class="card-header" id="headingOne">
               <h3 class="mb-0 card-title text-nation my-0" data-bs-toggle="collapse" data-bs-target="#{{$key}}" aria-expanded="true"
                   aria-controls="collapseOne">

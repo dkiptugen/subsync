@@ -1,7 +1,7 @@
 @extends('includes.body')
 @section('content')
     <div class="col">
-        <div class="card card-border-nation">
+        <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h3 class="card-title my-0 text-nation">Organization Whitelist</h3>
                 @canaccess('whitelist.type.create')
