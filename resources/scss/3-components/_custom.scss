@@ -313,35 +313,26 @@ th{
 
 .page-hero .btn {
     align-items: center;
+    background-color: $primary;
+    border-color: $primary;
+    color: $white;
     display: inline-flex;
     gap: .375rem;
     justify-content: center;
+    line-height: 1.5;
     min-height: 40px;
+    padding: .375rem .75rem;
 }
 
-.page-hero .btn-outline-nation {
-    background: $white;
-    border-color: $primary;
-    color: $primary;
-}
-
-.page-hero .btn-outline-nation:hover,
-.page-hero .btn-outline-nation:focus {
-    background: $primary;
-    color: $white;
-}
-
-.page-hero .btn-nation {
-    background: $primary;
-    border-color: $primary;
-    color: $white;
-}
-
-.page-hero .btn-nation:hover,
-.page-hero .btn-nation:focus {
-    background: darken($primary, 8%);
+.page-hero .btn:hover,
+.page-hero .btn:focus {
+    background-color: darken($primary, 8%);
     border-color: darken($primary, 8%);
     color: $white;
+}
+
+.page-hero .btn:focus {
+    box-shadow: 0 0 0 .25rem rgba($primary, .25);
 }
 
 .page-hero + .card {
