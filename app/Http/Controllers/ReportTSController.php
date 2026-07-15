@@ -52,6 +52,7 @@ class ReportTSController extends Controller
             ->paginate(25)
             ->withQueryString();
         $this->data['filters'] = $filters;
+        $this->data['chartData'] = $this->chartData($filters);
 
         return view('modules.reportds.subscriptions', $this->data);
     }
@@ -89,6 +90,38 @@ class ReportTSController extends Controller
             ->when($filters['status'] === 'inactive', function (Builder $query): void {
                 $query->where('status', '!=', 1);
             });
+    }
+
+    /**
+     * @param  array{startdate: Carbon, enddate: Carbon, product: array<int>, ratetype: array<int>, status: string|null}  $filters
+     * @return array<string, array<string, array<int, int|string>>>
+     */
+    private function chartData(array $filters): array
+    {
+        $dailySubscriptions = (clone $this->subscriptionQuery($filters))
+            ->selectRaw('DATE(subscription_date) as report_date, COUNT(*) as total')
+            ->groupByRaw('DATE(subscription_date)')
+            ->orderByRaw('DATE(subscription_date)')
+            ->pluck('total', 'report_date');
+
+        $statusTotals = (clone $this->subscriptionQuery($filters))
+            ->selectRaw('status, COUNT(*) as total')
+            ->groupBy('status')
+            ->pluck('total', 'status');
+
+        return [
+            'dailySubscriptions' => [
+                'labels' => $dailySubscriptions->keys()->map(fn ($date): string => Carbon::parse($date)->format('M d'))->values()->all(),
+                'data' => $dailySubscriptions->values()->map(fn ($total): int => (int) $total)->all(),
+            ],
+            'subscriptionStatus' => [
+                'labels' => ['Active', 'Inactive'],
+                'data' => [
+                    (int) ($statusTotals[1] ?? 0),
+                    (int) $statusTotals->except([1])->sum(),
+                ],
+            ],
+        ];
     }
 
     /**

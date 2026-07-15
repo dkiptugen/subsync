@@ -1,6 +1,33 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
+        <div class="row mb-4">
+            <div class="col-lg-8">
+                <div class="card card-border-nation h-100">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 text-nation">Daily Registrations</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart chart-sm">
+                            <canvas id="registrationDailyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card card-border-nation h-100">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 text-nation">Registration Status</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart chart-sm">
+                            <canvas id="registrationStatusChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="card card-border-nation">
             <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
                 <h3 class="card-title my-0 text-nation">Registration Report</h3>
@@ -77,4 +104,60 @@
             </div>
         </div>
     </div>
+@endsection
+@section('footer')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const chartData = {{ \Illuminate\Support\Js::from($chartData) }};
+
+            new window.Chart(document.getElementById('registrationDailyChart'), {
+                type: 'line',
+                data: {
+                    labels: chartData.dailyRegistrations.labels,
+                    datasets: [{
+                        label: 'Registrations',
+                        data: chartData.dailyRegistrations.data,
+                        borderColor: window.theme.primary,
+                        backgroundColor: 'rgba(59, 125, 221, 0.12)',
+                        pointBackgroundColor: window.theme.primary,
+                        fill: true,
+                        lineTension: 0.25
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                precision: 0
+                            }
+                        }]
+                    }
+                }
+            });
+
+            new window.Chart(document.getElementById('registrationStatusChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: chartData.registrationStatus.labels,
+                    datasets: [{
+                        data: chartData.registrationStatus.data,
+                        backgroundColor: [window.theme.success, window.theme.danger],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'bottom'
+                    },
+                    cutoutPercentage: 70
+                }
+            });
+        });
+    </script>
 @endsection
