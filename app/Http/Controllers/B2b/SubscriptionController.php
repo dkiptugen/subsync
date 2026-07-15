@@ -17,6 +17,7 @@ use App\Models\Rate;
 use App\Models\RateType;
 use App\Models\User;
 use App\Notifications\NewSubscriptionNotification;
+use App\Traits\Meta;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -29,6 +30,12 @@ use Maatwebsite\Excel\Validators\ValidationException;
 
 class                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       SubscriptionController extends Controller
     {
+        use Meta;
+
+        public function __construct(protected array $data = [])
+            {
+                $this->data = self::site_def();
+            }
     /**
      * Display a listing of the resource.
      *

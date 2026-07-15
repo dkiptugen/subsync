@@ -8,6 +8,7 @@
     use App\Mail\OrgLoginNotification;
     use App\Models\Organization;
     use App\Models\User;
+    use App\Traits\Meta;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Mail;
     use Illuminate\Support\Str;
@@ -15,6 +16,13 @@
 
     class OrganizationController extends Controller
         {
+            use Meta;
+
+            public function __construct(protected array $data = [])
+                {
+                    $this->data = self::site_def();
+                }
+
         /**
          * Display a listing of the resource.
          *

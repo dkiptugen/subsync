@@ -9,6 +9,7 @@ use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Rate;
 use App\Models\RateType;
+use App\Traits\Meta;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -19,6 +20,12 @@ use Illuminate\View\View;
 
 class RateController extends Controller
     {
+        use Meta;
+
+        public function __construct(protected array $data = [])
+            {
+                $this->data = self::site_def();
+            }
     /**
      * Display a listing of the resource.
      *

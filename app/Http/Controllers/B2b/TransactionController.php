@@ -6,12 +6,19 @@
     use App\Http\Requests\B2bTransactionStoreRequest;
     use App\Http\Requests\B2bTransactionUpdateRequest;
     use App\Models\B2bTransaction;
+    use App\Traits\Meta;
     use Illuminate\Http\Request;
     use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\Auth;
 
     class TransactionController extends Controller
         {
+            use Meta;
+
+            public function __construct(protected array $data = [])
+                {
+                    $this->data = self::site_def();
+                }
         /**
          * Display a listing of the resource.
          *

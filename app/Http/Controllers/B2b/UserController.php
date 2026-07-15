@@ -14,6 +14,7 @@
     use App\Notifications\NewUserNotification;
     use App\Notifications\PasswordResetRequest;
     use App\Notifications\UserVerificationNotification;
+    use App\Traits\Meta;
     use Carbon\Carbon;
     use Exception;
     use Illuminate\Http\Request;
@@ -25,6 +26,12 @@
 
     class UserController extends Controller
         {
+            use Meta;
+
+            public function __construct(protected array $data = [])
+                {
+                    $this->data = self::site_def();
+                }
         /**
          * Display a listing of the resource.
          *

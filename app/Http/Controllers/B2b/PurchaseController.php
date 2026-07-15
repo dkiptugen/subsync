@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ApprovePO;
 use App\Models\B2bPurchase;
 use App\Models\B2bSubscription;
+use App\Traits\Meta;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,6 +16,12 @@ use Illuminate\Support\Facades\Log;
 
 class PurchaseController extends Controller
     {
+        use Meta;
+
+        public function __construct(protected array $data = [])
+            {
+                $this->data = self::site_def();
+            }
     /**
      * Display a listing of the resource.
      *
