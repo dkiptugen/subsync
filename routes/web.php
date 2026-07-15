@@ -245,6 +245,7 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth'], 'access_level' => [
         Route::post('subscribers/upload', [SubscriberController::class, 'upload'])->name('subscribers.upload');
 
         Route::resource('agents', AgentsController::class);
+        Route::post('agents/get', [AgentsController::class, 'datatable'])->name('agents.datatable');
         Route::get('agents/bulk/import', [AgentsController::class, 'import'])->name('agents.import');
         Route::post('agents/bulk/upload', [AgentsController::class, 'upload'])->name('agents.upload');
     });

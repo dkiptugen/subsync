@@ -6,6 +6,7 @@ use App\Jobs\ImportAgents;
 use App\Models\Agent;
 use App\Models\Organization;
 use App\Traits\Meta;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -23,6 +24,62 @@ class AgentsController extends Controller
     public function index()
     {
         return view('modules.agents.index', $this->data);
+    }
+
+    public function datatable(Request $request): JsonResponse
+    {
+        $columns = ['id', 'name', 'email', 'phone', 'type', 'department', 'country'];
+        $limit = (int) $request->input('length', 10);
+        $start = (int) $request->input('start', 0);
+        $orderColumn = (int) $request->input('order.0.column', 1);
+        $order = $columns[$orderColumn] ?? 'name';
+        $dir = $request->input('order.0.dir') === 'desc' ? 'desc' : 'asc';
+        $search = $request->input('search.value');
+
+        $query = Agent::with('organizations:id,name');
+        $totalData = Agent::count();
+
+        if (! empty($search)) {
+            $query->where(function ($agentQuery) use ($search): void {
+                $agentQuery->where('name', 'LIKE', "%{$search}%")
+                    ->orWhere('email', 'LIKE', "%{$search}%")
+                    ->orWhere('phone', 'LIKE', "%{$search}%")
+                    ->orWhere('type', 'LIKE', "%{$search}%")
+                    ->orWhere('department', 'LIKE', "%{$search}%")
+                    ->orWhere('country', 'LIKE', "%{$search}%")
+                    ->orWhereHas('organizations', function ($organizationQuery) use ($search): void {
+                        $organizationQuery->where('name', 'LIKE', "%{$search}%");
+                    });
+            });
+        }
+
+        $totalFiltered = (clone $query)->count();
+        $agents = $query->offset($start)
+            ->limit($limit)
+            ->orderBy($order, $dir)
+            ->get();
+
+        $data = [];
+        foreach ($agents as $index => $agent) {
+            $data[] = [
+                'pos' => $start + $index + 1,
+                'name' => $agent->name ?? '',
+                'email' => $agent->email ?? '',
+                'phone' => $agent->phone ?? '',
+                'type' => ucfirst((string) $agent->type),
+                'department' => $agent->department ?? '',
+                'country' => $agent->country ?? '',
+                'organizations' => $agent->organizations->pluck('name')->join(', '),
+                'action' => self::button_generate('agents', $agent->id, [], ['show']),
+            ];
+        }
+
+        return response()->json([
+            'draw' => (int) $request->input('draw'),
+            'recordsTotal' => $totalData,
+            'recordsFiltered' => $totalFiltered,
+            'data' => $data,
+        ]);
     }
 
     public function create()

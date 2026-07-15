@@ -18,7 +18,36 @@
 <div class="card" id="view-table" aria-labelledby="view-table">
 
             <div class="card-body">
-
+                <div class="table-responsive">
+                    <table class="table table-condensed table-hover table-striped w-100" id="agents-table">
+                        <thead class="bg-nation text-white">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Type</th>
+                                <th>Department</th>
+                                <th>Country</th>
+                                <th>Corporates</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tfoot class="bg-nation text-white">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Type</th>
+                                <th>Department</th>
+                                <th>Country</th>
+                                <th>Corporates</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -30,5 +59,30 @@
 
 @endsection
 @section("footer")
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            window.renderDataTable('#agents-table', {
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "{{ route('agents.datatable') }}",
+                    "dataType": "json",
+                    "type": "POST",
+                    "data": {_token: "{{ csrf_token() }}"}
+                },
+                "columns": [
+                    {"data": "pos"},
+                    {"data": "name"},
+                    {"data": "email"},
+                    {"data": "phone"},
+                    {"data": "type"},
+                    {"data": "department"},
+                    {"data": "country"},
+                    {"data": "organizations", "orderable": false},
+                    {"data": "action", "orderable": false}
+                ],
+                "order": [[1, "asc"]]
+            });
+        });
+    </script>
 @endsection
