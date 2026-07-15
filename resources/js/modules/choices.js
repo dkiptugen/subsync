@@ -3,22 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ========== ENHANCED SELECTS ==========
     if (Choices) {
-        document.querySelectorAll('.js-choice,  .chosen-select').forEach(select => {
+        document.querySelectorAll('select:not(.js-choice-ajax):not(.dt-input):not([data-choices-native]):not([data-no-choices])').forEach(select => {
             if (select.dataset.choicesInitialized === 'true') {
                 return;
             }
 
             const isMultiple = select.hasAttribute('multiple');
-            const placeholder = select.dataset.placeholder || select.getAttribute('placeholder') || '';
+            const emptyOption = select.querySelector('option[value=""]');
+            const placeholder = select.dataset.placeholder || select.getAttribute('placeholder') || emptyOption?.textContent?.trim() || (isMultiple ? 'Select options' : 'Select an option');
 
             new Choices(select, {
                 allowHTML: false,
                 itemSelectText: '',
                 removeItemButton: isMultiple,
-                searchEnabled: select.options.length > 8,
+                searchEnabled: select.options.length > 6,
                 shouldSort: false,
                 placeholder: Boolean(placeholder),
                 placeholderValue: placeholder,
+                noResultsText: 'No results found',
+                noChoicesText: 'No options available',
+                searchPlaceholderValue: placeholder,
             });
 
             select.dataset.choicesInitialized = 'true';

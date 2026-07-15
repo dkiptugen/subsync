@@ -42,7 +42,7 @@
         @isset($products)
             <div class="report-filter-field">
                 <label for="product" class="form-label">Products</label>
-                <select name="product[]" id="product" class="form-control @error('product') is-invalid @enderror" multiple>
+                <select name="product[]" id="product" class="form-select js-choice report-filter-select @error('product') is-invalid @enderror" multiple data-placeholder="All products">
                     @foreach($products as $product)
                         <option value="{{ $product->id }}" @selected(in_array($product->id, $filters['product'], true))>{{ $product->product_name }}</option>
                     @endforeach
@@ -55,7 +55,7 @@
         @isset($rateTypes)
             <div class="report-filter-field">
                 <label for="ratetype" class="form-label">Rate Types</label>
-                <select name="ratetype[]" id="ratetype" class="form-control @error('ratetype') is-invalid @enderror" multiple>
+                <select name="ratetype[]" id="ratetype" class="form-select js-choice report-filter-select @error('ratetype') is-invalid @enderror" multiple data-placeholder="All rate types">
                     @foreach($rateTypes as $rateType)
                         <option value="{{ $rateType->id }}" @selected(in_array($rateType->id, $filters['ratetype'], true))>{{ $rateType->name }}</option>
                     @endforeach

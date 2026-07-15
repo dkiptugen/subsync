@@ -624,6 +624,95 @@ th{
     }
 }
 
+.choices {
+    margin-bottom: 0;
+}
+
+.choices[data-type*="select-one"]::after {
+    border-color: $gray-700 transparent transparent;
+    right: .875rem;
+}
+
+.choices[data-type*="select-one"].is-open::after {
+    border-color: transparent transparent $gray-700;
+}
+
+.choices__inner {
+    align-items: center;
+    background-color: $white;
+    border: $border-width solid $input-border-color;
+    border-radius: $input-border-radius;
+    display: flex;
+    min-height: 44px;
+    padding: .25rem 2rem .25rem .75rem;
+}
+
+.choices.is-focused .choices__inner,
+.choices.is-open .choices__inner {
+    border-color: tint-color($primary, 50%);
+    box-shadow: 0 0 0 .25rem rgba($primary, .25);
+}
+
+.choices__list--single {
+    padding: .25rem 0;
+}
+
+.choices__list--multiple {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+}
+
+.choices__list--multiple .choices__item {
+    background-color: rgba($primary, .1);
+    border: $border-width solid rgba($primary, .2);
+    border-radius: $input-border-radius;
+    color: darken($primary, 20%);
+    font-size: .8125rem;
+    font-weight: 600;
+    margin: 0;
+    padding: .25rem 1.5rem .25rem .5rem;
+}
+
+.choices__list--multiple .choices__item .choices__button {
+    border-left-color: rgba($primary, .24);
+    margin-left: .375rem;
+}
+
+.choices__input {
+    background-color: transparent;
+    margin-bottom: 0;
+    padding: .25rem;
+}
+
+.choices__placeholder {
+    color: $gray-600;
+    opacity: 1;
+}
+
+.choices__list--dropdown,
+.choices__list[aria-expanded] {
+    border-color: $input-border-color;
+    border-radius: 0 0 $input-border-radius $input-border-radius;
+    box-shadow: 0 .75rem 1.5rem rgba($black, .08);
+    z-index: 1050;
+}
+
+.choices__list--dropdown .choices__item--selectable,
+.choices__list[aria-expanded] .choices__item--selectable {
+    padding-right: 1rem;
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted,
+.choices__list[aria-expanded] .choices__item--selectable.is-highlighted {
+    background-color: rgba($primary, .08);
+}
+
+.is-invalid + .choices .choices__inner {
+    border-color: $form-feedback-invalid-color;
+}
+
 .dashboard-revenue {
     background: $gray-100;
     border-left: 4px solid $success;
@@ -723,15 +812,15 @@ th{
 }
 
 .report-hero {
-    background: $white;
-    border: $border-width solid $border-color;
+    background: linear-gradient(180deg, $white 0%, mix($white, $primary, 97%) 100%);
+    border: $border-width solid mix($border-color, $primary, 82%);
     border-left: 4px solid $primary;
     margin-bottom: 1.5rem;
-    padding: 1.25rem;
+    padding: 1.5rem;
 }
 
 .report-hero__header {
-    align-items: flex-start;
+    align-items: center;
     display: flex;
     gap: 1rem;
     justify-content: space-between;
@@ -770,19 +859,25 @@ th{
 }
 
 .report-filter-grid {
-    align-items: end;
+    align-items: stretch;
+    background: rgba($white, .72);
+    border: $border-width solid rgba($primary, .12);
     display: grid;
     gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    padding: 1rem;
 }
 
 .report-filter-field {
+    display: flex;
+    flex-direction: column;
     min-width: 0;
 }
 
 .report-filter-field .form-label {
     color: $gray-800;
     font-weight: 600;
+    margin-bottom: .375rem;
 }
 
 .report-filter-field .form-control,
@@ -790,11 +885,8 @@ th{
     min-height: 44px;
 }
 
-.report-filter-field select[multiple] {
-    min-height: 92px;
-}
-
 .report-filter-actions {
+    align-items: end;
     display: flex;
     justify-content: flex-end;
 }
