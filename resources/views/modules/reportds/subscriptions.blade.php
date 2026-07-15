@@ -47,7 +47,7 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-condensed table-striped table-hover">
+                    <table id="subscription-report-table" class="table table-condensed table-striped table-hover w-100">
                         <thead class="bg-nation text-white">
                             <tr>
                                 <th>#</th>
@@ -63,32 +63,8 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @forelse($subscriptions as $subscription)
-                                @php($transaction = $subscription->transaction->first())
-                                <tr>
-                                    <td>{{ $subscriptions->firstItem() + $loop->index }}</td>
-                                    <td>{{ $subscription->identifier }}</td>
-                                    <td>{{ $subscription->product?->product_name ?? '-' }}</td>
-                                    <td>{{ $subscription->rate?->rate_type?->name ?? '-' }}</td>
-                                    <td>{{ number_format((float) $subscription->transaction->sum('amount_paid'), 2) }}</td>
-                                    <td>{{ $transaction?->receipt ?? '-' }}</td>
-                                    <td>{{ $subscription->subscription_date ? \Illuminate\Support\Carbon::parse($subscription->subscription_date)->format('M d, Y H:i') : '-' }}</td>
-                                    <td>{{ $subscription->expiry_date ? \Illuminate\Support\Carbon::parse($subscription->expiry_date)->format('M d, Y H:i') : '-' }}</td>
-                                    <td>{{ trim(($subscription->user?->name ?? '').' '.($subscription->user?->surname ?? '')) ?: '-' }}</td>
-                                    <td>{{ $subscription->user?->email ?? '-' }}</td>
-                                    <td>{{ $subscription->status ? 'Active' : 'Inactive' }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="11" class="text-center">No subscriptions found for these filters.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
                     </table>
                 </div>
-
-                {{ $subscriptions->links() }}
             </div>
         </div>
     </div>
@@ -97,6 +73,30 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const chartData = {{ \Illuminate\Support\Js::from($chartData) }};
+            const reportFilters = {{ \Illuminate\Support\Js::from(request()->query()) }};
+
+            window.renderDataTable('#subscription-report-table', {
+                ajax: {
+                    url: "{{ route('report.subscription_datatable') }}",
+                    data: reportFilters
+                },
+                columns: [
+                    {data: 'pos', orderable: false, searchable: false},
+                    {data: 'identifier'},
+                    {data: 'product', orderable: false},
+                    {data: 'subscription_type', orderable: false},
+                    {data: 'amount_paid', orderable: false, searchable: false},
+                    {data: 'receipt', orderable: false},
+                    {data: 'subscription_date'},
+                    {data: 'expiry_date'},
+                    {data: 'name', orderable: false},
+                    {data: 'email', orderable: false},
+                    {data: 'status'}
+                ],
+                order: [[6, 'desc']],
+                fixedHeader: true,
+                responsive: true
+            });
 
             new window.Chart(document.getElementById('subscriptionDailyChart'), {
                 type: 'line',

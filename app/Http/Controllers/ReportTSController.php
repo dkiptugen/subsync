@@ -13,6 +13,7 @@ use App\Models\Subscription;
 use App\Models\Transaction;
 use App\Traits\Meta;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\View\View;
@@ -50,14 +51,17 @@ class ReportTSController extends Controller
 
         $this->data['products'] = Product::orderBy('product_name')->get();
         $this->data['rateTypes'] = RateType::orderBy('name')->get();
-        $this->data['subscriptions'] = $this->subscriptionQuery($filters)
-            ->latest('subscription_date')
-            ->paginate(25)
-            ->withQueryString();
         $this->data['filters'] = $filters;
         $this->data['chartData'] = $this->chartData($filters);
 
         return view('modules.reportds.subscriptions', $this->data);
+    }
+
+    public function subscriptions_datatable(ReportFilterRequest $request): JsonResponse
+    {
+        $filters = $this->filters($request);
+
+        return response()->json($this->subscriptionDatatable($request, $this->subscriptionQuery($filters)));
     }
 
     public function subscriptions(ReportFilterRequest $request)
@@ -109,14 +113,60 @@ class ReportTSController extends Controller
 
         $this->data['products'] = Product::orderBy('product_name')->get();
         $this->data['rateTypes'] = RateType::orderBy('name')->get();
-        $this->data['transactions'] = $this->revenueQuery($filters)
-            ->latest('transaction_date')
-            ->paginate(25)
-            ->withQueryString();
         $this->data['filters'] = $filters;
         $this->data['chartData'] = $this->revenueChartData($filters);
 
         return view('modules.reportds.revenue', $this->data);
+    }
+
+    public function revenue_datatable(ReportFilterRequest $request): JsonResponse
+    {
+        $filters = $this->filters($request);
+        $query = $this->revenueQuery($filters);
+        $columns = [
+            1 => 'identifier',
+            2 => 'receipt',
+            6 => 'channel',
+            7 => 'amount_paid',
+            8 => 'transaction_date',
+            9 => 'status',
+        ];
+
+        return response()->json($this->datatableResponse(
+            request: $request,
+            query: $query,
+            searchable: function (Builder $searchQuery, string $search): void {
+                $searchQuery->where(function (Builder $query) use ($search): void {
+                    $query->where('identifier', 'LIKE', "%{$search}%")
+                        ->orWhere('receipt', 'LIKE', "%{$search}%")
+                        ->orWhere('channel', 'LIKE', "%{$search}%")
+                        ->orWhereHas('user', function (Builder $userQuery) use ($search): void {
+                            $userQuery->where('name', 'LIKE', "%{$search}%")
+                                ->orWhere('surname', 'LIKE', "%{$search}%")
+                                ->orWhere('email', 'LIKE', "%{$search}%");
+                        })
+                        ->orWhereHas('subscription.product', function (Builder $productQuery) use ($search): void {
+                            $productQuery->where('product_name', 'LIKE', "%{$search}%");
+                        });
+                });
+            },
+            orderColumns: $columns,
+            defaultOrder: 'transaction_date',
+            rowMapper: function (Transaction $transaction, int $position): array {
+                return [
+                    'pos' => $position,
+                    'identifier' => $transaction->identifier,
+                    'receipt' => $transaction->receipt ?? '-',
+                    'name' => trim(($transaction->user?->name ?? '').' '.($transaction->user?->surname ?? '')) ?: '-',
+                    'email' => $transaction->user?->email ?? '-',
+                    'product' => $transaction->subscription?->product?->product_name ?? '-',
+                    'channel' => $transaction->channel ?? $transaction->payment_method?->name ?? '-',
+                    'amount_paid' => trim(($transaction->currency ?? '').' '.number_format((float) $transaction->amount_paid, 2)),
+                    'transaction_date' => $transaction->transaction_date ? Carbon::parse($transaction->transaction_date)->format('M d, Y H:i') : '-',
+                    'status' => $transaction->status ? 'Successful' : 'Failed',
+                ];
+            }
+        ));
     }
 
     public function revenue(ReportFilterRequest $request)
@@ -136,15 +186,25 @@ class ReportTSController extends Controller
 
         $this->data['products'] = Product::orderBy('product_name')->get();
         $this->data['rateTypes'] = RateType::orderBy('name')->get();
-        $this->data['subscriptions'] = $this->accountQuery($filters, $activatedOnly)
-            ->latest('subscription_date')
-            ->paginate(25)
-            ->withQueryString();
         $this->data['filters'] = $filters;
         $this->data['activatedOnly'] = $activatedOnly;
         $this->data['chartData'] = $this->accountChartData($filters, $activatedOnly);
 
         return view('modules.reportds.accounts', $this->data);
+    }
+
+    public function accounts_datatable(ReportFilterRequest $request): JsonResponse
+    {
+        $filters = $this->filters($request);
+
+        return response()->json($this->accountDatatable($request, $this->accountQuery($filters, false)));
+    }
+
+    public function activated_accounts_datatable(ReportFilterRequest $request): JsonResponse
+    {
+        $filters = $this->filters($request);
+
+        return response()->json($this->accountDatatable($request, $this->accountQuery($filters, true)));
     }
 
     /**
@@ -207,6 +267,150 @@ class ReportTSController extends Controller
             ->when($filters['status'] === 'inactive', function (Builder $query): void {
                 $query->where('status', '!=', 1);
             });
+    }
+
+    /**
+     * @return array{draw: int, recordsTotal: int, recordsFiltered: int, data: array<int, array<string, mixed>>}
+     */
+    private function subscriptionDatatable(Request $request, Builder $query): array
+    {
+        $columns = [
+            1 => 'identifier',
+            6 => 'subscription_date',
+            7 => 'expiry_date',
+            10 => 'status',
+        ];
+
+        return $this->datatableResponse(
+            request: $request,
+            query: $query,
+            searchable: $this->subscriptionSearchable(),
+            orderColumns: $columns,
+            defaultOrder: 'subscription_date',
+            rowMapper: function (Subscription $subscription, int $position): array {
+                $transaction = $subscription->transaction->first();
+
+                return [
+                    'pos' => $position,
+                    'identifier' => $subscription->identifier,
+                    'product' => $subscription->product?->product_name ?? '-',
+                    'subscription_type' => $subscription->rate?->rate_type?->name ?? '-',
+                    'amount_paid' => number_format((float) $subscription->transaction->sum('amount_paid'), 2),
+                    'receipt' => $transaction?->receipt ?? '-',
+                    'subscription_date' => $subscription->subscription_date ? Carbon::parse($subscription->subscription_date)->format('M d, Y H:i') : '-',
+                    'expiry_date' => $subscription->expiry_date ? Carbon::parse($subscription->expiry_date)->format('M d, Y H:i') : '-',
+                    'name' => trim(($subscription->user?->name ?? '').' '.($subscription->user?->surname ?? '')) ?: '-',
+                    'email' => $subscription->user?->email ?? '-',
+                    'status' => $subscription->status ? 'Active' : 'Inactive',
+                ];
+            }
+        );
+    }
+
+    /**
+     * @return array{draw: int, recordsTotal: int, recordsFiltered: int, data: array<int, array<string, mixed>>}
+     */
+    private function accountDatatable(Request $request, Builder $query): array
+    {
+        $columns = [
+            1 => 'identifier',
+            7 => 'subscription_date',
+            8 => 'expiry_date',
+            10 => 'status',
+        ];
+
+        return $this->datatableResponse(
+            request: $request,
+            query: $query,
+            searchable: $this->subscriptionSearchable(),
+            orderColumns: $columns,
+            defaultOrder: 'subscription_date',
+            rowMapper: function (Subscription $subscription, int $position): array {
+                return [
+                    'pos' => $position,
+                    'identifier' => $subscription->identifier,
+                    'name' => trim(($subscription->user?->name ?? '').' '.($subscription->user?->surname ?? '')) ?: '-',
+                    'email' => $subscription->user?->email ?? '-',
+                    'product' => $subscription->product?->product_name ?? '-',
+                    'subscription_type' => $subscription->rate?->rate_type?->name ?? '-',
+                    'amount_paid' => number_format((float) $subscription->transaction->sum('amount_paid'), 2),
+                    'subscription_date' => $subscription->subscription_date ? Carbon::parse($subscription->subscription_date)->format('M d, Y H:i') : '-',
+                    'expiry_date' => $subscription->expiry_date ? Carbon::parse($subscription->expiry_date)->format('M d, Y H:i') : '-',
+                    'activated_by' => $subscription->activator?->name ?? '-',
+                    'status' => $subscription->status ? 'Active' : 'Inactive',
+                ];
+            }
+        );
+    }
+
+    /**
+     * @return callable(Builder, string): void
+     */
+    private function subscriptionSearchable(): callable
+    {
+        return function (Builder $searchQuery, string $search): void {
+            $searchQuery->where(function (Builder $query) use ($search): void {
+                $query->where('identifier', 'LIKE', "%{$search}%")
+                    ->orWhereHas('user', function (Builder $userQuery) use ($search): void {
+                        $userQuery->where('name', 'LIKE', "%{$search}%")
+                            ->orWhere('surname', 'LIKE', "%{$search}%")
+                            ->orWhere('email', 'LIKE', "%{$search}%");
+                    })
+                    ->orWhereHas('product', function (Builder $productQuery) use ($search): void {
+                        $productQuery->where('product_name', 'LIKE', "%{$search}%");
+                    })
+                    ->orWhereHas('rate.rate_type', function (Builder $rateTypeQuery) use ($search): void {
+                        $rateTypeQuery->where('name', 'LIKE', "%{$search}%");
+                    });
+            });
+        };
+    }
+
+    /**
+     * @param  callable(Builder, string): void  $searchable
+     * @param  array<int, string>  $orderColumns
+     * @param  callable(mixed, int): array<string, mixed>  $rowMapper
+     * @return array{draw: int, recordsTotal: int, recordsFiltered: int, data: array<int, array<string, mixed>>}
+     */
+    private function datatableResponse(
+        Request $request,
+        Builder $query,
+        callable $searchable,
+        array $orderColumns,
+        string $defaultOrder,
+        callable $rowMapper
+    ): array {
+        $totalData = (clone $query)->count();
+        $search = (string) $request->input('search.value', '');
+
+        if ($search !== '') {
+            $searchable($query, $search);
+        }
+
+        $totalFiltered = (clone $query)->count();
+        $limit = (int) $request->input('length', 25);
+        $start = (int) $request->input('start', 0);
+        $orderColumn = (int) $request->input('order.0.column', 0);
+        $order = $orderColumns[$orderColumn] ?? $defaultOrder;
+        $direction = $request->input('order.0.dir') === 'asc' ? 'asc' : 'desc';
+
+        $items = $query
+            ->orderBy($order, $direction)
+            ->when($limit > 0, function (Builder $pageQuery) use ($start, $limit): void {
+                $pageQuery->offset($start)->limit($limit);
+            })
+            ->get();
+
+        $position = $start + 1;
+
+        return [
+            'draw' => (int) $request->input('draw'),
+            'recordsTotal' => $totalData,
+            'recordsFiltered' => $totalFiltered,
+            'data' => $items->map(function ($item) use (&$position, $rowMapper): array {
+                return $rowMapper($item, $position++);
+            })->all(),
+        ];
     }
 
     /**

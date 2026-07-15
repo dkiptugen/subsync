@@ -197,15 +197,20 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth'], 'access_level' => [
         Route::post('/organization/{organization}/save_pass', [OrganizationController::class, 'set_default_password'])->name('organization.password.store');
 
         Route::get('report/subscriber-form', [ReportsController::class, 'reg_index'])->name('report.subscriber_form');
+        Route::post('report/subscriber-datatable', [ReportsController::class, 'reg_datatable'])->name('report.subscriber_datatable');
         Route::post('report/subscriber-export', [ReportTSController::class, 'subscribers_export'])->name('report.subscriber');
 
         Route::get('report/subscription-form', [ReportTSController::class, 'subscriptions_form'])->name('report.subscription_form');
+        Route::post('report/subscription-datatable', [ReportTSController::class, 'subscriptions_datatable'])->name('report.subscription_datatable');
         Route::post('report/subscription', [ReportTSController::class, 'subscriptions'])->name('report.subscription');
         Route::get('report/individual-accounts-form', [ReportTSController::class, 'accounts_form'])->name('report.accounts_form');
+        Route::post('report/individual-accounts-datatable', [ReportTSController::class, 'accounts_datatable'])->name('report.accounts_datatable');
         Route::post('report/individual-accounts', [ReportTSController::class, 'accounts'])->name('report.accounts');
         Route::get('report/activated-accounts-form', [ReportTSController::class, 'activated_accounts_form'])->name('report.activated_accounts_form');
+        Route::post('report/activated-accounts-datatable', [ReportTSController::class, 'activated_accounts_datatable'])->name('report.activated_accounts_datatable');
         Route::post('report/activated-accounts', [ReportTSController::class, 'activated_accounts'])->name('report.activated_accounts');
         Route::get('report/revenue-form', [ReportTSController::class, 'revenue_form'])->name('report.revenue_form');
+        Route::post('report/revenue-datatable', [ReportTSController::class, 'revenue_datatable'])->name('report.revenue_datatable');
         Route::post('report/revenue', [ReportTSController::class, 'revenue'])->name('report.revenue');
 
         Route::resource('organization.transaction', B2BTransactionController::class);

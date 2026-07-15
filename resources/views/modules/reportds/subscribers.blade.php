@@ -44,7 +44,7 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-condensed table-striped table-hover">
+                    <table id="registration-report-table" class="table table-condensed table-striped table-hover w-100">
                         <thead class="bg-nation text-white">
                             <tr>
                                 <th>#</th>
@@ -58,29 +58,8 @@
                                 <th>Registration Date</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @forelse($subscribers as $subscriber)
-                                <tr>
-                                    <td>{{ $subscribers->firstItem() + $loop->index }}</td>
-                                    <td>{{ trim($subscriber->name.' '.$subscriber->surname) }}</td>
-                                    <td>{{ $subscriber->email }}</td>
-                                    <td>{{ $subscriber->organization->name }}</td>
-                                    <td>{{ $subscriber->status ? 'Active' : 'Inactive' }}</td>
-                                    <td>{{ $subscriber->phone ?? '-' }}</td>
-                                    <td>{{ $subscriber->providers->pluck('provider')->implode(', ') ?: 'Direct' }}</td>
-                                    <td>{{ $subscriber->last_login ? \Illuminate\Support\Carbon::parse($subscriber->last_login)->format('M d, Y H:i') : '-' }}</td>
-                                    <td>{{ $subscriber->created_at->format('M d, Y H:i') }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="9" class="text-center">No registrations found for this date range.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
                     </table>
                 </div>
-
-                {{ $subscribers->links() }}
             </div>
         </div>
     </div>
@@ -89,6 +68,28 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const chartData = {{ \Illuminate\Support\Js::from($chartData) }};
+            const reportFilters = {{ \Illuminate\Support\Js::from(request()->query()) }};
+
+            window.renderDataTable('#registration-report-table', {
+                ajax: {
+                    url: "{{ route('report.subscriber_datatable') }}",
+                    data: reportFilters
+                },
+                columns: [
+                    {data: 'pos', orderable: false, searchable: false},
+                    {data: 'name'},
+                    {data: 'email'},
+                    {data: 'organization', orderable: false},
+                    {data: 'status'},
+                    {data: 'phone', orderable: false},
+                    {data: 'login_type', orderable: false},
+                    {data: 'last_login'},
+                    {data: 'created_at'}
+                ],
+                order: [[8, 'desc']],
+                fixedHeader: true,
+                responsive: true
+            });
 
             new window.Chart(document.getElementById('registrationDailyChart'), {
                 type: 'line',

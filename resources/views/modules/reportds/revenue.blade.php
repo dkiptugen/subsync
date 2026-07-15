@@ -51,7 +51,7 @@
 
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-condensed table-striped table-hover">
+                    <table id="revenue-report-table" class="table table-condensed table-striped table-hover w-100">
                         <thead class="bg-nation text-white">
                             <tr>
                                 <th>#</th>
@@ -66,30 +66,8 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @forelse($transactions as $transaction)
-                                <tr>
-                                    <td>{{ $transactions->firstItem() + $loop->index }}</td>
-                                    <td>{{ $transaction->identifier }}</td>
-                                    <td>{{ $transaction->receipt ?? '-' }}</td>
-                                    <td>{{ trim(($transaction->user?->name ?? '').' '.($transaction->user?->surname ?? '')) ?: '-' }}</td>
-                                    <td>{{ $transaction->user?->email ?? '-' }}</td>
-                                    <td>{{ $transaction->subscription?->product?->product_name ?? '-' }}</td>
-                                    <td>{{ $transaction->channel ?? $transaction->payment_method?->name ?? '-' }}</td>
-                                    <td>{{ trim(($transaction->currency ?? '').' '.number_format((float) $transaction->amount_paid, 2)) }}</td>
-                                    <td>{{ $transaction->transaction_date ? \Illuminate\Support\Carbon::parse($transaction->transaction_date)->format('M d, Y H:i') : '-' }}</td>
-                                    <td>{{ $transaction->status ? 'Successful' : 'Failed' }}</td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="10" class="text-center">No revenue found for these filters.</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
                     </table>
                 </div>
-
-                {{ $transactions->links() }}
             </div>
         </div>
     </div>
@@ -98,6 +76,29 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const chartData = {{ \Illuminate\Support\Js::from($chartData) }};
+            const reportFilters = {{ \Illuminate\Support\Js::from(request()->query()) }};
+
+            window.renderDataTable('#revenue-report-table', {
+                ajax: {
+                    url: "{{ route('report.revenue_datatable') }}",
+                    data: reportFilters
+                },
+                columns: [
+                    {data: 'pos', orderable: false, searchable: false},
+                    {data: 'identifier'},
+                    {data: 'receipt'},
+                    {data: 'name', orderable: false},
+                    {data: 'email', orderable: false},
+                    {data: 'product', orderable: false},
+                    {data: 'channel'},
+                    {data: 'amount_paid'},
+                    {data: 'transaction_date'},
+                    {data: 'status'}
+                ],
+                order: [[8, 'desc']],
+                fixedHeader: true,
+                responsive: true
+            });
 
             new window.Chart(document.getElementById('revenueDailyChart'), {
                 type: 'line',
