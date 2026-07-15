@@ -1,12 +1,8 @@
 @extends('includes.body')
 @section('content')
     <div class="dashboard-shell">
-        <nav aria-label="breadcrumb" class="dashboard-breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-            </ol>
-        </nav>
+
+
 
         <section class="dashboard-hero" aria-labelledby="dashboard-title">
             <div>
