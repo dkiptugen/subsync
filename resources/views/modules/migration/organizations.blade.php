@@ -7,17 +7,24 @@
 
             </div>
             <div class="card-body">
-                <div id="dropzone" class="d-flex align-items-center justify-content-center" data-endpoint="{{ route('migorganizations.store') }}">
-                    <div class="">
+                <form action="{{ route('migorganizations.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div id="dropzone" class="d-flex align-items-center justify-content-center">
+                        <div class="">
                         <p>Drag and drop files here, or click to select files.
                             <br>
                             <a href="{{ asset('corporates.xlsx') }}">Download Sample excel Sheet</a>
                         </p>
 
-                        <input type="file" id="fileInput" multiple data-endpoint="{{ route('migorganizations.store') }}">
+                            <input type="file" id="fileInput" name="files[]" class="form-control" multiple required>
+                            <div class="text-end mt-3">
+                                <button type="submit" class="btn btn-sm btn-outline-nation">
+                                    <i class="fas fa-upload"></i> Upload
+                                </button>
+                            </div>
+                        </div>
                     </div>
-
-                </div>
+                </form>
             </div>
         </div>
     </div>

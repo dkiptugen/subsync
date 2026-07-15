@@ -261,6 +261,27 @@
                             <span class="align-middle">Subscription</span>
                         </a>
                     </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link fw-bold"
+                           href="{{ route('report.accounts_form') }}">
+                            <i class="align-middle fas fa-address-card"></i>
+                            <span class="align-middle">Individual Accounts</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link fw-bold"
+                           href="{{ route('report.activated_accounts_form') }}">
+                            <i class="align-middle fas fa-user-check"></i>
+                            <span class="align-middle">Activated Accounts</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link fw-bold"
+                           href="{{ route('report.revenue_form') }}">
+                            <i class="align-middle fas fa-chart-line"></i>
+                            <span class="align-middle">Revenue</span>
+                        </a>
+                    </li>
                     <li class="sidebar-header">
                         Data Migration
                     </li>

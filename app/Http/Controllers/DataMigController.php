@@ -42,14 +42,7 @@ class DataMigController extends Controller
                 return self::failed('Rates import', 'The file must be an Excel file.', route('product.rate.index', 0));
             }
             try {
-                $path = $file->storeAs(
-                    'uploads',
-                    'rate-'.time().'.'.$extension,
-                    's3'
-                );
-                // Log::error($this->s3_path($path));
-
-                Excel::import(new RateImport(Auth::user()->id), $path, 's3', \Maatwebsite\Excel\Excel::XLSX);
+                Excel::import(new RateImport(Auth::user()->id), $file);
 
                 return self::success('Rates import', 'import successful', route('product.rate.index', 0));
             } catch (ValidationException $e) {
@@ -86,17 +79,16 @@ class DataMigController extends Controller
                 return self::failed('Individual accounts import', 'The file must be an Excel file.', route('product.subscriber.index', 0));
             }
             try {
-                $path = $file->storeAs(
-                    'uploads',
-                    'individual-'.time().'.'.$extension,
-                    's3'
-                );
-                Excel::import(new IndividualImport(Auth::user()->id), $path, 's3', \Maatwebsite\Excel\Excel::XLSX);
+                Excel::import(new IndividualImport(Auth::user()->id), $file);
 
                 return self::success('Individual Accounts import', 'import successful', route('product.subscriber.index', 0));
             } catch (ValidationException $e) {
 
                 return self::failed('Individual Accounts import', $e->failures(), route('product.subscriber.index', 0));
+
+            } catch (\Exception $e) {
+
+                return self::failed('Individual Accounts import', $e->getMessage(), route('product.subscriber.index', 0));
 
             }
 
@@ -124,12 +116,7 @@ class DataMigController extends Controller
                 return self::failed('Organizations import', 'The file must be an Excel file.', route('organization.index'));
             }
             try {
-                $path = $file->storeAs(
-                    'uploads',
-                    'individual-'.time().'.'.$extension,
-                    's3'
-                );
-                Excel::import(new OrganizationImport(Auth::user()->id), $path, 's3', \Maatwebsite\Excel\Excel::XLSX);
+                Excel::import(new OrganizationImport(Auth::user()->id), $file);
 
                 return self::success('Organizations import', 'import successful', route('organization.index'));
             } catch (ValidationException $e) {
@@ -167,12 +154,7 @@ class DataMigController extends Controller
                 return self::failed('Corporate Users import', 'The file must be an Excel file.', route('organization.index'));
             }
             try {
-                $path = $file->storeAs(
-                    'uploads',
-                    'corporate-users-'.time().'.'.$extension,
-                    's3'
-                );
-                Excel::import(new CorporateUsersImport(Auth::user()->id), $path, 's3', \Maatwebsite\Excel\Excel::XLSX);
+                Excel::import(new CorporateUsersImport(Auth::user()->id), $file);
 
                 return self::success('Corporate Users import', 'import successful', route('organization.index'));
             } catch (ValidationException $e) {

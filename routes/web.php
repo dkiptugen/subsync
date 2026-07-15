@@ -201,6 +201,12 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth'], 'access_level' => [
 
         Route::get('report/subscription-form', [ReportTSController::class, 'subscriptions_form'])->name('report.subscription_form');
         Route::post('report/subscription', [ReportTSController::class, 'subscriptions'])->name('report.subscription');
+        Route::get('report/individual-accounts-form', [ReportTSController::class, 'accounts_form'])->name('report.accounts_form');
+        Route::post('report/individual-accounts', [ReportTSController::class, 'accounts'])->name('report.accounts');
+        Route::get('report/activated-accounts-form', [ReportTSController::class, 'activated_accounts_form'])->name('report.activated_accounts_form');
+        Route::post('report/activated-accounts', [ReportTSController::class, 'activated_accounts'])->name('report.activated_accounts');
+        Route::get('report/revenue-form', [ReportTSController::class, 'revenue_form'])->name('report.revenue_form');
+        Route::post('report/revenue', [ReportTSController::class, 'revenue'])->name('report.revenue');
 
         Route::resource('organization.transaction', B2BTransactionController::class);
         Route::post('/organization/{organization}/transaction/get', [B2BTransactionController::class, 'get'])->name('organization.transaction.datatable');
