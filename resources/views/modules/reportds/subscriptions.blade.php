@@ -13,7 +13,7 @@
 
         <div class="row mb-4">
             <div class="col-lg-8">
-                <div class="card card-border-nation h-100">
+                <div class="card card-border-nation report-panel h-100">
                     <div class="card-header">
                         <h5 class="card-title mb-0 text-nation">Daily Subscriptions</h5>
                     </div>
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card card-border-nation h-100">
+                <div class="card card-border-nation report-panel h-100">
                     <div class="card-header">
                         <h5 class="card-title mb-0 text-nation">Subscription Status</h5>
                     </div>
@@ -38,7 +38,7 @@
             </div>
         </div>
 
-        <div class="card card-border-nation">
+        <div class="card card-border-nation report-panel report-results-card">
             <div class="card-header">
                 <h3 class="card-title my-0 text-nation">Subscription Results</h3>
             </div>
