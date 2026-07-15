@@ -311,8 +311,19 @@ th{
     gap: .5rem;
 }
 
-.page-hero .btn {
+.page-hero .btn,
+.report-hero .btn {
     align-items: center;
+    --bs-btn-bg: #{$primary};
+    --bs-btn-border-color: #{$primary};
+    --bs-btn-color: #{$white};
+    --bs-btn-hover-bg: #{darken($primary, 8%)};
+    --bs-btn-hover-border-color: #{darken($primary, 8%)};
+    --bs-btn-hover-color: #{$white};
+    --bs-btn-focus-shadow-rgb: #{to-rgb($primary)};
+    --bs-btn-active-bg: #{darken($primary, 10%)};
+    --bs-btn-active-border-color: #{darken($primary, 10%)};
+    --bs-btn-active-color: #{$white};
     background-color: $primary;
     border-color: $primary;
     color: $white;
@@ -325,13 +336,16 @@ th{
 }
 
 .page-hero .btn:hover,
-.page-hero .btn:focus {
+.page-hero .btn:focus,
+.report-hero .btn:hover,
+.report-hero .btn:focus {
     background-color: darken($primary, 8%);
     border-color: darken($primary, 8%);
     color: $white;
 }
 
-.page-hero .btn:focus {
+.page-hero .btn:focus,
+.report-hero .btn:focus {
     box-shadow: 0 0 0 .25rem rgba($primary, .25);
 }
 
