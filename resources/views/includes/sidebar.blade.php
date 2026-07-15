@@ -2,7 +2,7 @@
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content  js-simplebar">
             <a class="sidebar-brand px-4" href="{{ route('dashboard.index') }}">
-                <img class="img-fluid" src="{{ asset('assets/img/logo.png') }}" alt="Super POS">
+                <img class="img-fluid" src="{{ asset('assets/img/logo-dark.png') }}" alt="Unified Sub">
             </a>
 
             <ul class="sidebar-nav">
