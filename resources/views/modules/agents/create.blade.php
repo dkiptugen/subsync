@@ -1,7 +1,7 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-                <section class="page-hero d-flex justify-content-between align-itens-center">
+                <section class="page-hero d-flex justify-content-between align-items-center">
 <h3 class="card-title my-0 text-nation">Add Sales Agent</h3>
         </section>
 <div class="card">
@@ -39,11 +39,24 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="dept" class="control-label">Department</label>
-                            <input type="text" class="form-control" id="dept" name="department">
+                            <input type="text" class="form-control" id="dept" name="department" value="{{ old('department') }}">
                         </div>
                         <div class="col">
                             <label for="pin" class="control-label">Country</label>
-                            <input type="text" class="form-control" id="country" name="country">
+                            <input type="text" class="form-control" id="country" name="country" value="{{ old('country') }}">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="organizations" class="control-label">Connected Corporates</label>
+                            <select class="form-control" id="organizations" name="organizations[]" multiple data-placeholder="Select corporates">
+                                @foreach($organizations as $organization)
+                                    <option value="{{ $organization->id }}" @selected(collect(old('organizations', []))->contains($organization->id))>
+                                        {{ $organization->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
@@ -56,4 +69,3 @@
         </div>
     </div>
 @endsection
-

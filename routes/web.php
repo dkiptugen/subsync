@@ -220,6 +220,7 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth'], 'access_level' => [
 
         Route::get('migration/rates', [DataMigController::class, 'rate_form'])->name('migrates.index');
         Route::post('migration/ratesstore', [DataMigController::class, 'rate'])->name('migrates.store');
+        Route::get('migration/sample/{type}', [DataMigController::class, 'sample'])->name('migration.sample');
 
         Route::get('migration/individuals', [DataMigController::class, 'individual_form'])->name('migindividuals.index');
         Route::post('migration/individualsstore', [DataMigController::class, 'individual'])->name('migindividuals.store');

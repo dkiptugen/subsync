@@ -1,8 +1,8 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-                <section class="page-hero d-flex justify-content-between align-itens-center">
-<h3 class="card-title my-0 text-nation">Add Sales Agent</h3>
+                <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">Edit Sales Agent</h3>
         </section>
 <div class="card">
 
@@ -52,6 +52,20 @@
                         </div>
                     </div>
 
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="organizations" class="control-label">Connected Corporates</label>
+                            @php($selectedOrganizations = collect(old('organizations', $agent->organizations->pluck('id')->all())))
+                            <select class="form-control" id="organizations" name="organizations[]" multiple data-placeholder="Select corporates">
+                                @foreach($organizations as $organization)
+                                    <option value="{{ $organization->id }}" @selected($selectedOrganizations->contains($organization->id))>
+                                        {{ $organization->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="mb-3 d-flex">
                         <button type="submit" class="btn btn-nation ms-auto">Edit Agent</button>
                     </div>
@@ -61,5 +75,4 @@
         </div>
     </div>
 @endsection
-
 

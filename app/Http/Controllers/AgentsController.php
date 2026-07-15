@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ImportAgents;
 use App\Models\Agent;
+use App\Models\Organization;
 use App\Traits\Meta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,7 @@ class AgentsController extends Controller
     {
 
         $this->data['types'] = ['staff', 'external'];
+        $this->data['organizations'] = Organization::orderBy('name')->get(['id', 'name']);
 
         return view('modules.agents.create', $this->data);
     }
@@ -37,6 +39,8 @@ class AgentsController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:agents',
+            'organizations' => 'nullable|array',
+            'organizations.*' => 'exists:organizations,id',
         ]);
         if ($validator->fails()) {
             return self::failed('Sales Agents', $validator->errors()->first(), route('agents.create'));
@@ -50,6 +54,7 @@ class AgentsController extends Controller
             'department' => $request->department,
             'country' => $request->country,
         ]);
+        $agent->organizations()->sync($request->input('organizations', []));
 
         return self::success('Sales Agents', 'Agent added successfully', route('agents.index'));
     }
@@ -59,8 +64,9 @@ class AgentsController extends Controller
     public function edit(Agent $agent)
     {
 
-        $this->data['agent'] = $agent;
+        $this->data['agent'] = $agent->load('organizations');
         $this->data['types'] = ['staff', 'external'];
+        $this->data['organizations'] = Organization::orderBy('name')->get(['id', 'name']);
 
         return view('modules.agents.edit', $this->data);
     }
@@ -70,6 +76,8 @@ class AgentsController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:agents,email,'.$agent->id,
+            'organizations' => 'nullable|array',
+            'organizations.*' => 'exists:organizations,id',
         ]);
         if ($validator->fails()) {
             return self::failed('Sales Agents', $validator->errors()->first(), route('agents.edit', $agent));
@@ -83,6 +91,7 @@ class AgentsController extends Controller
             'department' => $request->department,
             'country' => $request->country,
         ]);
+        $agent->organizations()->sync($request->input('organizations', []));
 
         return self::success('Sales Agents', 'Agent updated successfully', route('agents.index'));
     }

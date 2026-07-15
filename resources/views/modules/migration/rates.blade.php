@@ -13,7 +13,7 @@
                         <div class="">
                         <p>Drag and drop files here, or click to select files.
                             <br>
-                            <a href="{{ asset('rates.xlsx') }}">Download Sample excel Sheet</a>
+                            <a href="{{ route('migration.sample', 'rates') }}">Download Sample excel Sheet</a>
                         </p>
 
                             <input type="file" id="fileInput" name="files[]" class="form-control" multiple required>
@@ -25,6 +25,7 @@
                         </div>
                     </div>
                 </form>
+                @include('modules.migration._progress')
             </div>
         </div>
     </div>
