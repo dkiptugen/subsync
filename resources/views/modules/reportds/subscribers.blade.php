@@ -1,6 +1,13 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
+        @include('modules.reportds.partials.filter-hero', [
+            'title' => 'Registration Report',
+            'formRoute' => route('report.subscriber_form'),
+            'exportRoute' => route('report.subscriber'),
+            'filters' => $filters,
+        ])
+
         <div class="row mb-4">
             <div class="col-lg-8">
                 <div class="card card-border-nation h-100">
@@ -29,40 +36,10 @@
         </div>
 
         <div class="card card-border-nation">
-            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
-                <h3 class="card-title my-0 text-nation">Registration Report</h3>
-                <form action="{{ route('report.subscriber') }}" method="POST" class="mb-0">
-                    @csrf
-                    <input type="hidden" name="startdate" value="{{ $filters['startdate']->toDateString() }}">
-                    <input type="hidden" name="enddate" value="{{ $filters['enddate']->toDateString() }}">
-                    <button type="submit" class="btn btn-sm btn-outline-nation">
-                        <i class="fas fa-file-excel"></i> Export
-                    </button>
-                </form>
+            <div class="card-header">
+                <h3 class="card-title my-0 text-nation">Registration Results</h3>
             </div>
             <div class="card-body">
-                <form action="{{ route('report.subscriber_form') }}" method="GET" class="row g-3 mb-4">
-                    <div class="col-md-4">
-                        <label for="startdate" class="form-label">Start Date <span class="text-danger">*</span></label>
-                        <input type="date" name="startdate" id="startdate" class="form-control @error('startdate') is-invalid @enderror" value="{{ old('startdate', $filters['startdate']->toDateString()) }}">
-                        @error('startdate')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-md-4">
-                        <label for="enddate" class="form-label">End Date <span class="text-danger">*</span></label>
-                        <input type="date" name="enddate" id="enddate" class="form-control @error('enddate') is-invalid @enderror" value="{{ old('enddate', $filters['enddate']->toDateString()) }}">
-                        @error('enddate')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="col-md-4 d-flex align-items-end justify-content-end">
-                        <button type="submit" class="btn btn-sm btn-outline-nation">
-                            <i class="fas fa-search"></i> Filter
-                        </button>
-                    </div>
-                </form>
-
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-hover">
                         <thead class="bg-nation text-white">
