@@ -2,9 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Spatie\Permission\Models\Permission as SpatiePermission;
 
-class Permission extends Model
+class Permission extends SpatiePermission
 {
-    protected $fillable=['name','guard_name','display_name','permission_group'];
+    use HasUlids;
+
+    protected $fillable = [
+        'name',
+        'guard_name',
+        'display_name',
+        'permission_group',
+    ];
 }

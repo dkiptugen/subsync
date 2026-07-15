@@ -7,9 +7,9 @@ use App\Http\Requests\AddUser;
 use App\Http\Requests\EditUser;
 use App\Http\Requests\StoreUser;
 use App\Http\Requests\UpdateProfile;
+use App\Models\Role;
 use App\Models\User;
 use App\Traits\Meta;
-use Caydeesoft\Permission\Models\Role;
 use Exception;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Application;
@@ -68,12 +68,12 @@ class UserController extends Controller
         $dir = $request->input('order.0.dir');
 
         if (empty($request->input('search.value'))) {
-            $posts = User::whereType('owner')->offset($start)->limit($limit)->orderBy($order,
+            $posts = User::whereType('owner')->with('roles')->offset($start)->limit($limit)->orderBy($order,
                 $dir)->get();
         } else {
 
             $search = $request->input('search.value');
-            $posts = User::whereType('owner')
+            $posts = User::whereType('owner')->with('roles')
                 ->where(function ($query) use ($search) {
                     $query->where('name', 'LIKE', "{$search}%")
                         ->orWhere('email', 'LIKE', "{$search}%")
@@ -102,9 +102,7 @@ class UserController extends Controller
                 $nestedData['status'] = ($post->status == 1)
                     ? 'Active'
                     : 'inactive';
-                $nestedData['role'] = is_numeric($post->role_id)
-                    ? Role::where('id', $post->role_id)->first()->name
-                    : null;
+                $nestedData['role'] = $post->roles->first()?->name;
                 $nestedData['action'] = $btn;
                 $nestedData['notify'] = ($post->can_notify)
                     ? 'Yes'
@@ -158,9 +156,10 @@ class UserController extends Controller
 
                 $user->status = $request->status ?? 0;
                 $user->type = $request->user()->type;
-                $user->role_id = $request->role_id;
                 $usr = $user->save();
                 if ($usr) {
+                    $this->syncUserRole($user, $request->role_id);
+
                     return self::success('User', 'Added user successfully', route('user.index'));
                 }
             } else {
@@ -174,15 +173,17 @@ class UserController extends Controller
                         'con_password' => ['required'],
                     ]);
                     if ($valid) {
-                        $usr = $user->update(['password' => bcrypt(trim($request->password)), 'status' => 1, 'role_id' => $request->role, 'type' => $request->user()->type]);
+                        $usr = $user->update(['password' => bcrypt(trim($request->password)), 'status' => 1, 'type' => $request->user()->type]);
                     } else {
                         return self::failed('User', $valid, route('user.index'));
                     }
 
                 } else {
-                    $usr = $user->update(['status' => 1, 'role_id' => $request->role, 'type' => $request->user()->type]);
+                    $usr = $user->update(['status' => 1, 'type' => $request->user()->type]);
                 }
                 if ($usr) {
+                    $this->syncUserRole($user, $request->role);
+
                     return self::success('User', 'Updated user successfully', route('user.index'));
                 }
             }
@@ -226,9 +227,10 @@ class UserController extends Controller
             }
             $user->{'type'} = $request->user()->type;
             $user->status = $request->status ?? 0;
-            $user->role_id = $request->role;
             $usr = $user->save();
             if ($usr) {
+                $this->syncUserRole($user, $request->role);
+
                 return self::success('User', 'Updated user successfully', route('user.index'));
             }
 
@@ -255,7 +257,7 @@ class UserController extends Controller
     public function edit($id)
     {
 
-        $this->data['user'] = User::find($id);
+        $this->data['user'] = User::query()->with('roles')->find($id);
         $this->data['role'] = Role::get();
 
         return view('modules.users.edit', $this->data);
@@ -270,13 +272,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $usr = User::whereId($id)->update(['type' => 'customer', 'role_id' => null]);
-            if ($usr) {
-                return self::success('User', 'User removed from organization',
-                    route('user.index'));
-            }
+            $user = User::query()->findOrFail($id);
+            $user->type = 'customer';
+            $user->save();
+            $user->syncRoles([]);
 
-            return self::failed('User', 'Failed to remove user from organization', route('user.index'));
+            return self::success('User', 'User removed from organization',
+                route('user.index'));
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
@@ -357,5 +359,20 @@ class UserController extends Controller
 
         return self::failed('User', 'Failed to update user status', $request->location);
 
+    }
+
+    private function syncUserRole(User $user, ?string $roleId): void
+    {
+        if ($roleId === null || $roleId === '') {
+            $user->syncRoles([]);
+
+            return;
+        }
+
+        $role = Role::query()->find($roleId);
+
+        if ($role !== null) {
+            $user->syncRoles([$role]);
+        }
     }
 }

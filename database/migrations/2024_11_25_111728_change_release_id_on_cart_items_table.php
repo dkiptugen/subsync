@@ -12,14 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-       /* DB::statement('
-            ALTER TABLE cart_items
-            ALTER COLUMN release_id TYPE bigint
-            USING release_id::bigint
-        ');*/
-        Schema::table('cart_items', function (Blueprint $table) {
-            $table->unsignedBigInteger('release_id')->change();
-        });
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement('ALTER TABLE cart_items ALTER COLUMN release_id TYPE bigint USING NULLIF(release_id, \'\')::bigint');
+        } else {
+            Schema::table('cart_items', function (Blueprint $table) {
+                $table->unsignedBigInteger('release_id')->nullable()->change();
+            });
+        }
     }
 
     /**
@@ -27,6 +26,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement('ALTER TABLE cart_items ALTER COLUMN release_id TYPE varchar(255) USING release_id::varchar');
+        } else {
+            Schema::table('cart_items', function (Blueprint $table) {
+                $table->string('release_id')->nullable()->change();
+            });
+        }
     }
 };

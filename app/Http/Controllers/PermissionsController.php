@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\User;
 use App\Traits\Meta;
 use App\Utils\Sdata;
-use Caydeesoft\Permission\Models\Permission;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -47,9 +47,6 @@ class PermissionsController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     *
-     * @return Response
      */
     public function store(Request $request, $userid)
     {
@@ -65,7 +62,7 @@ class PermissionsController extends Controller
     public function show($userid, $id)
     {
         $this->data['user'] = User::find($userid);
-        $this->data['perm'] = Permission::find($id);
+        $this->data['perm'] = Permission::query()->find($id);
 
         return view('modules.permissions.view', $this->data);
     }
@@ -105,27 +102,24 @@ class PermissionsController extends Controller
 
     public function get(Request $request, $userid)
     {
-
         $columns = [0 => 'id', 1 => 'name', 2 => 'action'];
-        $totalData = Permission::whereNotNull('name')
-            ->when($userid != '0', function ($q) use ($userid) {
-                return $q->whereHas('permission', function ($query) use ($userid) {
-                    $query->where('user_id', $userid);
+        $query = Permission::query()
+            ->whereNotNull('name')
+            ->when($userid != '0', function ($builder) use ($userid) {
+                return $builder->whereHas('users', function ($userQuery) use ($userid) {
+                    $userQuery->where('users.id', $userid);
                 });
-            })
-            ->count();
+            });
+
+        $totalData = $query->count();
         $totalFiltered = $totalData;
         $limit = $request->input('length');
         $start = $request->input('start');
         $order = $columns[$request->input('order.0.column')];
         $dir = $request->input('order.0.dir');
+
         if (empty($request->input('search.value'))) {
-            $posts = Permission::whereNotNull('name')
-                ->when($userid != '0', function ($q) use ($userid) {
-                    return $q->whereHas('permission', function ($query) use ($userid) {
-                        $query->where('user_id', $userid);
-                    });
-                })
+            $posts = (clone $query)
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
@@ -133,24 +127,14 @@ class PermissionsController extends Controller
         } else {
             $search = $request->input('search.value');
 
-            $posts = Permission::whereNotNull('name')
-                ->when($userid != '0', function ($q) use ($userid) {
-                    return $q->whereHas('permission', function ($query) use ($userid) {
-                        $query->where('user_id', $userid);
-                    });
-                })
+            $posts = (clone $query)
                 ->where('name', 'like', "%{$search}%")
                 ->offset($start)
                 ->limit($limit)
                 ->orderBy($order, $dir)
                 ->get();
 
-            $totalFiltered = Permission::whereNotNull('name')
-                ->when($userid != '0', function ($q) use ($userid) {
-                    return $q->whereHas('permission', function ($query) use ($userid) {
-                        $query->where('user_id', $userid);
-                    });
-                })
+            $totalFiltered = (clone $query)
                 ->where('name', 'like', "%{$search}%")
                 ->count();
         }
@@ -161,7 +145,7 @@ class PermissionsController extends Controller
             foreach ($posts as $post) {
                 $nestedData['pos'] = $x;
                 $nestedData['name'] = $post->name;
-                $nestedData['access'] = $post->action;
+                $nestedData['access'] = $post->display_name ?? $post->name;
                 $nestedData['roles'] = Sdata::getaccess($post->id);
                 $nestedData['action'] = '<a href="javascript:;"  class="text-dark mr-3 edit-permission" data-user="'.$post->id.'"><i class="fas fa-edit  "></i></a>
                                                                                 <a href="javascript:;"  class="text-dark mr-3 assign-role" data-user="'.$post->id.'"><i class="fas fa-plus-circle  "></i></a>';
@@ -172,6 +156,6 @@ class PermissionsController extends Controller
 
         $json_data = ['draw' => (int) $request->input('draw'), 'recordsTotal' => $totalData, 'recordsFiltered' => $totalFiltered, 'data' => $data];
 
-        echo json_encode($json_data);
+        return response()->json($json_data);
     }
 }

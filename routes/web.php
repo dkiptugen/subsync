@@ -20,7 +20,6 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Debug\DebugController;
 use App\Http\Controllers\EmailTemplateController;
 use App\Http\Controllers\FinanceApprovalController;
-use App\Http\Controllers\Front\SaasLandingController;
 use App\Http\Controllers\LeadsController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\MediaEventsController;
@@ -34,7 +33,6 @@ use App\Http\Controllers\RateTypeController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\ReportTSController;
 use App\Http\Controllers\RolesController;
-use App\Http\Controllers\SaasProductController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\SubscriberSubsController;
@@ -65,7 +63,7 @@ Route::controller(MediaLibraryController::class)->prefix('media-library')->name(
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->name('store');
 });
-Route::get('/', SaasLandingController::class)->name('landing');
+Route::redirect('/', '/login')->name('landing');
 Auth::routes(['register' => false]);
 Route::get('/reset/{token}', [LoginController::class, 'reset_form']);
 
@@ -81,7 +79,6 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth'], 'access_level' => [
     Route::middleware(['password.expired'])->prefix('manage')->group(function () {
 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
-        Route::get('saas-product', [SaasProductController::class, 'index'])->name('saas-product.index');
 
         Route::resource('payment_method', PaymentMethodController::class, ['except' => ['show']]);
         Route::post('/payment_methods/get', [PaymentMethodController::class, 'get'])->name('payment_method.datatable');

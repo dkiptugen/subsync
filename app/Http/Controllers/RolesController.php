@@ -4,17 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddRole;
 use App\Http\Requests\EditRole;
+use App\Models\Permission;
+use App\Models\Role;
+use App\Support\PermissionHelper;
 use App\Traits\Meta;
 use App\Utils\Sdata;
-use Caydeesoft\Permission\Models\Permission;
-use Caydeesoft\Permission\Models\PermissionGroup;
-use Caydeesoft\Permission\Models\PermissionRole;
-use Caydeesoft\Permission\Models\Role;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class RolesController extends Controller
@@ -43,9 +42,21 @@ class RolesController extends Controller
      */
     public function create($userid)
     {
-        $this->data['perm'] = PermissionGroup::with(['permissions'])
-            ->orderBy('name', 'asc')
-            ->get();
+        $this->data['perm'] = Permission::query()
+            ->orderBy('permission_group')
+            ->orderBy('name')
+            ->get()
+            ->groupBy('permission_group')
+            ->map(function ($permissions, string $group) {
+                return (object) [
+                    'name' => $group,
+                    'permissions' => $permissions->map(fn (Permission $permission) => (object) [
+                        'id' => $permission->id,
+                        'actual_name' => $permission->display_name ?? Str::replace('_', ' ', Str::title($permission->name)),
+                    ]),
+                ];
+            })
+            ->values();
 
         return view('modules.roles.add', $this->data);
     }
@@ -59,18 +70,14 @@ class RolesController extends Controller
     {
         $validateddata = $request->validated();
         if ($validateddata) {
-            $role = new Role;
-            $role->name = $request->role;
-            $req = $role->save();
-            if ($req) {
-                if (isset($request->perm)) {
+            $role = Role::query()->create([
+                'name' => $request->role,
+                'guard_name' => 'web',
+            ]);
 
-                    foreach ($request->perm as $value) {
-                        $pr = new PermissionRole;
-                        $pr->role_id = $role->id;
-                        $pr->permission_id = $value;
-                        $pr->save();
-                    }
+            if ($role) {
+                if (isset($request->perm)) {
+                    $role->syncPermissions($request->perm);
                 }
 
                 return self::success('Role', 'Success', route('user.roles.index', 0));
@@ -92,7 +99,7 @@ class RolesController extends Controller
      */
     public function show($userid, $id)
     {
-        $this->data['role'] = Role::find($id);
+        $this->data['role'] = Role::query()->find($id);
 
         return view('modules.roles.view', $this->data);
     }
@@ -105,10 +112,12 @@ class RolesController extends Controller
      */
     public function edit($userid, $id)
     {
-        $this->data['role'] = Role::find($id);
-        $this->data['rp'] = PermissionRole::where('role_id', $id)
-            ->get();
-        $this->data['perm'] = Permission::whereNotNull('name')
+        $role = Role::query()->with('permissions')->findOrFail($id);
+
+        $this->data['role'] = $role;
+        $this->data['rp'] = $role->permissions;
+        $this->data['perm'] = Permission::query()
+            ->whereNotNull('name')
             ->orderBy('name', 'asc')
             ->get();
 
@@ -128,19 +137,12 @@ class RolesController extends Controller
 
         $validateddata = $request->validated();
         if ($validateddata) {
-            $role = Role::find($id);
+            $role = Role::query()->findOrFail($id);
             $role->name = $request->role;
             $req = $role->save();
             if ($req) {
                 if (isset($request->perm)) {
-                    PermissionRole::where('role_id', $id)
-                        ->delete();
-                    foreach ($request->perm as $value) {
-                        $pr = new PermissionRole;
-                        $pr->role_id = $id;
-                        $pr->permission_id = $value;
-                        $pr->save();
-                    }
+                    $role->syncPermissions($request->perm);
                 }
 
                 return self::success('Role', 'Success', route('user.roles.index', 0));
@@ -195,13 +197,13 @@ class RolesController extends Controller
             $x = $start + 1;
             foreach ($posts as $post) {
                 $btn = '';
-                if (Auth::user()->permission->contains('name', 'user.roles.edit')) {
+                if (PermissionHelper::canAccess('user.roles.edit')) {
                     $btn .= '<a href="'.route('user.roles.edit', [0, $post->id]).'" class="text text-dark mr-2"><i class="fas fa-edit"></i></a>';
                 }
-                if (Auth::user()->permission->contains('name', 'user.roles.show')) {
+                if (PermissionHelper::canAccess('user.roles.show')) {
                     $btn .= '<a href="'.route('user.roles.show', [0, $post->id]).'" class="text text-dark mr-2"><i class="fas fa-eye"></i></a>';
                 }
-                if (Auth::user()->permission->contains('name', 'user.roles.destroy')) {
+                if (PermissionHelper::canAccess('user.roles.destroy')) {
                     $btn .= '<a href="'.route('user.roles.destroy', [0, $post->id]).'" class="text text-dark delete"><i class="fas fa-trash"></i></a>';
                 }
                 $nestedData['pos'] = $x;

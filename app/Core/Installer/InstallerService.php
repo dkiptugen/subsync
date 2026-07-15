@@ -2,6 +2,7 @@
 
 namespace App\Core\Installer;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -9,7 +10,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use RuntimeException;
-use Spatie\Permission\Models\Role;
 use Throwable;
 
 class InstallerService
@@ -90,14 +90,15 @@ class InstallerService
             [
                 'name' => $data['name'],
                 'password' => Hash::make($data['password']),
-                'is_super_admin' => true,
                 'email_verified_at' => now(),
+                'type' => 'owner',
+                'status' => 1,
             ]
         );
 
         if (class_exists(Role::class) && Schema::hasTable('roles') && Schema::hasTable('model_has_roles')) {
             try {
-                $role = Role::findOrCreate('super-admin', 'web');
+                $role = Role::findOrCreate('Super Admin', 'web');
                 if (method_exists($user, 'assignRole')) {
                     $user->assignRole($role);
                 }

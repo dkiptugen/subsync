@@ -22,7 +22,7 @@
                             @foreach($perm as $value)
 
                                 <div class="form-check col-3">
-                                    <input class="form-check-input" type="checkbox" id="edit-perm-{{ $value->id }}" @if($rp->contains('permission_id',$value->id)) checked @endif name="perm[]" value="{{ $value->id }}" >
+                                    <input class="form-check-input" type="checkbox" id="edit-perm-{{ $value->id }}" @if($rp->contains('id', $value->id)) checked @endif name="perm[]" value="{{ $value->id }}" >
                                     <label class="form-check-label" for="edit-perm-{{ $value->id }}">{{ $value->name }}</label>
                                 </div>
                                 @php($x++)

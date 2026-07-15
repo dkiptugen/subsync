@@ -2,10 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Spatie\Permission\Models\Role as SpatieRole;
 
-
-class Role extends Model
+class Role extends SpatieRole
 {
-        protected $fillable=['name','guard_name'];
+    use HasUlids;
+
+    protected $fillable = [
+        'name',
+        'guard_name',
+    ];
 }

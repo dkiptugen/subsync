@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Support\PermissionHelper;
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class StoreEmailTemplate extends FormRequest
 {
@@ -12,18 +13,18 @@ class StoreEmailTemplate extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->permission->contains('name','email_template.store');
+        return PermissionHelper::canAccess('email_template.store', $this->user());
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-           'template_name'=>['required']
+            'template_name' => ['required'],
         ];
     }
 }

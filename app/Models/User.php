@@ -9,12 +9,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use NotificationChannels\WebPush\HasPushSubscriptions;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use HasPushSubscriptions;
+    use HasRoles;
     use Notifiable;
 
     /**
@@ -44,7 +46,6 @@ class User extends Authenticatable
             'can_notify',
             'phone',
             'daily_notifications',
-            'role_id',
         ];
 
     /**
@@ -58,7 +59,6 @@ class User extends Authenticatable
             'type',
             'status',
             'password_changed_at',
-            'role_id',
         ];
 
     /**
@@ -77,11 +77,6 @@ class User extends Authenticatable
     public function organization()
     {
         return $this->belongsTo(Organization::class)->withDefault(['id' => 0, 'name' => 'None']);
-    }
-
-    public function permission()
-    {
-        return $this->hasManyThrough(Permission::class, PermissionRole::class, 'role_id', 'id', 'role_id', 'permission_id');
     }
 
     public function meta()

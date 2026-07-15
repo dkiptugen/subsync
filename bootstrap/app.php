@@ -21,6 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->redirectGuestsTo(fn (): string => rtrim(config('app.url'), '/').'/login');
+        $middleware->redirectUsersTo(fn (): string => rtrim(config('app.url'), '/').'/manage');
+
         $middleware->alias([
             'password.expired' => PasswordExpired::class,
             'cors' => CustomCors::class,

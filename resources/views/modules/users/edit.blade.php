@@ -20,7 +20,7 @@
                             <select name="role" id="role" class="form-control select2">
                                 @foreach($role as $value)
                                     <option value="{{ $value->id }}"
-                                            @if($value->id == $user->role_id) selected @endif>{{ $value->name }}</option>
+                                            @if($user->roles->contains('id', $value->id)) selected @endif>{{ $value->name }}</option>
                                 @endforeach
                             </select>
                         </div>
