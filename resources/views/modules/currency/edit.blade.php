@@ -77,22 +77,18 @@
 
 @section('footer')
     <script type="text/javascript">
-        $('#region').select2({
-            placeholder: 'Select Country'
-        }).change(function (x) {
-
-            $.ajax({
-                type: 'GET',
-                url: '{{ url('/manage/currency/autocomplete') }}/' + x.target.value,
-                headers: {"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr('content')},
-                processData: false,
-                contentType: false,
-                success: function (Mess) {
-                    $('.currency-label').html(Mess.currency + ' Amount');
-
+        document.getElementById('region')?.addEventListener('change', function (event) {
+            fetch(`{{ url('/manage/currency/autocomplete') }}/${event.target.value}`, {
+                headers: {
+                    Accept: 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
                 },
-                cache: true
+                credentials: 'same-origin',
             })
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('.currency-label').textContent = `${data.currency} Amount`;
+                });
         });
     </script>
 @endsection

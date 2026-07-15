@@ -44,9 +44,7 @@
             </div>
         </div>
 
-                <section class="page-hero">
-<h3 class="card-title my-0 text-nation">Revenue Results</h3>
-        </section>
+
 <div class="card report-panel report-results-card">
 
             <div class="card-body">

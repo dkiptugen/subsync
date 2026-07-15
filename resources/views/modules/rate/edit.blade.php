@@ -68,7 +68,7 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label for="free_product" class="control-label">Free Product</label>
-                            <select name="free_product" id="free_product" class="form-control select2">
+                            <select name="free_product" id="free_product" class="form-control select2 js-choice-ajax" data-choices-ajax-url="{{ route('get_rate_select') }}" data-placeholder="Select a Product" data-choices-min-search="2">
                                 <option value="">Select Product</option>
                             </select>
                         </div>
@@ -138,31 +138,4 @@
     </div>
 @endsection
 @section('footer')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#free_product').select2({
-                ajax: {
-                    url: '{{ route('get_rate_select') }}',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        console.log(params);
-                        return {
-                            term: params.term // Search term entered by the user
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: true
-                },
-                placeholder: 'Select a Product',
-                minimumInputLength: 2 // Minimum number of characters before the search is performed
-            });
-
-        });
-    </script>
-
 @endsection
