@@ -41,7 +41,7 @@
         </div>
 
 
-<div class="card report-panel report-results-card">
+<div class="card report-panel report-results-card mt-4">
 
             <div class="card-body">
                 <div class="table-responsive">
