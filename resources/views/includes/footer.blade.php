@@ -20,7 +20,7 @@
         mediaLibraryStoreUrl: @json(route('media-library.store')),
     });
 </script>
-<script src="{{ mix('/assets/js/app.js?v=1.0.2') }}" type="module"></script>
+<script src="{{ mix('/assets/js/app.js?v=1.0.3') }}" type="module"></script>
 
 @yield('footer')
 

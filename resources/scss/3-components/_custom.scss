@@ -291,6 +291,11 @@ th{
     padding: 1rem 1.25rem;
 }
 
+.page-hero > * {
+    align-items: center;
+    display: flex;
+}
+
 .page-hero .card-title {
     color: $dark-blue;
     font-size: 1.125rem;
@@ -298,8 +303,45 @@ th{
     margin-bottom: 0;
 }
 
+.page-hero .actionbtn,
+.page-hero .action-links {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
 .page-hero .btn {
+    align-items: center;
+    display: inline-flex;
+    gap: .375rem;
+    justify-content: center;
     min-height: 40px;
+}
+
+.page-hero .btn-outline-nation {
+    background: $white;
+    border-color: $primary;
+    color: $primary;
+}
+
+.page-hero .btn-outline-nation:hover,
+.page-hero .btn-outline-nation:focus {
+    background: $primary;
+    color: $white;
+}
+
+.page-hero .btn-nation {
+    background: $primary;
+    border-color: $primary;
+    color: $white;
+}
+
+.page-hero .btn-nation:hover,
+.page-hero .btn-nation:focus {
+    background: darken($primary, 8%);
+    border-color: darken($primary, 8%);
+    color: $white;
 }
 
 .page-hero + .card {
