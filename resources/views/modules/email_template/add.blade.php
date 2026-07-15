@@ -1,15 +1,16 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title text-nation my-0">Create Email Template</h3>
-            </div>
+                <section class="page-hero">
+<h3 class="card-title text-nation my-0">Create Email Template</h3>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <form action="{{ route('email_template.store') }}" method="post" class="form form-horizontal create-form">
                     @csrf
                     <div class="row mb-3">
-                        
+
                         <div class="col">
                             <label for="name" class="control-label">Name</label>
                             <input type="text" name="template_name" id="name" class="form-control">
@@ -22,10 +23,10 @@
                                 @endforeach
                             </select>
                         </div>
-                        
+
                     </div>
                     <div class="mb-3 ">
-                        
+
                         <label for="subject" class="control-label">Email Subject</label>
                         <input type="text" name="subject" id="subject" class="form-control">
 

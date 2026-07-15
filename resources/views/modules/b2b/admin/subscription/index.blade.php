@@ -1,9 +1,8 @@
 @extends('includes.body')
 @section('content')
 	<div class="col-12">
-		<div class="card">
-			<div class="card-header d-flex align-items-center justify-content-between">
-				<h3 class="my-0 text-nation card-title">Organizational Subscriptions</h3>
+				<section class="page-hero d-flex align-items-center justify-content-between">
+<h3 class="my-0 text-nation card-title">Organizational Subscriptions</h3>
 				@canaccess('organization.subscription.create')
 				<a href="{{ route('organization.subscription.create',0) }}"
 						class="btn btn-sm btn-outline-nation">
@@ -11,7 +10,9 @@
 					Add Subscription
 				</a>
 				@endcanaccess
-			</div>
+		</section>
+<div class="card">
+
 			<div class="card-body">
 				<div class="table-responsive">
 					<table class="table table-condensed table-hover table-striped"

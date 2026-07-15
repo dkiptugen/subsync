@@ -29,16 +29,17 @@
             </div>
         </div>
 
-        <div class="card mb-3">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <div>
+                <section class="page-hero d-flex justify-content-between align-items-center">
+<div>
                     <h3 class="card-title my-0 text-nation">{{ $brand['name'] ?? 'SaaS Product' }}</h3>
                     <p class="text-muted mb-0">{{ $brand['description'] ?? '' }}</p>
                 </div>
                 <a href="{{ route('landing') }}" class="btn btn-sm btn-outline-dark">
                     <i class="fas fa-external-link-alt me-2"></i> Landing page
                 </a>
-            </div>
+        </section>
+<div class="card mb-3">
+
             <div class="card-body">
                 <div class="row g-3">
                     @foreach($plans as $plan)
@@ -67,10 +68,11 @@
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title my-0 text-nation">Backend Features</h3>
-            </div>
+                <section class="page-hero">
+<h3 class="card-title my-0 text-nation">Backend Features</h3>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped">

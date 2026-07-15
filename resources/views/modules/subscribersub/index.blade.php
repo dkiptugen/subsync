@@ -1,16 +1,17 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card w-100">
-            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
-                <h3 class="card-title my-0 text-nation">{{ $user->name.' '.$user->surname }} - Subscriptions</h3>
+                <section class="page-hero d-flex justify-content-between align-items-center flex-wrap">
+<h3 class="card-title my-0 text-nation">{{ $user->name.' '.$user->surname }} - Subscriptions</h3>
                 @canaccess('user.subscription.create')
                 <a href="{{ route('user.subscription.create',$user->id) }}" class="btn btn-outline-nation btn-sm">
                     <i class="fas fa-plus"></i>
                     Add Subscription
                 </a>
                 @endcanaccess
-            </div>
+        </section>
+<div class="card w-100">
+
             <div class="card-body">
                 <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl table-responsive-xxl ">
                     <table class="table table-condensed table-striped table-hover " id="subscription-table">

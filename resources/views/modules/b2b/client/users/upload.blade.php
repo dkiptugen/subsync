@@ -1,11 +1,11 @@
 @extends('includes.body')
 @section('content')
 <div class="col-12">
-    <div class="card">
-        <div class="card-header d-flex align-item-center justify-content-between">
-            <h3 class="my-0 card-title text-nation">{{ $organization->name }} : Bulk  Users upload</h3>
+        <section class="page-hero d-flex align-item-center justify-content-between">
+<h3 class="my-0 card-title text-nation">{{ $organization->name }} : Bulk  Users upload</h3>
+    </section>
+<div class="card">
 
-        </div>
         <div class="card-body">
             <div id="dropzone" class="d-flex align-items-center justify-content-center" data-endpoint="{{ route('client_users.upload',$organization->id) }}">
                 <div class="">

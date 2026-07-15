@@ -277,6 +277,40 @@ th{
 
  }
 
+.page-hero {
+    align-items: center;
+    background: $white;
+    border: $border-width solid $border-color;
+    border-left: 4px solid $primary;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem 1rem;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    min-height: 64px;
+    padding: 1rem 1.25rem;
+}
+
+.page-hero .card-title {
+    color: $dark-blue;
+    font-size: 1.125rem;
+    font-weight: $font-weight-semibold;
+    margin-bottom: 0;
+}
+
+.page-hero .btn {
+    min-height: 40px;
+}
+
+.page-hero + .card {
+    margin-top: 0;
+}
+
+.page-hero[data-bs-toggle="collapse"],
+.page-hero [data-bs-toggle="collapse"] {
+    cursor: pointer;
+}
+
 .dashboard-shell {
     display: flex;
     flex-direction: column;

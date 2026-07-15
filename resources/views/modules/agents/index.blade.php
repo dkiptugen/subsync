@@ -1,9 +1,8 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card" id="view-table" aria-labelledby="view-table">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title my-0 text-nation">Sales Agents</h3>
+                <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">Sales Agents</h3>
                 <div>
                     @can('create_sales_agent')
                         <a class="btn btn-outline-dark btn-sm" href="{{ route('agents.create') }}">
@@ -15,9 +14,9 @@
                         </a>
                     @endcan
                 </div>
+        </section>
+<div class="card" id="view-table" aria-labelledby="view-table">
 
-
-            </div>
             <div class="card-body">
 
             </div>

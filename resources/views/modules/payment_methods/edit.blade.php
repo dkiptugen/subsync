@@ -3,10 +3,11 @@
     <div class="col-12">
 
            @if(($payment_method->provider =='mpesa') && ($payment_method->type =='paybill'))
-            <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title text-nation my-0">Mpesa Paybill Update</h3>
-                    </div>
+                        <section class="page-hero">
+<h3 class="card-title text-nation my-0">Mpesa Paybill Update</h3>
+            </section>
+<div class="card">
+
                     <div class="card-body">
                         <form action="{{ route('payment_method.update',$payment_method->id) }}" method="post"
                               class="form form-horizontal create-form">
@@ -75,10 +76,11 @@
                     </div>
                 </div>
         @elseif(($payment_method->provider =='mpesa') && ($payment_method->type =='buygoods'))
-            <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title text-nation my-0">Mpesa Buy Goods Update</h3>
-                    </div>
+                        <section class="page-hero">
+<h3 class="card-title text-nation my-0">Mpesa Buy Goods Update</h3>
+            </section>
+<div class="card">
+
                     <div class="card-body">
                         <form action="{{ route('payment_method.update',$payment_method->id) }}" method="post"
                               class="form form-horizontal create-form">
@@ -152,10 +154,11 @@
                     </div>
                 </div>
         @elseif(($payment_method->provider =='dpo'))
-            <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title text-nation my-0">DPO Update</h3>
-                    </div>
+                        <section class="page-hero">
+<h3 class="card-title text-nation my-0">DPO Update</h3>
+            </section>
+<div class="card">
+
                     <div class="card-body">
                         <form action="{{ route('payment_method.update',$payment_method->id) }}" method="post"
                               class="form form-horizontal create-form">
@@ -225,10 +228,11 @@
                     </div>
                 </div>
         @elseif(($payment_method->provider =='pesapal') )
-            <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title text-nation my-0">Pesapal Update</h3>
-                    </div>
+                        <section class="page-hero">
+<h3 class="card-title text-nation my-0">Pesapal Update</h3>
+            </section>
+<div class="card">
+
                     <div class="card-body">
                         <form action="{{ route('payment_method.update',$payment_method->id) }}" method="post"
                               class="form form-horizontal create-form">

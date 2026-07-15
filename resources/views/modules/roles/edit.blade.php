@@ -1,11 +1,12 @@
 @extends('includes.body')
 @section('content')
-    <div class="card" aria-labelledby="add-role" id="edit-role-collapse">
-        <div class="card-header">
-            <h3 class="card-title my-0 text-nation">
+        <section class="page-hero">
+<h3 class="card-title my-0 text-nation">
                 Edit Role
             </h3>
-        </div>
+    </section>
+<div class="card" aria-labelledby="add-role" id="edit-role-collapse">
+
         <div class="card-body">
             <form action="{{ route('user.roles.update',[$userid??0,$role->id]) }}" method="post" class="form form-horizontal create-form" enctype="multipart/form-data">
                 @csrf

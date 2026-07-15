@@ -1,9 +1,8 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h3 class="my-0 text-nation card-title">{{ $organization->name }}
+                <section class="page-hero d-flex align-items-center justify-content-between">
+<h3 class="my-0 text-nation card-title">{{ $organization->name }}
                     Assign  : {{ $subscription->product->product_name.'('.$subscription->start_date.'  -  '.$subscription->expiry_date.')' }}</h3>
                 <div class="action">
                     <a href="{{ route('organization.subscription.assign_form',[$organization->id,$subscription->id]) }}"
@@ -17,8 +16,9 @@
                         {{ $subscription->records.'/'.$subscription->accounts }}
                     </a>
                 </div>
+        </section>
+<div class="card">
 
-            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover table-striped" id="user-table">

@@ -1,11 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex align-item-center justify-content-between">
-                <h3 class="my-0 card-title text-nation">Import Individual Accounts</h3>
+                <section class="page-hero d-flex align-item-center justify-content-between">
+<h3 class="my-0 card-title text-nation">Import Individual Accounts</h3>
+        </section>
+<div class="card">
 
-            </div>
             <div class="card-body">
                 <form action="{{ route('migindividuals.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf

@@ -3,10 +3,11 @@
 
         <div class="col-12">
             <div class="table-responsive">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="my-0 card-title text-nation">Logs</h3>
-                    </div>
+                                <section class="page-hero">
+<h3 class="my-0 card-title text-nation">Logs</h3>
+                </section>
+<div class="card">
+
                     <div class="card-body">
                         <table class="table table-striped table-condensed" id="logger">
                             <thead class="text-white bg-nation">

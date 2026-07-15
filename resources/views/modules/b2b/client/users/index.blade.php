@@ -1,9 +1,8 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-itens-center">
-                <h3 class="card-title my-0 text-nation">Dependants</h3>
+                <section class="page-hero d-flex justify-content-between align-itens-center">
+<h3 class="card-title my-0 text-nation">Dependants</h3>
                 <div class="tns">
                     @canaccess('client_users.create')
                     <a href="{{ route('client_users.create') }}" class="btn btn-sm btn-outline-nation">
@@ -17,8 +16,9 @@
                     </a>
                     @endcanaccess
                 </div>
+        </section>
+<div class="card">
 
-            </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-hover" id="User-table">

@@ -1,10 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h3 class="my-0 text-nation card-title">Organizational Purchase Order</h3>
-            </div>
+                <section class="page-hero d-flex align-items-center justify-content-between">
+<h3 class="my-0 text-nation card-title">Organizational Purchase Order</h3>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover table-striped" id="purchase_table">

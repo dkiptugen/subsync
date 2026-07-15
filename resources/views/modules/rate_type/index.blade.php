@@ -1,16 +1,17 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title my-0 text-nation">Subscription Types</h3>
+                <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">Subscription Types</h3>
                 @can('create_subscription_type')
                 <a href="{{ route('rate_type.create') }}" class="btn btn-outline-nation btn-sm">
                     <i class="fas fa-plus"></i>
                     <span>Add Subscription Type</span>
                 </a>
                 @endcan
-            </div>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover table-striped" id="rate-type-table">

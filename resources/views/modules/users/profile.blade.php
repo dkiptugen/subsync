@@ -1,10 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title my-0 text-nation">Profile</h3>
-        </div>
+        <section class="page-hero">
+<h3 class="card-title my-0 text-nation">Profile</h3>
+    </section>
+<div class="card">
+
         <div class="card-body">
             <form action="{{ route('profile.update',$user->id) }}" method="post"
                   class="form form-horizontal create-form">

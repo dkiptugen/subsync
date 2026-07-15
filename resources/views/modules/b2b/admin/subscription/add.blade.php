@@ -1,10 +1,11 @@
 @extends('includes.body')
 @section('content')
 	<div class="col-12">
-		<div class="card">
-			<div class="card-header">
-				<h3 class="card-title my-0 text-nation">Add Corporate Subscription</h3>
-			</div>
+				<section class="page-hero">
+<h3 class="card-title my-0 text-nation">Add Corporate Subscription</h3>
+		</section>
+<div class="card">
+
 			<div class="card-body">
 				<form action="{{ route('organization.subscription.store',$organizationId) }}"
 						method="post"
@@ -99,8 +100,8 @@
 							<!-- /#.form-control -->
 						</div>
 						<!-- /.col -->
-					
-					
+
+
 					</div>
 					<div class="row mb-3">
 						<div class="col">

@@ -1,11 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-itens-center">
-                <h3 class="card-title my-0 text-nation">Change Password</h3>
-               
-            </div>
+                <section class="page-hero d-flex justify-content-between align-itens-center">
+<h3 class="card-title my-0 text-nation">Change Password</h3>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <form action="{{ route('product.subscriber.change_password',[0,$user->id]) }}" method="post"
                       class="form form-horizontal create-form">
@@ -22,7 +22,7 @@
                              <input type="readonly" disabled class="form-control" id="email" name="email"
                                     value="{{ $user->email }}">
                          </div>
-                        
+
                     </div>
                     <div class="mb-3">
                          <label for="password" class="control-label">Password</label>
@@ -33,12 +33,12 @@
                          <input type="password" class="form-control" id="password_confirmation"
                                 name="password_confirmation">
                     </div>
-                   
+
                     <div class="mb-3 d-flex">
                         <button type="submit" class="btn btn-nation ms-auto">Change password</button>
                     </div>
                 </form>
-              
+
             </div>
         </div>
     </div>

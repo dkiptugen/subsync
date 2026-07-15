@@ -5,15 +5,16 @@
 @section('logo',$logo)
 @section('image',$image)
 @section('content')
-    <section class="card">
-    <div class="card-header d-flex justify-content-between">
-        <h3 class="card-title my-0 text-nation">Coupon</h3>
+        <section class="page-hero d-flex justify-content-between">
+<h3 class="card-title my-0 text-nation">Coupon</h3>
         @can('create_coupon')
         <a href="{{ route('coupon.create') }}" class="btn btn-sm btn-outline-nation">
             <i class="fas fa-plus "></i> <span>Add Coupon</span>
         </a>
         @endcan
-    </div>
+    </section>
+<section class="card">
+
     <div class="card-body">
         <table class="table table-striped" id="promo-table">
             <thead class="bg-nation text-white">

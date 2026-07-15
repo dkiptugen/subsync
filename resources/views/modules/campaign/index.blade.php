@@ -1,12 +1,13 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h3 class="card-title text-nation my-0">Campaigns</h3>
+                <section class="page-hero d-flex align-items-center justify-content-between">
+<h3 class="card-title text-nation my-0">Campaigns</h3>
                 <a href="{{ route('campaign.index') }}" class="btn btn-sm btn-outline-nation"><span
                         class="fas fa-plus"></span>Add Campaign</a>
-            </div>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-condensed" id="campaign-table">

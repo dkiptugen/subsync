@@ -1,10 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title my-0 text-nation">Assign User</h3>
-            </div>
+                <section class="page-hero">
+<h3 class="card-title my-0 text-nation">Assign User</h3>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <form action="{{ route('organization.subscription.assign_user',[$organization->id,$subscription->id]) }}" class="form form-horizontal create-form" method="post">
                     @csrf

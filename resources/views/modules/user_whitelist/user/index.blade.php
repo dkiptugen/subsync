@@ -1,15 +1,16 @@
 @extends('includes.body')
 @section('content')
     <div class="col">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title my-0 text-nation">User Whitelist</h3>
+                <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">User Whitelist</h3>
                 @canaccess('whitelist.type.create')
                 <a href="{{ route('whitelist.type.create',"user") }}" class="btn btn-outline-nation btn-sm">
                     Whitelist Users
                 </a>
                 @endcanaccess
-            </div>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-hover" id="whitelist-table">

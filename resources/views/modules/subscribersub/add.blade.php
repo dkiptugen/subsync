@@ -1,10 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card w-100">
-            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
-                <h3 class="card-title my-0 text-nation">Add Subscription</h3>
-            </div>
+                <section class="page-hero d-flex justify-content-between align-items-center flex-wrap">
+<h3 class="card-title my-0 text-nation">Add Subscription</h3>
+        </section>
+<div class="card w-100">
+
             <div class="card-body">
                 <form action="{{ route('user.subscription.store' , $user->id) }}" method="post" class="form form-horizontal create-form">
                     @csrf

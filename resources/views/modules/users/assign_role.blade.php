@@ -1,11 +1,12 @@
 @extends('includes.body')
 @section('content')
 <div class="col-12">
-    <div class="card shadow-lg m-0">
-        <div class="card-header d-flex justify-content-between">
-            <h5 class="modal-title">Assign Roles</h5>
+        <section class="page-hero d-flex justify-content-between">
+<h5 class="modal-title">Assign Roles</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
+    </section>
+<div class="card shadow-lg m-0">
+
         <div class="card-body">
             <form action="{{ route('users.roles.assign',$userid) }}" class="form form-horizontal create-form" method="post">
                 @csrf

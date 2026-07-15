@@ -1,10 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title my-0 text-nation">Invoices</h3>
-            </div>
+                <section class="page-hero">
+<h3 class="card-title my-0 text-nation">Invoices</h3>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-hover" id="invoice-table">

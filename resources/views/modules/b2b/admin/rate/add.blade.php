@@ -1,10 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title my-0 text-nation">Add Corporate Rate</h3>
-            </div>
+                <section class="page-hero">
+<h3 class="card-title my-0 text-nation">Add Corporate Rate</h3>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <form action="{{ route('organization.rate.store',$organizationId) }}" method="post"
                       class="form form-horizontal create-form">

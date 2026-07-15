@@ -6,10 +6,11 @@
 @section('logo',$logo)
 @section('image',$image)
 @section('content')
-    <section class="card">
-        <div class="card-header">
-            <h3>Edit Promo code</h3>
-        </div>
+        <section class="page-hero">
+<h3>Edit Promo code</h3>
+    </section>
+<section class="card">
+
         <div class="card-body">
             <form action="{{ route('coupon.update',$promo->id) }}" class="form form-horizontal create-form"
                   method="post">

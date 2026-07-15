@@ -18,10 +18,11 @@
 
         <div class="row mb-4">
             <div class="col-lg-8">
-                <div class="card report-panel h-100">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0 text-nation">Daily Accounts</h5>
-                    </div>
+                                <section class="page-hero">
+<h5 class="card-title mb-0 text-nation">Daily Accounts</h5>
+                </section>
+<div class="card report-panel h-100">
+
                     <div class="card-body">
                         <div class="chart chart-sm">
                             <canvas id="accountDailyChart"></canvas>
@@ -30,10 +31,11 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="card report-panel h-100">
-                    <div class="card-header">
-                        <h5 class="card-title mb-0 text-nation">Account Status</h5>
-                    </div>
+                                <section class="page-hero">
+<h5 class="card-title mb-0 text-nation">Account Status</h5>
+                </section>
+<div class="card report-panel h-100">
+
                     <div class="card-body">
                         <div class="chart chart-sm">
                             <canvas id="accountStatusChart"></canvas>
@@ -43,10 +45,11 @@
             </div>
         </div>
 
-        <div class="card report-panel report-results-card">
-            <div class="card-header">
-                <h3 class="card-title my-0 text-nation">Account Results</h3>
-            </div>
+                <section class="page-hero">
+<h3 class="card-title my-0 text-nation">Account Results</h3>
+        </section>
+<div class="card report-panel report-results-card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-hover">

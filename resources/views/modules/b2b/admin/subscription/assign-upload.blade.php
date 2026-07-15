@@ -1,11 +1,12 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-    <div class="card">
-        <div class="card-header d-flex align-item-center justify-content-between">
-            <h3 class="my-0 card-title text-nation">{{ $organization->name }} : Users upload</h3>
+        <section class="page-hero d-flex align-item-center justify-content-between">
+<h3 class="my-0 card-title text-nation">{{ $organization->name }} : Users upload</h3>
             <div class="">{{ $subscription->product->product_name.'('.$subscription->start_date.'  -  '.$subscription->expiry_date.')' }}</div>
-        </div>
+    </section>
+<div class="card">
+
         <div class="card-body">
             <div id="dropzone" class="d-flex align-items-center justify-content-center"
                  data-endpoint="{{ route('organization.subscription.assign_upload',[$organization->id,$subscription->id]) }}">

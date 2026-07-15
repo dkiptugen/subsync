@@ -22,10 +22,11 @@
 
     <div class="row g-4">
         <div class="col-12 col-xl-4">
-            <div class="card h-100">
-                <div class="card-header">
-                    <h2 class="h5 mb-0">Install Plugin</h2>
-                </div>
+                        <section class="page-hero">
+<h2 class="h5 mb-0">Install Plugin</h2>
+            </section>
+<div class="card h-100">
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('plugins.upload') }}" enctype="multipart/form-data" class="d-grid gap-3">
                         @csrf
@@ -66,11 +67,12 @@
         </div>
 
         <div class="col-12 col-xl-8">
-            <div class="card h-100">
-                <div class="card-header d-flex align-items-center justify-content-between">
-                    <h2 class="h5 mb-0">Installed Plugins</h2>
+                        <section class="page-hero d-flex align-items-center justify-content-between">
+<h2 class="h5 mb-0">Installed Plugins</h2>
                     <span class="badge bg-secondary">{{ count($plugins) }}</span>
-                </div>
+            </section>
+<div class="card h-100">
+
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0" id="plugins-table">

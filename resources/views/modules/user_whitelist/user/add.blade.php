@@ -1,10 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title my-0 text-nation">User Whitelist</h3>
-            </div>
+                <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">User Whitelist</h3>
+        </section>
+<div class="card">
+
             <div class="card-body">
 
                         <form action="{{ route('whitelist.type.store','user') }}" method="post" enctype="multipart/form-data" class="form-i form-horizontal create-form">

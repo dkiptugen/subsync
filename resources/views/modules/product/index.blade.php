@@ -1,9 +1,8 @@
 @extends('includes.body')
 @section('content')
 	<div class="col-12">
-		<div class="card">
-			<div class="card-header d-flex justify-content-between align-items-center">
-				<h3 class="card-title my-0 text-nation">
+				<section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">
 					Products
 				</h3>
 				@can('create_product')
@@ -12,7 +11,9 @@
 					<i class="fas fa-plus me-2"></i> <span>Add Product</span>
 				</a>
 				@endcan
-			</div>
+		</section>
+<div class="card">
+
 			<div class="card-body">
 				<div class="table-responsive">
 					<table class="table table-condensed table-striped"

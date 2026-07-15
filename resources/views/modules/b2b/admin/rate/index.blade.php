@@ -1,9 +1,8 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="card-title my-0 text-nation">
+        <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">
                Corporate Rates
             </h3>
             @canaccess('organization.rate.create')
@@ -11,7 +10,9 @@
                 <i class="fas fa-plus"></i><span class="">Add Corporate Rate</span>
             </a>
             @endcanaccess
-        </div>
+    </section>
+<div class="card">
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-striped table-condensed" id="rates-table">

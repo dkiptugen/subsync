@@ -1,11 +1,12 @@
 @extends('includes.body')
 @section('content')
-    <div class="card" aria-labelledby="add-role" id="add-role">
-        <div class="card-header">
-            <h3 class="my-0 card-title text-nation">
+        <section class="page-hero">
+<h3 class="my-0 card-title text-nation">
                 Add MediaEvent
             </h3>
-        </div>
+    </section>
+<div class="card" aria-labelledby="add-role" id="add-role">
+
         <div class="card-body">
             <form action="{{ route('media_events.update',$record) }}" method="post"
                   class="form form-horizontal create-form" enctype="multipart/form-data">
@@ -25,7 +26,7 @@
                 <option value="inactive">Inactive</option>
                 </select>
                 </div>
-                    
+
                 </div>
                 <div class="row mb-3">
                     <button type="submit" class="ms-auto me-2 btn btn-dark btn-sm">Update</button>

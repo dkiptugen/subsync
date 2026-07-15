@@ -1,12 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
+        <section class="page-hero">
+            <h3 class="card-title text-nation">Edit Currency Conversion Rate</h3>
+            <!-- /.card-title text-nation -->
+        </section>
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title text-nation">Edit Currency Conversion Rate</h3>
-                <!-- /.card-title text-nation -->
-            </div>
-            <!-- /.card-header -->
             <div class="card-body">
                 <form action="{{ route('currency.update',$currency->id) }}" method="post" class="form create-form">
                     @csrf

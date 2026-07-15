@@ -1,10 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title text-nation my-0">Edit Custom Template</h3>
-            </div>
+                <section class="page-hero">
+<h3 class="card-title text-nation my-0">Edit Custom Template</h3>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <form action="{{ route('email_template.update',['email_template' => $template->id]) }}" method="post" class="form form-horizontal create-form">
                     @csrf
@@ -14,20 +15,20 @@
                         <input type="text" name="template_name" id="name" class="form-control" value="{{ $template->name }}">
                     </div>
                     <div class="mb-3 ">
-                        
+
                         <label for="type" class="control-label">Email Type</label>
                         <select  name="template_type" id="template_type" class="form-control select2">
                             @foreach($types as $type)
                                 <option value="{{ $type->value }}" @selected($type->value == $template->email_type)>{{ $type->name }}</option>
                             @endforeach
                         </select>
-                    
+
                     </div>
                     <div class="mb-3 ">
-                        
+
                         <label for="subject" class="control-label">Email Subject</label>
                         <input type="text" name="subject" id="subject" class="form-control" value="{{ $template->subject }}">
-                    
+
                     </div>
                     <div class="row mb-3">
                         <div class="col-12 col-md-8 col-xl-10"><label for="email_body" class="control-label">Email Body</label>
@@ -40,10 +41,10 @@
                                 <small class="text-warning mt-3">N/B The variable should be placed as defined above with &#123;&#123;&#125;&#125;.</small>
                             </div>
                         </div>
-                        
-                      
+
+
                     </div>
-                   
+
                     <div class="mb-3">
                         <label for="products" class="control-label">Products</label>
                         <select name="products[]" id="products" class="form-control select2" multiple="multiple">
@@ -52,7 +53,7 @@
                             @endforeach
                         </select>
                     </div>
-                   
+
                     <div class="mb-3">
                         <label class="form-check form-check-inline">
                             <input class="form-check-input"

@@ -1,9 +1,10 @@
 @extends('includes.body')
 @section('content')
-    <div class="col-12 card">
-        <div class="card-header">
-            <h3 class="card-title my-0 text-nation">Create Purchase Order</h3>
-        </div>
+        <section class="page-hero">
+<h3 class="card-title my-0 text-nation">Create Purchase Order</h3>
+    </section>
+<div class="col-12 card">
+
         <div class="card-body">
             <form action="" method="post" class="form form-horizontal create-form">
                 <div class="mb-3">

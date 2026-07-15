@@ -1,11 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card w-100">
-            <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
-                <h3 class="card-title my-0 text-nation">Subscription Approval</h3>
+                <section class="page-hero d-flex justify-content-between align-items-center flex-wrap">
+<h3 class="card-title my-0 text-nation">Subscription Approval</h3>
+        </section>
+<div class="card w-100">
 
-            </div>
             <div class="card-body">
                 <div class="table-responsive table-responsive-lg table-responsive-md table-responsive-sm table-responsive-xl table-responsive-xxl ">
                     <table class="table table-condensed table-striped table-hover " id="subscription-table">

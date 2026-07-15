@@ -1,9 +1,8 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-itens-center">
-                <h3 class="card-title my-0 text-nation">Subscribers</h3>
+                <section class="page-hero d-flex justify-content-between align-itens-center">
+<h3 class="card-title my-0 text-nation">Subscribers</h3>
                 <div>
                     <a href="{{ route('product.subscriber.create',0) }}" class="btn btn-sm btn-outline-nation mx-2">
                         <i class="fas fa-plus"></i>Add Subscribers
@@ -13,7 +12,9 @@
                         <i class="fas fa-upload"></i>Bulk Uploads
                     </a>
                 </div>
-            </div>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-hover" id="subscriber-table">

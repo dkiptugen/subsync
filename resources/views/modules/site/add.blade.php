@@ -1,10 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title text-nation my-0">Add Site</h3>
-            </div>
+                <section class="page-hero">
+<h3 class="card-title text-nation my-0">Add Site</h3>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <form action="{{ route('site.store') }}" method="post" class="form form-horizontal create-form">
                     @csrf

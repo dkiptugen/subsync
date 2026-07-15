@@ -1,11 +1,11 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-itens-center">
-                <h3 class="card-title my-0 text-nation">Add Subscriber</h3>
+                <section class="page-hero d-flex justify-content-between align-itens-center">
+<h3 class="card-title my-0 text-nation">Add Subscriber</h3>
+        </section>
+<div class="card">
 
-            </div>
             <div class="card-body">
                 <form action="{{  route('subscribers.upload') }}" method="post"
                       class="form form-horizontal create-form">

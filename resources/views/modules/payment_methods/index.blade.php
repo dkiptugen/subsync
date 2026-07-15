@@ -1,15 +1,16 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex align-items-center justify-content-between">
-                <h3 class="my-0 text-nation">Payment Methods</h3>
+                <section class="page-hero d-flex align-items-center justify-content-between">
+<h3 class="my-0 text-nation">Payment Methods</h3>
                 @can('create_payment_method')
                 <a class="btn btn-outline-nation btn-sm " href="{{ route('payment_method.create') }}">
                     <i class="align-middle" data-feather="plus"></i> Add Payment Method
                 </a>
                 @endcan
-            </div>
+        </section>
+<div class="card">
+
             <div class="card-body ">
                 <div class="table-responsive">
                     <table class="table table-striped table-condensed" id="payment-method-table">

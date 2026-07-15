@@ -1,14 +1,15 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title my-0 text-nation">Currency Conversion Rate</h3>
+                <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">Currency Conversion Rate</h3>
                 <a href="{{ route('currency.create') }}" class="btn btn-sm btn-outline-dark">
                     <i class="fas fa-plus"></i>
                     Add conversion rate
                 </a>
-            </div>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-hover table-condensed" id="converstion-rate-table">

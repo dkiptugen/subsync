@@ -1,9 +1,8 @@
 @extends('includes.body')
 @section('content')
 <div class="col-12">
-    <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="card-title my-0 text-nation">Users</h3>
+        <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">Users</h3>
             <div class="actionbtn">
                 <a href="{{ route('user.create') }}" class="btn btn-outline-nation btn-sm">
                     <i class="fas fa-plus"></i> Add User
@@ -12,7 +11,9 @@
                     <i class="fas fa-file-export"></i> Export
                 </a>
             </div>
-        </div>
+    </section>
+<div class="card">
+
         <div class="card-body table-responsive">
             <div class="table-responsive">
                 <table id="userstable" class="table table-striped table-hover table-condensed">

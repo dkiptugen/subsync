@@ -1,11 +1,12 @@
 @extends('includes.body')
 @section('content')
-    <div class="card" aria-labelledby="add-role" id="add-role">
-        <div class="card-header">
-            <h3 class="my-0 card-title text-nation">
+        <section class="page-hero">
+<h3 class="my-0 card-title text-nation">
                 Add Role
             </h3>
-        </div>
+    </section>
+<div class="card" aria-labelledby="add-role" id="add-role">
+
         <div class="card-body">
             <form action="{{ route('user.roles.store',$userid??0) }}" method="post"
                   class="form form-horizontal create-form" enctype="multipart/form-data">
@@ -20,10 +21,11 @@
                     @php($x=1)
 
                         @foreach($perm as $value)
-                            <div class="card">
-                                <div class="card-header bg-light">
-                                    <h3 class="card-title my-0 text-nation">{{ ucwords(str_replace('_',' ',$value->name)) }}</h3>
-                                </div>
+                                                        <section class="page-hero">
+<h3 class="card-title my-0 text-nation">{{ ucwords(str_replace('_',' ',$value->name)) }}</h3>
+                            </section>
+<div class="card">
+
                                 <div class="card-body">
 
                                         @foreach($value->permissions as $perm)

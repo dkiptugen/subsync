@@ -2,10 +2,11 @@
 
 @section('content')
 <div class="col-12">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title my-0 text-nation">Failed Jobs</h3>
-        </div>
+        <section class="page-hero">
+<h3 class="card-title my-0 text-nation">Failed Jobs</h3>
+    </section>
+<div class="card">
+
         <div class="card-body">
             <table id="failed_jobs_table" class="table table-striped table-condensed" >
                 <thead class="text-white bg-nation">

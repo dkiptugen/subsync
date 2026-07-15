@@ -1,13 +1,13 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-            <div class="card" id="view-table" aria-labelledby="view-table" >
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="card-title my-0 text-nation">Mpesa blacklist</h3>
+                        <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">Mpesa blacklist</h3>
                     <a class="btn btn-outline-nation btn-sm"  href="{{ route('mpesa_blacklist.create') }}" >
                         <i class="align-middle" data-feather="plus"></i> Add Number </a>
+            </section>
+<div class="card" id="view-table" aria-labelledby="view-table" >
 
-                </div>
                 <div class="card-body">
                     @livewire('black-list-livewire')
                 </div>

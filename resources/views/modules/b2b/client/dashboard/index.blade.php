@@ -3,10 +3,11 @@
 <div class="col-12">
     <div class="row">
         <div class="col-lg-6 col-xl-3 d-flex">
-            <div class="card flex-fill">
-                <div class="card-header border-0">
-                    <h5 class="card-title my-0 text-nation">Users</h5>
-                </div>
+                        <section class="page-hero">
+<h5 class="card-title my-0 text-nation">Users</h5>
+            </section>
+<div class="card flex-fill">
+
                 <div class="card-body my-1  text-left">
                     <h2 class=" fw-light my-0">
                         120
@@ -15,10 +16,11 @@
             </div>
         </div>
         <div class="col-lg-6 col-xl-3 d-flex">
-            <div class="card flex-fill">
-                <div class="card-header border-0">
-                    <h5 class="card-title my-0 text-nation">Total Amount Paid</h5>
-                </div>
+                        <section class="page-hero">
+<h5 class="card-title my-0 text-nation">Total Amount Paid</h5>
+            </section>
+<div class="card flex-fill">
+
                 <div class="card-body my-1  text-left">
 
                     <h2 class="fw-light my-0">
@@ -29,11 +31,11 @@
             </div>
         </div>
         <div class="col-lg-6 col-xl-3 d-flex">
-            <div class="card flex-fill">
-                <div class="card-header border-0">
+                        <section class="page-hero">
+<h5 class="card-title my-0 text-nation">Purchase orders Approved</h5>
+            </section>
+<div class="card flex-fill">
 
-                    <h5 class="card-title my-0 text-nation">Purchase orders Approved</h5>
-                </div>
                 <div class="card-body my-1   text-left">
 
                     <h2 class="fw-light my-0">
@@ -43,11 +45,11 @@
             </div>
         </div>
         <div class="col-lg-6 col-xl-3 d-flex">
-            <div class="card flex-fill">
-                <div class="card-header border-0 ">
+                        <section class="page-hero">
+<h5 class="card-title my-0 text-nation"> Total Balance Accrued</h5>
+            </section>
+<div class="card flex-fill">
 
-                    <h5 class="card-title my-0 text-nation"> Total Balance Accrued</h5>
-                </div>
                 <div class="card-body my-1 text-left">
                     <h2 class="fw-light my-0">
                         Ksh 82,400/=
@@ -56,11 +58,11 @@
             </div>
         </div>
         <div class="col-12 d-flex ">
-            <div class="card flex-fill">
-                <div class="card-header border-0 ">
+                        <section class="page-hero">
+<h5 class="card-title my-0 text-nation"> Subscription</h5>
+            </section>
+<div class="card flex-fill">
 
-                    <h5 class="card-title my-0 text-nation"> Subscription</h5>
-                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-condensed table-hover table-striped">

@@ -1,15 +1,16 @@
 @extends('includes.body')
 @section('content')
     <div class="col">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title my-0 text-nation">IP Address Whitelist</h3>
+                <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title my-0 text-nation">IP Address Whitelist</h3>
                 @can('create_whitelist')
                 <a href="{{ route('whitelist.type.create','ipaddress') }}" class="btn btn-outline-nation btn-sm">
                     Whitelist IP Address
                 </a>
                 @endcan
-            </div>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-striped table-hover" id="whitelist-table">

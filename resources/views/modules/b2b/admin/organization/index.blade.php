@@ -1,15 +1,16 @@
 @extends('includes.body')
 @section('content')
     <div class="col-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title text-nation my-0">Corporates</h3>
+                <section class="page-hero d-flex justify-content-between align-items-center">
+<h3 class="card-title text-nation my-0">Corporates</h3>
                 @canaccess('organization.create')
                 <a href="{{ route('organization.create') }}" class="btn btn-sm btn-outline-nation">
                     <i class="fas fa-plus"></i> Add Corporate
                 </a>
                 @endcanaccess
-            </div>
+        </section>
+<div class="card">
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-condensed table-hover table-striped" id="organization-table">
