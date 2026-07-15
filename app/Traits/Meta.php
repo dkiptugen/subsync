@@ -25,8 +25,13 @@ trait Meta
     {
 
         return [
-            'name' => 'Nation Media Group', 'title' => 'Unified subscription', 'description' => 'The best CMS available', 'logo' => asset('assets/img/logo.png'), 'image' => asset('assets/img/logo.jpg'),
-            'keywords' => '', 'author' => 'Nation Media Group',
+            'name' => 'Radio Africa Group',
+            'title' => 'Unified subscription',
+            'description' => 'Unified subscription',
+            'logo' => asset('assets/img/logo-dark.png'),
+            'image' => asset('assets/img/logo.png'),
+            'keywords' => 'The Star, Radio Africa Group, Mpasho,Ticket Yetu',
+            'author' => 'Radio Africa Group',
         ];
 
     }
