@@ -10,11 +10,10 @@
 
         <div class="row mb-4">
             <div class="col-lg-8">
-                <section class="page-hero">
-                    <h5 class="card-title mb-0 text-nation">Daily Registrations</h5>
-                </section>
                 <div class="card report-panel h-100">
-
+                    <div class="report-panel-title">
+                        <h5>Daily Registrations</h5>
+                    </div>
                     <div class="card-body">
                         <div class="chart chart-sm">
                             <canvas id="registrationDailyChart"></canvas>
@@ -23,11 +22,10 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <section class="page-hero">
-                    <h5 class="card-title mb-0 text-nation">Registration Status</h5>
-                </section>
                 <div class="card report-panel h-100">
-
+                    <div class="report-panel-title">
+                        <h5>Registration Status</h5>
+                    </div>
                     <div class="card-body">
                         <div class="chart chart-sm">
                             <canvas id="registrationStatusChart"></canvas>
@@ -38,26 +36,30 @@
         </div>
 
         <div class="row mt-4">
-            <div class="card report-panel report-results-card">
-
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="registration-report-table"
-                               class="table table-condensed table-striped table-hover w-100">
-                            <thead class="bg-nation text-white">
-                            <tr>
-                                <th>#</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Organization</th>
-                                <th>Status</th>
-                                <th>Phone Number</th>
-                                <th>Login Type</th>
-                                <th>Last Login</th>
-                                <th>Registration Date</th>
-                            </tr>
-                            </thead>
-                        </table>
+            <div class="col-12">
+                <div class="card report-panel report-results-card">
+                    <div class="report-panel-title">
+                        <h5>Registration Results</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="registration-report-table"
+                                   class="table table-condensed table-striped table-hover w-100">
+                                <thead class="bg-nation text-white">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Organization</th>
+                                    <th>Status</th>
+                                    <th>Phone Number</th>
+                                    <th>Login Type</th>
+                                    <th>Last Login</th>
+                                    <th>Registration Date</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

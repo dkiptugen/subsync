@@ -17,11 +17,10 @@
 
         <div class="row mb-4">
             <div class="col-lg-8">
-                                <section class="page-hero">
-<h5 class="card-title mb-0 text-nation">Daily Revenue</h5>
-                </section>
 <div class="card report-panel h-100">
-
+                    <div class="report-panel-title">
+                        <h5>Daily Revenue</h5>
+                    </div>
                     <div class="card-body">
                         <div class="chart chart-sm">
                             <canvas id="revenueDailyChart"></canvas>
@@ -30,11 +29,10 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                                <section class="page-hero">
-<h5 class="card-title mb-0 text-nation">Revenue By Channel</h5>
-                </section>
 <div class="card report-panel h-100">
-
+                    <div class="report-panel-title">
+                        <h5>Revenue By Channel</h5>
+                    </div>
                     <div class="card-body">
                         <div class="chart chart-sm">
                             <canvas id="revenueChannelChart"></canvas>
@@ -44,31 +42,35 @@
             </div>
         </div>
 
-<div class="row mt-4">
-<div class="card report-panel report-results-card">
-
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="revenue-report-table" class="table table-condensed table-striped table-hover w-100">
-                        <thead class="bg-nation text-white">
-                            <tr>
-                                <th>#</th>
-                                <th>Identifier</th>
-                                <th>Receipt</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Product</th>
-                                <th>Channel</th>
-                                <th>Amount Paid</th>
-                                <th>Transaction Date</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                    </table>
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card report-panel report-results-card">
+                    <div class="report-panel-title">
+                        <h5>Revenue Results</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="revenue-report-table" class="table table-condensed table-striped table-hover w-100">
+                                <thead class="bg-nation text-white">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Identifier</th>
+                                        <th>Receipt</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Product</th>
+                                        <th>Channel</th>
+                                        <th>Amount Paid</th>
+                                        <th>Transaction Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection
 @section('footer')

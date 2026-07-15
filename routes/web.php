@@ -234,7 +234,9 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth'], 'access_level' => [
         Route::get('simulate', [DebugController::class, 'simulate'])->name('simulate');
 
         Route::resource('mpesa_blacklist', MpesaBlacklistController::class);
+        Route::post('mpesa_blacklist/get', [MpesaBlacklistController::class, 'datatable'])->name('mpesa_blacklist.datatable');
         Route::resource('media_events', MediaEventsController::class);
+        Route::post('media_events/get', [MediaEventsController::class, 'datatable'])->name('media_events.datatable');
 
         Route::get('subscribers/bulk', [SubscriberController::class, 'bulkform'])->name('subscribers.bulk');
         Route::post('subscribers/upload', [SubscriberController::class, 'upload'])->name('subscribers.upload');

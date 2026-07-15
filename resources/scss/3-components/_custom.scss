@@ -812,9 +812,10 @@ th{
 }
 
 .report-hero {
-    background: linear-gradient(180deg, $white 0%, mix($white, $primary, 97%) 100%);
-    border: $border-width solid mix($border-color, $primary, 82%);
+    background: $white;
+    border: 0;
     border-left: 4px solid $primary;
+    box-shadow: 0 10px 24px rgba($black, .04);
     margin-bottom: 1.5rem;
     padding: 1.5rem;
 }
@@ -860,8 +861,8 @@ th{
 
 .report-filter-grid {
     align-items: stretch;
-    background: rgba($white, .72);
-    border: $border-width solid rgba($primary, .12);
+    background: $gray-100;
+    border: 0;
     display: grid;
     gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -871,6 +872,7 @@ th{
 .report-filter-field {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     min-width: 0;
 }
 
@@ -892,12 +894,35 @@ th{
 }
 
 .report-panel {
-    border: $border-width solid $border-color;
+    border: 0;
+    box-shadow: 0 10px 24px rgba($black, .04);
+    overflow: hidden;
+}
+
+.report-panel-title {
+    align-items: center;
+    background: $white;
+    border-bottom: 1px solid $gray-200;
+    display: flex;
+    justify-content: space-between;
+    min-height: 56px;
+    padding: 1rem 1.25rem;
+}
+
+.report-panel-title h5 {
+    color: $gray-900;
+    font-size: .9375rem;
+    font-weight: 700;
+    margin: 0;
 }
 
 .report-panel .card-header {
     background: $white;
     border-bottom-color: $border-color;
+}
+
+.report-panel .card-body {
+    padding: 1.25rem;
 }
 
 .report-results-card .table {

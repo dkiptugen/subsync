@@ -13,11 +13,10 @@
 
         <div class="row mb-4">
             <div class="col-lg-8">
-                <section class="page-hero">
-                    <h5 class="card-title mb-0 text-nation">Daily Subscriptions</h5>
-                </section>
                 <div class="card report-panel h-100">
-
+                    <div class="report-panel-title">
+                        <h5>Daily Subscriptions</h5>
+                    </div>
                     <div class="card-body">
                         <div class="chart chart-sm">
                             <canvas id="subscriptionDailyChart"></canvas>
@@ -26,11 +25,10 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <section class="page-hero">
-                    <h5 class="card-title mb-0 text-nation">Subscription Status</h5>
-                </section>
                 <div class="card report-panel h-100">
-
+                    <div class="report-panel-title">
+                        <h5>Subscription Status</h5>
+                    </div>
                     <div class="card-body">
                         <div class="chart chart-sm">
                             <canvas id="subscriptionStatusChart"></canvas>
@@ -43,7 +41,9 @@
         <div class="row mt-4">
             <div class="col-12">
             <div class="card report-panel report-results-card">
-
+                <div class="report-panel-title">
+                    <h5>Subscription Results</h5>
+                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="subscription-report-table"
