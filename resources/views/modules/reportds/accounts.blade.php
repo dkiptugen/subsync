@@ -18,10 +18,10 @@
 
         <div class="row mb-4">
             <div class="col-lg-8">
-                                <section class="page-hero">
-<h5 class="card-title mb-0 text-nation">Daily Accounts</h5>
+                <section class="page-hero">
+                    <h5 class="card-title mb-0 text-nation">Daily Accounts</h5>
                 </section>
-<div class="card report-panel h-100">
+                <div class="card report-panel h-100">
 
                     <div class="card-body">
                         <div class="chart chart-sm">
@@ -31,10 +31,10 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                                <section class="page-hero">
-<h5 class="card-title mb-0 text-nation">Account Status</h5>
+                <section class="page-hero">
+                    <h5 class="card-title mb-0 text-nation">Account Status</h5>
                 </section>
-<div class="card report-panel h-100">
+                <div class="card report-panel h-100">
 
                     <div class="card-body">
                         <div class="chart chart-sm">
@@ -44,14 +44,14 @@
                 </div>
             </div>
         </div>
+        <div class="row">
 
+            <div class="card report-panel report-results-card  mt-4">
 
-<div class="card report-panel report-results-card  mt-4">
-
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="account-report-table" class="table table-condensed table-striped table-hover w-100">
-                        <thead class="bg-nation text-white">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="account-report-table" class="table table-condensed table-striped table-hover w-100">
+                            <thead class="bg-nation text-white">
                             <tr>
                                 <th>#</th>
                                 <th>Identifier</th>
@@ -65,8 +65,9 @@
                                 <th>Activated By</th>
                                 <th>Status</th>
                             </tr>
-                        </thead>
-                    </table>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -44,8 +44,8 @@
             </div>
         </div>
 
-
-<div class="card report-panel report-results-card  mt-4">
+<div class="row mt-4">
+<div class="card report-panel report-results-card">
 
             <div class="card-body">
                 <div class="table-responsive">
@@ -68,6 +68,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
 @section('footer')

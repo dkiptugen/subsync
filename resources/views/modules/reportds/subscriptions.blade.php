@@ -13,10 +13,10 @@
 
         <div class="row mb-4">
             <div class="col-lg-8">
-                                <section class="page-hero">
-<h5 class="card-title mb-0 text-nation">Daily Subscriptions</h5>
+                <section class="page-hero">
+                    <h5 class="card-title mb-0 text-nation">Daily Subscriptions</h5>
                 </section>
-<div class="card report-panel h-100">
+                <div class="card report-panel h-100">
 
                     <div class="card-body">
                         <div class="chart chart-sm">
@@ -26,10 +26,10 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                                <section class="page-hero">
-<h5 class="card-title mb-0 text-nation">Subscription Status</h5>
+                <section class="page-hero">
+                    <h5 class="card-title mb-0 text-nation">Subscription Status</h5>
                 </section>
-<div class="card report-panel h-100">
+                <div class="card report-panel h-100">
 
                     <div class="card-body">
                         <div class="chart chart-sm">
@@ -40,13 +40,14 @@
             </div>
         </div>
 
+        <div class="row mt-4">
+            <div class="card report-panel report-results-card mt-4">
 
-<div class="card report-panel report-results-card mt-4">
-
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table id="subscription-report-table" class="table table-condensed table-striped table-hover w-100">
-                        <thead class="bg-nation text-white">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="subscription-report-table"
+                               class="table table-condensed table-striped table-hover w-100">
+                            <thead class="bg-nation text-white">
                             <tr>
                                 <th>#</th>
                                 <th>Identifier</th>
@@ -60,8 +61,9 @@
                                 <th>Email</th>
                                 <th>Status</th>
                             </tr>
-                        </thead>
-                    </table>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
