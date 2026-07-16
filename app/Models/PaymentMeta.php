@@ -9,6 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentMeta extends Model
     {
         use HasFactory;
-        protected $fillable = ["id","uuid","data"];
+        protected $fillable = ["uuid","data"];
         protected $casts = ['data'=>JsonCast::class];
     }

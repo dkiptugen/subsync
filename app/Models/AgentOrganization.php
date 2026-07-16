@@ -15,5 +15,5 @@ class AgentOrganization extends Pivot
 
     protected $table = 'agent_organization';
 
-    protected $guarded = [];
+    protected $fillable = ['agent_id', 'organization_id'];
 }

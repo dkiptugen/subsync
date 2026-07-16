@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Point extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = ['user_id', 'nickname', 'points', 'media_event_id', 'identifier'];
 
     public function user()
     {

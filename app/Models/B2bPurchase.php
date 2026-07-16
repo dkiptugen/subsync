@@ -12,6 +12,7 @@ class B2bPurchase extends Model
 {
     use HasFactory;
     use LogsActivity;
+    protected $guarded = ['*'];
 
     protected $casts = ['products' => JsonCast::class];
 

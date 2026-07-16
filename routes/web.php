@@ -52,24 +52,25 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Pusher\Pusher;
 
-Route::prefix('plugins')->name('plugins.')->group(function (): void {
-    Route::get('/', [PluginInstallerController::class, 'index'])->name('index');
-    Route::post('/upload', [PluginInstallerController::class, 'upload'])->name('upload');
-    Route::post('/install', [PluginInstallerController::class, 'install'])->name('install');
-    Route::post('/enable', [PluginInstallerController::class, 'enable'])->name('enable');
-    Route::post('/disable', [PluginInstallerController::class, 'disable'])->name('disable');
+Route::group([
+    'middleware' => ['auth', 'role:Super Admin'],
+], function (): void {
+    Route::prefix('plugins')->name('plugins.')->group(function (): void {
+        Route::get('/', [PluginInstallerController::class, 'index'])->name('index');
+        Route::post('/upload', [PluginInstallerController::class, 'upload'])->name('upload');
+        Route::post('/install', [PluginInstallerController::class, 'install'])->name('install');
+        Route::post('/enable', [PluginInstallerController::class, 'enable'])->name('enable');
+        Route::post('/disable', [PluginInstallerController::class, 'disable'])->name('disable');
+    });
 
-});
-
-Route::controller(MediaLibraryController::class)->prefix('media-library')->name('media-library.')->group(function (): void {
-    Route::get('/', 'index')->name('index');
-    Route::post('/', 'store')->name('store');
+    Route::controller(MediaLibraryController::class)->prefix('media-library')->name('media-library.')->group(function (): void {
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'store')->name('store');
+    });
 });
 Route::redirect('/', '/login')->name('landing');
 Auth::routes(['register' => false]);
 Route::get('/reset/{token}', [LoginController::class, 'reset_form']);
-
-// Route::middleware(['auth:api'])->post('/pusher/auth', [PusherController::class, 'authenticate']);
 
 Route::get('success', function () {
 
@@ -263,13 +264,18 @@ Route::get('/user-unsubscribe/{token}', [AuthController::class, 'email_unsubscri
 
 Route::get('dpo_callback', [DPOCallbackController::class, 'dpo_callback'])->name('dpo_callback');
 
-Route::get('debug', [DebugController::class, 'generateUserToken']);
-Route::get('check', [DebugController::class, 'checkDPOPayment']);
-Route::get('check-mpesa', [DebugController::class, 'checkMpesa']);
-Route::get('checkstatus', [DebugController::class, 'transactionStatus']);
+if (app()->isLocal()) {
+    Route::middleware(['auth', 'role:Super Admin'])->group(function (): void {
+        Route::get('debug', [DebugController::class, 'generateUserToken']);
+        Route::get('check', [DebugController::class, 'checkDPOPayment']);
+        Route::get('check-mpesa', [DebugController::class, 'checkMpesa']);
+        Route::get('checkstatus', [DebugController::class, 'transactionStatus']);
+    });
+}
 
 Route::post('fasthub/callback', [FastHubController::class, 'callback'])->name('fasthub.callback');
 
+if (app()->isLocal()) {
 Route::get('test', function (Request $request) {
     //        $coupon="TESTMANY1";
     //        $region = Region::where('code','KE')->first();
@@ -296,4 +302,5 @@ Route::get('test', function (Request $request) {
     $res = $is_compensatable;
     dd($bundled);
 
-});
+})->middleware(['auth', 'role:Super Admin']);
+}

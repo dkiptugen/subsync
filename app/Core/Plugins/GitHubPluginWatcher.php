@@ -267,6 +267,7 @@
 
                     return Http::withHeaders($headers)
                                ->connectTimeout(10)
+                               ->retry([200, 500], throw: false)
                                ->timeout(25);
                 }
 

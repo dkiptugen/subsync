@@ -2,6 +2,7 @@
 
     namespace App\Jobs\Kafka;
 
+    use App\Jobs\Concerns\HasReliableHttpDelivery;
     use Illuminate\Bus\Queueable;
     use Illuminate\Contracts\Queue\ShouldQueue;
     use Illuminate\Foundation\Bus\Dispatchable;
@@ -13,7 +14,7 @@
 
     class FailedPaymentEventJob implements ShouldQueue
     {
-        use Dispatchable, InteractsWithQueue, Queueable
+        use Dispatchable, HasReliableHttpDelivery, InteractsWithQueue, Queueable
             //, SerializesModels
             ;
         public $transaction;
@@ -74,11 +75,13 @@
                         Http::withHeaders([
                                               'Content-Type' => 'application/json',
                                           ])
-                            ->post(config('kafka.kafka_domain').'/api/v1/subscriptions', $kafka_data);
+                            ->connectTimeout(3)->timeout(10)->retry([100, 500, 1000])
+                            ->post(config('kafka.kafka_domain').'/api/v1/subscriptions', $kafka_data)->throw();
                     }
                 catch (\Exception $e)
                     {
                         Log::error('Kafka Failed Payment', [$e->getMessage()]);
+                        throw $e;
                     }
             }
     }

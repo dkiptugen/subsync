@@ -13,33 +13,13 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-use Laravel\Passport\Bridge\AccessToken;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class ApplePayCallbackController extends Controller
 {
-    public function __construct(Request $request)
-    {
-
-        parent::__construct();
-//                $request->headers->set('Accept', 'application/json');
-//                if ($request->hasHeader('authorization'))
-//                    {
-//                        $this->middleware('auth:api');
-//                        if (!Auth::check())
-//                            {
-//                                return response()->json([
-//                                                            'status' => false,
-//                                                            'error'  => 'Kindly login to access'
-//                                                        ], 301);
-//                            }
-//                    }
-
-    }
-
     public function get_transaction_id(Request $request)
     {
         $payload = [
@@ -54,7 +34,10 @@ class ApplePayCallbackController extends Controller
 
         try
         {
-            $check = Http::get(config('custom.APP.IOS_VERIFICATION'), ['transactionId' => $request->transactionId]);
+            $check = Http::connectTimeout(3)
+                ->timeout(10)
+                ->retry([100, 500], throw: false)
+                ->get(config('custom.APP.IOS_VERIFICATION'), ['transactionId' => $request->transactionId]);
             $token = $request->bearerToken();
 
             $userid = null;
@@ -64,16 +47,15 @@ class ApplePayCallbackController extends Controller
 
             if ($check->successful())
             {
-                if (Auth::check())
+                $authenticatedUser = Auth::guard('sanctum')->user();
+
+                if ($authenticatedUser)
                 {
-                    $userid = Auth::user()->id;
+                    $userid = $authenticatedUser->getAuthIdentifier();
                 }
                 else if(!is_null($token) && is_null($userid) )
                 {
-                    $parts = explode('.', $token);
-                    $payload = json_decode(base64_decode($parts[1]), true);
-                    $jti = $payload['jti'];
-                    $userid = DB::table('oauth_access_tokens')->where('id', $jti)->first()->user_id;
+                    $userid = PersonalAccessToken::findToken($token)?->tokenable_id;
                 }
                 else
                 {

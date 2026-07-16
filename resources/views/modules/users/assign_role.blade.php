@@ -14,7 +14,7 @@
                 <div class="mb-3">
                     <label for="add-role" class="control-label">Role</label>
                     <select name="role" id="add-role" class="form-select">
-                        @foreach(\App\Models\Role::get() as $value)
+                        @foreach($roles ?? collect() as $value)
                             <option value="{{ $value->id }}">{{ $value->name }}</option>
                         @endforeach
                     </select>

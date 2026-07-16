@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Failed_job extends Model
 {
     use HasFactory;
+    protected $guarded = ['*'];
 }

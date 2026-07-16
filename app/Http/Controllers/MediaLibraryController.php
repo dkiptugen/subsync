@@ -28,7 +28,7 @@ class MediaLibraryController extends Controller
     public function store(Request $request): JsonResponse
     {
         $request->validate([
-            'file' => ['required', 'file', 'max:10240'],
+            'file' => ['required', 'image', 'mimes:jpg,jpeg,png,gif,webp', 'max:10240'],
         ]);
 
         $path = $request->file('file')->store('media-library', 'public');

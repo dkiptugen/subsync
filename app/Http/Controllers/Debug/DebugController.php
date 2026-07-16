@@ -24,7 +24,7 @@ class DebugController extends Controller
 {
     public function generateUserToken(Request $request)
     {
-        if($request->key == 'ashken')
+        if ($this->isAuthorized($request))
         {
             $user = null;
             $email = $request->email;
@@ -40,7 +40,7 @@ class DebugController extends Controller
 
                 $tokenResult = $user->createToken('Subsync Password Grant Client');
 
-                $token = @$tokenResult->accessToken;
+                $token = $tokenResult->plainTextToken;
 
                 $response = [];
                 if($token)
@@ -61,7 +61,7 @@ class DebugController extends Controller
                     );
 
                     $localrequest->headers->set('Content-Type', 'application/json');
-                    $localrequest->headers->set('appkey', 'IsbxAPRKl1Bv7ed1z3VvzGzicbm2Go8V');
+                    $localrequest->headers->set('appkey', (string) config('custom.APP.API_KEY'));
                     $localrequest->headers->set('Authorization', 'Bearer ' . $token);
 
                     $response = app()->handle($localrequest)->getContent();
@@ -87,7 +87,7 @@ class DebugController extends Controller
 
     public function checkDPOPayment(Request $request)
     {
-        if ($request->key == 'ashken' && $request->has('transaction_id')) {
+        if ($this->isAuthorized($request) && $request->has('transaction_id')) {
             $transid = $request->transaction_id;
             $dpo = new DPO();
             $trans = Transaction::find($transid);
@@ -134,15 +134,15 @@ class DebugController extends Controller
 
         //dd($token);
 
-        $shortcode = '500500';
+        $shortcode = (string) config('custom.MPESA.DEBUG_SHORTCODE');
         $identifierType = 4;
         $identifier = PaymentTypeIdentifiers::from($identifierType)->value;
         $trans_id = '7A51YXGM';
-        $callbackurl = 'https://webhook.site/fc45f6e3-dd57-4f2f-9a8c-a38cd7f4e6ba';
+        $callbackurl = (string) config('custom.MPESA.DEBUG_CALLBACK_URL');
         $trans_id  = 'SK47IDKGEV';
         $data = [
-            'Initiator'              => 'dgicheru',
-            'SecurityCredential'     => $mpesa->cert_encrypt('SpyEagle,1'),
+            'Initiator'              => (string) config('custom.MPESA.DEBUG_INITIATOR'),
+            'SecurityCredential'     => $mpesa->cert_encrypt((string) config('custom.MPESA.DEBUG_SECURITY_CREDENTIAL')),
             'CommandID'              => 'TransactionStatusQuery',
             //'TransactionID'          => $trans_id,
             'PartyA'                 => $shortcode,
@@ -177,6 +177,13 @@ class DebugController extends Controller
             Auth::login($user);
             return redirect('manage/product');
         }
+    }
+
+    private function isAuthorized(Request $request): bool
+    {
+        $configuredKey = (string) config('custom.APP.DEBUG_KEY');
+
+        return $configuredKey !== '' && hash_equals($configuredKey, (string) $request->key);
     }
 
 }

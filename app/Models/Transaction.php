@@ -5,6 +5,7 @@
 	use App\Casts\JsonCast;
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
+    use Illuminate\Database\Eloquent\Relations\BelongsTo;
     use Spatie\Activitylog\Models\Concerns\LogsActivity;
     use Spatie\Activitylog\Support\LogOptions;
 
@@ -15,13 +16,21 @@
 
 			protected $fillable
 				= [
-					'id', 'identifier', 'subscription_id', 'payment_method_id', 'cart_id', 'channel', 'receipt',
+					'identifier', 'subscription_id', 'payment_method_id', 'cart_id', 'channel', 'receipt',
 					'initiator', 'coupon_code', 'amount', 'currency', 'status', 'user_id', 'transaction_date',
-					'amount_paid', 'type', 'response', 'reserved_currency', 'reserve_currency_amount', 'created_at',
-					'updated_at','transaction_code','transaction_token','result'
+					'amount_paid', 'type', 'response', 'reserved_currency', 'reserved_currency_amount',
+					'transaction_code','transaction_token','result'
 				];
 
-			protected $casts = ['subscription_ids' => JsonCast::class,'response'=>JsonCast::class];
+			protected $casts = [
+                'subscription_ids' => JsonCast::class,
+                'response' => JsonCast::class,
+                'transaction_date' => 'datetime',
+                'amount' => 'decimal:2',
+                'amount_paid' => 'decimal:2',
+                'reserved_currency_amount' => 'decimal:2',
+                'status' => 'integer',
+            ];
 
 			public function getActivitylogOptions ()
 			: LogOptions
@@ -30,27 +39,27 @@
 					//return LogOptions::defaults ()->logOnly ($this->fillable);
 				}
 
-			public function user ()
+			public function user (): BelongsTo
 				{
 					return $this->belongsTo (User::class);
 				}
 
-			public function product ()
+			public function product (): BelongsTo
 				{
 					return $this->belongsTo (Product::class);
 				}
 
-			public function rate ()
+			public function rate (): BelongsTo
 				{
 					return $this->belongsTo (Rate::class);
 				}
 
-			public function payment_method ()
+			public function payment_method (): BelongsTo
 				{
 					return $this->belongsTo (PaymentMethod::class);
 				}
 
-			public function subscription ()
+			public function subscription (): BelongsTo
 				{
 					return $this->belongsTo (Subscription::class);
 				}

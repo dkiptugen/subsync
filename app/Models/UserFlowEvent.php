@@ -14,7 +14,7 @@ class UserFlowEvent extends Model
 
     protected $keyType = 'string';
 
-    protected $guarded = [];
+    protected $fillable = ['user_id', 'product_id', 'session_id', 'event', 'path', 'method', 'route_name', 'metadata', 'ip_address', 'user_agent', 'occurred_at'];
 
     protected $casts = [
         'metadata' => 'array',

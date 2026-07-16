@@ -11,7 +11,7 @@ class CartItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'cart_id', 'rate_id', 'rate_type', 'product', 'cost', 'currency', 'thumbnail', 'release_id', 'release_date', 'created_at', 'updated_at'];
+    protected $fillable = ['cart_id', 'rate_id', 'rate_type', 'product', 'cost', 'currency', 'thumbnail', 'release_id', 'release_date'];
 
     use LogsActivity;
 

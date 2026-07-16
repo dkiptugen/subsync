@@ -33,6 +33,9 @@ class Pesapal
                 ];
                 $data   =   Http::accept('application/json')
                     ->contentType('application/json')
+                    ->connectTimeout(3)
+                    ->timeout(10)
+                    ->retry([100, 500], throw: false)
                     ->withOptions(['verify' => app_path("Resources/cacert.pem"), 'http_errors' => false])
                     ->post($this->link.'/api/Auth/RequestToken',$post);
                 if($data->successful())
@@ -47,11 +50,17 @@ class Pesapal
                     'url'                   =>  '',
                     "ipn_notification_type" =>  "GET"
                 ];
-                Cache::put('access_token',$this->getToken()->token,Carbon::now()->diffInSeconds(Carbon::parse($this->getToken()->expiryDate)));
+                $token = $this->accessToken();
+                if ($token === null) {
+                    return null;
+                }
 
-                $data = Http::withBasicAuth(Cache::get('access_token'))
+                $data = Http::withToken($token)
                     ->accept('application/json')
                     ->contentType('application/json')
+                    ->connectTimeout(3)
+                    ->timeout(10)
+                    ->retry([100, 500], throw: false)
                     ->withOptions(['verify' => app_path("Resources/cacert.pem"), 'http_errors' => false])
                     ->post($this->link.'/api/URLSetup/RegisterIPN',$post);
                 if($data->successful())
@@ -61,10 +70,17 @@ class Pesapal
             }
         public function getIpn()
             {
-                $token = Cache::put('access_token',$this->getToken()->token,Carbon::now()->diffInSeconds(Carbon::parse($this->getToken()->expiryDate)));
-                $data = Http::withBasicAuth($token)
+                $token = $this->accessToken();
+                if ($token === null) {
+                    return null;
+                }
+
+                $data = Http::withToken($token)
                     ->accept('application/json')
                     ->contentType('application/json')
+                    ->connectTimeout(3)
+                    ->timeout(10)
+                    ->retry([100, 500], throw: false)
                     ->withOptions(['verify' => app_path("Resources/cacert.pem"), 'http_errors' => false])
                     ->get($this->link.'/api/URLSetup/GetIpnList');
                 if($data->successful())
@@ -97,10 +113,17 @@ class Pesapal
                     ]
 
                 ];
-                Cache::put('access_token',$this->getToken()->token,Carbon::now()->diffInSeconds(Carbon::parse($this->getToken()->expiryDate)));
-                $data  = Http::withBasicAuth(Cache::get('access_token'))
+                $token = $this->accessToken();
+                if ($token === null) {
+                    return null;
+                }
+
+                $data  = Http::withToken($token)
                     ->accept('application/json')
                     ->contentType('application/json')
+                    ->connectTimeout(3)
+                    ->timeout(10)
+                    ->retry([100, 500], throw: false)
                     ->withOptions(['verify' => app_path("Resources/cacert.pem"), 'http_errors' => false])
                     ->post($this->link.'/api/Transactions/SubmitOrderRequest',$post);
                 if($data->successful())
@@ -111,15 +134,40 @@ class Pesapal
         public function transactionStatus(Request $request)
             {
                 $post = ['orderTrackingId'=>$request->order_tracking_id];
-                Cache::put('access_token',$this->getToken()->token,Carbon::now()->diffInSeconds(Carbon::parse($this->getToken()->expiryDate)));
-                $data = Http::withBasicAuth(Cache::get('access_token'))
+                $token = $this->accessToken();
+                if ($token === null) {
+                    return null;
+                }
+
+                $data = Http::withToken($token)
                     ->accept('application/json')
                     ->contentType('application/json')
+                    ->connectTimeout(3)
+                    ->timeout(10)
+                    ->retry([100, 500], throw: false)
                     ->withOptions(['verify' => app_path("Resources/cacert.pem"), 'http_errors' => false])
                     ->get($this->link.'/api/Transactions/GetTransactionStatus',$post);
                 if($data->successful())
                     {
                         return $data->object();
                     }
+            }
+
+        private function accessToken(): ?string
+            {
+                $cachedToken = Cache::get('access_token');
+                if (is_string($cachedToken) && $cachedToken !== '') {
+                    return $cachedToken;
+                }
+
+                $tokenResponse = $this->getToken();
+                if (! $tokenResponse?->token || ! $tokenResponse?->expiryDate) {
+                    return null;
+                }
+
+                $ttl = Carbon::now()->diffInSeconds(Carbon::parse($tokenResponse->expiryDate));
+                Cache::put('access_token', $tokenResponse->token, $ttl);
+
+                return $tokenResponse->token;
             }
     }

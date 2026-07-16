@@ -21,6 +21,9 @@
 
 			public $identifier;
 			public $transaction_token;
+			public int $tries = 120;
+			public int $timeout = 60;
+			public int $backoff = 10;
 		//public $queue = 'low';
 
 
@@ -42,76 +45,59 @@
 			public function handle ()
 			: void
 				{
-					$maxAttempts    = 120;
-					$currentAttempt = 1;
+					$trans = Transaction::with ([
+						'subscription', 'subscription.rate'
+					])->where ('transaction_token', $this->transaction_token)->where ('identifier',
+						$this->identifier)->first ();
 
-
-					while ($currentAttempt <= $maxAttempts)
+					if (is_null($trans))
 						{
-							$trans = Transaction::with ([
-								'subscription', 'subscription.rate'
-							])->where ('transaction_token', $this->transaction_token)->where ('identifier',
-								$this->identifier)->first ();
-							if (!is_null ($trans))
-								{
+							$this->release($this->backoff);
 
-									$statusCode = $this->verifyTransaction ($trans);
+							return;
+						}
 
+					$statusCode = $this->verifyTransaction($trans);
 
-									//dd($trans);
-									//Log::error($statusCode);
+					if (($statusCode->Result ?? null) !== '000')
+						{
+							$this->release($this->backoff);
 
-									if ($statusCode->Result == '000')
-										{
-											//dd($this->currency_convert($statusCode->TransactionAmount, $statusCode->TransactionCurrency, $trans->currency));
+							return;
+						}
 
+					$trans->amount_paid      = $trans->amount;
+					$trans->status           = 1;
+					$trans->receipt          = $statusCode->TransactionApproval ?? '';
+					$trans->initiator        = $statusCode->CustomerName ?? '';
+					$trans->transaction_date = Carbon::now()->toDateTimeString();
+					$trans->response         = $statusCode;
 
-											$trans->amount_paid      = $trans->amount;
-											$trans->status           = 1;
-											$trans->receipt          = $statusCode->TransactionApproval ?? '';
-											$trans->initiator        = $statusCode->CustomerName ?? '';
-											$trans->transaction_date = Carbon::now ()->toDateTimeString ();
-											$trans->response         = $statusCode;
-											$res                     = $trans->save();
-											if ($res)
-												{
-													if(Carbon::parse($trans->subscription->subscription_date)->gte(Carbon::now()))
-													   {
-														   $trans->subscription ()
-														         ->where ('id', $trans->subscription_id)
-														         ->update ([ 'status' => 1]);
-													   }
-													else
-														{
-															$trans->subscription ()
-															      ->where ('id', $trans->subscription_id)
-															      ->update ([
-																				'subscription_date' => Carbon::now()->startOfDay(),
-																				'expiry_date'       => Carbon::now()->addDays($trans->subscription->rate->period)->endOfDay(),
-																				'status' => 1
-																			]);
-														}
+					if (! $trans->save())
+						{
+							return;
+						}
 
-													if ($trans->subscription->recurring == 1)
-														{
+					if (Carbon::parse($trans->subscription->subscription_date)->gte(Carbon::now()))
+						{
+							$trans->subscription()->where('id', $trans->subscription_id)->update(['status' => 1]);
+						}
+					else
+						{
+							$trans->subscription()->where('id', $trans->subscription_id)->update([
+								'subscription_date' => Carbon::now()->startOfDay(),
+								'expiry_date' => Carbon::now()->addDays($trans->subscription->rate->period)->endOfDay(),
+								'status' => 1,
+							]);
+						}
 
-															$trans->subscription->metadata ()->insert ([
-																'start_date'        => $trans->subscription->subscription_date,
-																'next_renewal_date' => Carbon::parse ($trans->subscription->subscription_date)->addDays ($trans->subscription->rate->period + 1)->startOfDay (),
-																'expiry_date'       => Carbon::parse ($trans->subscription->subscription_date)->addDays ($trans->rate->period)->endOfDay ()
-															]);
-														}
-													break;
-												}
-										}
-									else
-										{
-											//Log::error($statusCode);
-										}
-									// Sleep for 10 seconds before polling again
-									sleep (10);
-									$currentAttempt++;
-								}
+					if ($trans->subscription->recurring == 1)
+						{
+							$trans->subscription->metadata()->insert([
+								'start_date' => $trans->subscription->subscription_date,
+								'next_renewal_date' => Carbon::parse($trans->subscription->subscription_date)->addDays($trans->subscription->rate->period + 1)->startOfDay(),
+								'expiry_date' => Carbon::parse($trans->subscription->subscription_date)->addDays($trans->subscription->rate->period)->endOfDay(),
+							]);
 						}
 				}
 

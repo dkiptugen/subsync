@@ -142,8 +142,8 @@ class UserController extends Controller
                     $valid = $request->validate([
                         'password' => ['required',
                             'string',
-                            'min:'.env('PASSWORD_MINIMUM_LENGTH'),
-                            'regex:'.env('PASSWORD_COMPLEXITY_REGEX'),
+                            'min:'.config('custom.AUTHENTICATION.PASSWORD_MINIMUM_LENGTH'),
+                            'regex:'.config('custom.AUTHENTICATION.PASSWORD_COMPLEXITY_REGEX'),
                             'same:con_password'],
                         'con_password' => ['required'],
                     ]);
@@ -167,8 +167,8 @@ class UserController extends Controller
                     $valid = $request->validate([
                         'password' => ['required',
                             'string',
-                            'min:'.env('PASSWORD_MINIMUM_LENGTH'),
-                            'regex:'.env('PASSWORD_COMPLEXITY_REGEX'),
+                            'min:'.config('custom.AUTHENTICATION.PASSWORD_MINIMUM_LENGTH'),
+                            'regex:'.config('custom.AUTHENTICATION.PASSWORD_COMPLEXITY_REGEX'),
                             'same:con_password'],
                         'con_password' => ['required'],
                     ]);
@@ -214,8 +214,8 @@ class UserController extends Controller
             if ((isset($request->password) && ! empty($request->password)) || (isset($request->con_password) && ! empty($request->con_password))) {
                 $valid = $request->validate([
                     'password' => [
-                        'required', 'string', 'min:'.env('PASSWORD_MINIMUM_LENGTH'),
-                        'regex:'.env('PASSWORD_COMPLEXITY_REGEX'), 'same:con_password',
+                        'required', 'string', 'min:'.config('custom.AUTHENTICATION.PASSWORD_MINIMUM_LENGTH'),
+                        'regex:'.config('custom.AUTHENTICATION.PASSWORD_COMPLEXITY_REGEX'), 'same:con_password',
                     ], 'con_password' => ['required'],
                 ]);
                 if ($valid) {
@@ -329,8 +329,8 @@ class UserController extends Controller
                 $request->validate([
                     'password' => [
                         'required', 'same:password_confirmation', 'string',
-                        'min:'.env('PASSWORD_MINIMUM_LENGTH'),
-                        'regex:'.env('PASSWORD_COMPLEXITY_REGEX'),
+                        'min:'.config('custom.AUTHENTICATION.PASSWORD_MINIMUM_LENGTH'),
+                        'regex:'.config('custom.AUTHENTICATION.PASSWORD_COMPLEXITY_REGEX'),
                     ], 'password_confirmation' => ['required'],
                 ]);
                 $user->password = bcrypt(trim($request->password));

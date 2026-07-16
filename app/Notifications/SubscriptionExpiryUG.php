@@ -3,10 +3,12 @@
 	namespace App\Notifications;
 	
 	use Illuminate\Bus\Queueable;
+	use Illuminate\Contracts\Queue\ShouldBeEncrypted;
+	use Illuminate\Contracts\Queue\ShouldQueue;
 	use Illuminate\Notifications\Messages\MailMessage;
 	use Illuminate\Notifications\Notification;
 	
-	class SubscriptionExpiryUG extends Notification
+	class SubscriptionExpiryUG extends Notification implements ShouldBeEncrypted, ShouldQueue
 		{
 			use Queueable;
 		

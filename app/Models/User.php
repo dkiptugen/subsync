@@ -5,6 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Casts\TrimWhiteSpaceCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -31,6 +34,7 @@ class User extends Authenticatable
     protected $fillable
         = [
             'name',
+            'surname',
             'username',
             'email',
             'password',
@@ -46,6 +50,8 @@ class User extends Authenticatable
             'can_notify',
             'phone',
             'daily_notifications',
+            'email_verified_at',
+            'remember_token',
         ];
 
     /**
@@ -72,29 +78,37 @@ class User extends Authenticatable
             'email' => TrimWhiteSpaceCast::class,
             'name' => TrimWhiteSpaceCast::class,
             'surname' => TrimWhiteSpaceCast::class,
+            'last_login' => 'datetime',
+            'password_changed_at' => 'datetime',
+            'status' => 'integer',
+            'is_verified' => 'integer',
+            'verification_count' => 'integer',
+            'can_notify' => 'boolean',
+            'allow_marketing' => 'boolean',
+            'daily_notifications' => 'boolean',
         ];
 
-    public function organization()
+    public function organization(): BelongsTo
     {
         return $this->belongsTo(Organization::class)->withDefault(['id' => 0, 'name' => 'None']);
     }
 
-    public function meta()
+    public function meta(): HasMany
     {
         return $this->hasMany(UserMeta::class);
     }
 
-    public function subscription()
+    public function subscription(): HasMany
     {
         return $this->hasMany(Subscription::class);
     }
 
-    public function whitelist()
+    public function whitelist(): MorphMany
     {
         return $this->morphMany(UserWhitelist::class, 'whitelistable');
     }
 
-    public function providers()
+    public function providers(): HasMany
     {
         return $this->hasMany(Provider::class, 'user_id', 'id');
     }

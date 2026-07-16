@@ -53,25 +53,8 @@ use function Symfony\Component\Translation\t;
 
 class BillingController extends Controller
     {
-        protected $dpo;
-
-        public function __construct(Request $request)
+        public function __construct(protected DPO $dpo)
             {
-
-
-                $request->headers->set('Accept', 'application/json');
-                if ($request->hasHeader('authorization'))
-                    {
-                        $this->middleware('auth:api');
-                        if (!Auth::check())
-                            {
-                                return response()->json([
-                                    'status' => false, 'error' => 'Kindly login to access'
-                                ], 301);
-                            }
-                    }
-                $this->dpo = new DPO();
-
             }
 
         public function check_mpesa_payment(Request $request)
@@ -711,7 +694,7 @@ class BillingController extends Controller
 
                         if (!is_null($product))
                             {
-                                if (!(boolean)($product->is_premium))
+                                if (!(bool) $product->is_premium)
                                     {
                                         return [
                                             'identifier' => 'free', 'product' => $product->product_name, 'productIdentifier' => $product->identifier, 'type' => 'free', 'period' => 1, 'subscriptionDate' => Carbon::parse($request->subscription_date)->startOfDay()->toDateTimeString(), 'expiryDate' => Carbon::parse($request->subscription_date)->endOfDay()->toDateTimeString(), 'status' => (bool)1, 'recurrent' => (bool)0, 'subscriptionStatus' => 'N/A', 'SubscriptionActivated' => true
@@ -2760,7 +2743,9 @@ class BillingController extends Controller
             {
                 try
                     {
-                        $sub = Subscription::where('identifier', $request->identifier)->first();
+                        $sub = Subscription::whereBelongsTo($request->user())
+                            ->where('identifier', $request->identifier)
+                            ->first();
 
                         if (!is_null($sub))
                             {
@@ -3810,9 +3795,9 @@ class BillingController extends Controller
                 try
                     {
                         $request->validate([
-                            'nickname' => 'required|string',
-                            'points'   => 'required|integer',
-                            'type'     => 'required'
+                            'nickname' => 'required|string|max:255',
+                            'points'   => 'required|integer|min:1|max:100',
+                            'type'     => 'required|string|max:255'
                         ]);
                     }
                 catch (ValidationException $e)
@@ -3859,9 +3844,7 @@ class BillingController extends Controller
                     'type'     => $request->type,
                 ]);
 
-                $env = env('APP_ENV');
-
-                $environment = str_contains($env, 'prod') ? 'prod' : 'dev';
+                $environment = app()->isProduction() ? 'prod' : 'dev';
 
                 $product_id = 'PW_NATION_AFRICA';
 

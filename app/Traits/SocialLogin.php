@@ -89,13 +89,13 @@ trait SocialLogin
 
                                 Auth::setUser($userCreated);
                                 Auth::login($userCreated);
-                                $token = $userCreated->createToken('token-name')->accessToken;
+                                $token = $userCreated->createToken('token-name')->plainTextToken;
                                 return response()->json(['token' => $token,'user' => $userCreated]);
 
                             }
                         else
                             {
-                                $token = $userCreated->createToken('token-name')->accessToken;
+                                $token = $userCreated->createToken('token-name')->plainTextToken;
                                 return response()->json(['token' => $token,'user'=>$userCreated]);
                             }
                     }
@@ -162,4 +162,3 @@ trait SocialLogin
                 // Send $url in an email or text message to your user
             }
     }
-

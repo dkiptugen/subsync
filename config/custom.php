@@ -3,6 +3,8 @@ return [
     'APP'            => [
         'APP_URL'           => env('APP_URL'),
         'API_KEY'           => env('API_KEY'),
+        'DEBUG_KEY'         => env('DEBUG_KEY'),
+        'WEBHOOK_SECRET'     => env('WEBHOOK_SECRET'),
         'VERIFICATION_LINK' => env('VERIFICATION_LINK', 'https://nation.africa/kenya/account/email-verification'),
         'IOS_VERIFICATION'  => env('IOS_VERIFICATION', 'https://nmg-apple-transactions-manager-clh4z76qra-ew.a.run.app/api/v1/get-receipt-history')
     ],
@@ -49,6 +51,10 @@ return [
         'STORY_EXPIRY'      => env('STORY_EXPIRY', 30)
     ],
     'MPESA'          => [
+        'DEBUG_SHORTCODE'            => env('MPESA_DEBUG_SHORTCODE'),
+        'DEBUG_INITIATOR'            => env('MPESA_DEBUG_INITIATOR'),
+        'DEBUG_SECURITY_CREDENTIAL'  => env('MPESA_DEBUG_SECURITY_CREDENTIAL'),
+        'DEBUG_CALLBACK_URL'         => env('MPESA_DEBUG_CALLBACK_URL'),
         'WHITELISTED_IP'             => env('WHITELISTED_IP', '127.0.0.1,196.201.214.200,196.201.214.206,196.201.213.114,196.201.214.207,196.201.214.208,196.201.213.44,196.201.212.127,196.201.212.138,196.201.212.129,196.201.212.136,196.201.212.74,196.201.212.69'),
         'BLACKLISTED_IP'             => env('BLACKLISTED_IP'),
         'BLACKLISTED_IP_ACTION'      => env('BLACKLISTED_IP_ACTION', 'block'),

@@ -24,7 +24,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('subscription/{identifier}/email_renew', [BillingController::class, 'email_renewal'])->name('subscription.email_renew');
 Route::get('verify_payment', [BillingController::class, 'verify_token'])->name('dpo-verify-token');
-Route::post('update-pass/{orgid}', [OrganizationController::class, 'set_default_password'])->name('default_pass');
+Route::post('update-pass/{orgid}', [OrganizationController::class, 'set_default_password'])
+    ->middleware(['auth:sanctum', 'auth.session'])
+    ->name('default_pass');
 Route::get('get_rate_select', [RateController::class, 'getSelect2Data'])->name('get_rate_select');
 Route::prefix('auth')->group(function ()
     {
@@ -59,7 +61,7 @@ Route::group(['middleware' => ['passkey', 'force_json', 'cors']], function ()
             {
                 Route::post('/social_login_v2', [AuthController::class, 'social_login_v2'])->name('api.social_login_v2');
                 Route::post('/social_login', [AuthController::class, 'social_login'])->name('api.social_login');
-                Route::post('/login', [AuthController::class, 'login'])->name('api.login');
+                Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:login')->name('api.login');
                 Route::post('/register', [AuthController::class, 'register'])->name('api.register');
                 Route::post('/passforgot', [AuthController::class, 'resetpassword'])->name('api.reset');
                 Route::post('/password_reset', [AuthController::class, 'reset'])->name('update.password');
@@ -83,7 +85,7 @@ Route::group(['middleware' => ['passkey', 'force_json', 'cors']], function ()
         Route::get('check_nickname', [BillingController::class, 'check_nickname'])->name('api.check_nickname');
         Route::get('get_rate/{id}', [BillingController::class, 'getRate'])->name('api.rate');
 
-        Route::middleware(['auth:api', 'auth.session'])->group(function ()
+        Route::middleware(['auth:sanctum', 'auth.session'])->group(function ()
             {
                 Route::post('/add_edition', [BillingController::class, 'add_edition'])->name('api.add_edition');
                 Route::post('/add_subscription', [BillingController::class, 'add_subscription'])->name('api.add_subscription');
@@ -109,7 +111,9 @@ Route::group(['middleware' => ['passkey', 'force_json', 'cors']], function ()
                 Route::post('mpesa/verify_transaction',[BillingController::class,'verify_transaction'])->name('api.verify_transaction');
                 Route::post("mpesa/qr",[BillingController::class,"get_mpesa_qr"])->name('api.get_mpesa_qr');
 
-                Route::post('add_points', [BillingController::class, 'add_points'])->name('api.add_points');
+                Route::post('add_points', [BillingController::class, 'add_points'])
+                    ->middleware('throttle:10,1')
+                    ->name('api.add_points');
                 Route::get('list_points', [BillingController::class, 'list_points'])->name('api.list_points');
                 Route::get('list_events', [BillingController::class, 'list_events'])->name('api.list_events');
                 Route::get('verify_user_nickname', [BillingController::class, 'check_user_nickname'])->name('api.verify_user_nickname');

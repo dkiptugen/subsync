@@ -31,7 +31,7 @@ class CheckAppKey
                     }
                 else
                     {
-                        $key = env('API_KEY');
+                        $key = config('custom.APP.API_KEY');
                         if($key !== $appkey)
                             return response()->json(['status' => false,'error' => "Invalid token"], 401);
                     }

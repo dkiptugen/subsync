@@ -13,7 +13,7 @@ class Agent extends Model
     use HasFactory;
     use LogsActivity;
 
-    protected $guarded = [];
+    protected $fillable = ['email', 'name', 'phone', 'type', 'department', 'country'];
 
     public function getActivitylogOptions(): LogOptions
     {

@@ -12,7 +12,7 @@ class MpesaBlacklist extends Model
     use HasFactory;
     use LogsActivity;
 
-    protected $guarded = [];
+    protected $fillable = ['phone', 'type', 'description'];
 
     public function getActivitylogOptions(): LogOptions
     {

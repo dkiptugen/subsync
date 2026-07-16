@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use App\Casts\JsonCast;
-use App\Http\Controllers\SubscriptionController;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -13,22 +16,22 @@ use Spatie\Activitylog\Support\LogOptions;
 class Product extends Model
     {
         use HasFactory;
-        protected $fillable = ['id','identifier','product_name','type','payment_methods','product_link','user_id','payment_notification_link','status','site_id','article_cost'];
+        protected $fillable = ['identifier','product_name','type','payment_methods','product_link','user_id','payment_notification_link','status','site_id','article_cost'];
         protected $casts = ['payment_methods' => JsonCast::class];
         use LogsActivity;
         public function getActivitylogOptions(): LogOptions
             {
                 return LogOptions::defaults();
             }
-        public function rates()
+        public function rates(): HasMany
             {
                 return $this->hasMany(Rate::class);
             }
-        public function subscription()
+        public function subscription(): HasMany
             {
-                return $this->hasMany(SubscriptionController::class);
+                return $this->hasMany(Subscription::class);
             }
-        public function user()
+        public function user(): BelongsTo
             {
                return $this->belongsTo(User::class) ;
             }
@@ -48,22 +51,22 @@ class Product extends Model
                 )->shouldCache();
 
             }
-        public function site()
+        public function site(): BelongsTo
             {
                 return $this->belongsTo(Site::class);
             }
 
-            public function children()
+            public function children(): BelongsToMany
             {
                 return $this->belongsToMany(Product::class,'product_products','product_id','child_product_id');
             }
 
-            public function parents()
+            public function parents(): BelongsToMany
             {
                 return $this->belongsToMany(Product::class,'product_products','child_product_id','product_id');
             }
 
-            public function sites()
+            public function sites(): BelongsToMany
             {
                 return $this->belongsToMany(Site::class,'product_sites','product_id','site_id');
             }
@@ -94,7 +97,7 @@ class Product extends Model
             return array_values(array_filter(array_map('trim', $lines)));
         }
 
-        public function counterpart()
+        public function counterpart(): HasOne
         {
             return $this->hasOne(Product::class,'id','counterpart_id');
         }

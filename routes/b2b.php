@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['role' => ['organization','admin'],'prefix'=>'b2b','middleware'=>['auth','auth.role','is_business'],'access_level' => ['owner','organization']],function (){
+Route::prefix('b2b')->middleware(['auth', 'is_business'])->group(function () {
     Route::get('/',[\App\Http\Controllers\Client\DashboardController::class,'index'])->name('client_dashboard.index');
 
     Route::resource('client_receipt',\App\Http\Controllers\Client\ReceiptController::class,['except' => [ 'show' ]]);

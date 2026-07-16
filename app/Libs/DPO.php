@@ -4,6 +4,7 @@ namespace App\Libs;
 
 
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use Mtownsend\XmlToArray\XmlToArray;
 use function simplexml_load_string;
 
@@ -53,24 +54,13 @@ class DPO
 
         public function genericPost($xml_request)
             {
-
-                $ch = curl_init();
-
-                if (!$ch)
-                    {
-                        die("Couldn't initialize a cURL handle");
-                    }
-                curl_setopt($ch, CURLOPT_URL, self::API_ENDPOINT);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/xml']);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_request);
-
-                $result = curl_exec($ch);
-
-                curl_close($ch);
-                return $result;
+                return Http::withBody($xml_request, 'application/xml')
+                    ->connectTimeout(3)
+                    ->timeout(60)
+                    ->retry([100, 500])
+                    ->post(self::API_ENDPOINT)
+                    ->throw()
+                    ->body();
             }
 
 
@@ -157,25 +147,12 @@ class DPO
 
         public function invokeDPOBroker($xml_request)
             {
-
-                $ch = curl_init();
-
-                if (!$ch)
-                    {
-                        die("Couldn't initialize a cURL handle");
-                    }
-                curl_setopt($ch, CURLOPT_URL, self::API_ENDPOINT);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/xml']);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $xml_request);
-
-                $result = curl_exec($ch);
-
-                curl_close($ch);
-
-               // Log::info($result);
+                $result = Http::withBody($xml_request, 'application/xml')
+                    ->connectTimeout(3)
+                    ->timeout(60)
+                    ->post(self::API_ENDPOINT)
+                    ->throw()
+                    ->body();
 
                 return $this->processTokenResponse($result);
             }
@@ -363,4 +340,3 @@ class DPO
         }
 
     }
-

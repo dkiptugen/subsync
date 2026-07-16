@@ -42,7 +42,7 @@ class CurrencyConvertorController extends Controller
      */
     public function create()
     {
-        $this->data['regions'] = Region::whereIn('code', explode(',', env('COVERED_REGIONS')))->get();
+        $this->data['regions'] = Region::whereIn('code', explode(',', config('custom.CUSTOMER.COVERED_REGIONS')))->get();
 
         return view('modules.currency.add', $this->data);
     }
@@ -226,7 +226,7 @@ class CurrencyConvertorController extends Controller
     public function edit($id)
     {
         $this->data['currency'] = CurrencyConvertor::find($id);
-        $this->data['regions'] = Region::whereIn('code', explode(',', env('COVERED_REGIONS')))->get();
+        $this->data['regions'] = Region::whereIn('code', explode(',', config('custom.CUSTOMER.COVERED_REGIONS')))->get();
 
         return view('modules.currency.edit', $this->data);
     }

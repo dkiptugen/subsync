@@ -13,6 +13,7 @@ use Spatie\Activitylog\Support\LogOptions;
 
 class PaymentMethod extends Model
     {
+        protected $guarded = ['*'];
         protected $casts = [
             'configuration' => JsonCast::class,
             'notification_endpoints' => JsonCast::class,

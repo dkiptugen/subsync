@@ -277,7 +277,10 @@ trait Meta
     public function verify_email($email)
     {
 
-        $result = Http::withBasicAuth('api', 'key-3cb3ba9418f40fb5dde742d397e9fea1')
+        $result = Http::withBasicAuth('api', (string) config('custom.MAIL.MAILGUN_API_KEY'))
+            ->connectTimeout(3)
+            ->timeout(8)
+            ->retry([100, 300], throw: false)
             ->get('https://api.mailgun.net/v4/address/validate', [
                 'address' => trim($email),
             ]);

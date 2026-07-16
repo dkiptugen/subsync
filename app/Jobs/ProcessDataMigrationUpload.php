@@ -19,7 +19,7 @@ class ProcessDataMigrationUpload implements ShouldQueue
 {
     use Queueable;
 
-    public int $timeout = 0;
+    public int $timeout = 900;
 
     public int $tries = 1;
 

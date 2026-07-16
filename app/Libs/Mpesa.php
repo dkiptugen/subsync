@@ -4,11 +4,8 @@ namespace App\Libs;
 
 use App\Enums\PaymentTypeIdentifiers;
 use App\Traits\Helper;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Illuminate\Config;
 
 class Mpesa
     {
@@ -78,27 +75,16 @@ class Mpesa
                     }
             }
 
-        public function generate_token()
+        public function generate_token(): string
             {
-                try
-                    {
-
-
-                        $url  = $this->link . config('mpesa.token_link');
-                        $curl = curl_init();
-                        curl_setopt($curl, CURLOPT_URL, $url);
-                        $credentials = base64_encode($this->consumerkey . ':' . $this->consumersecret);
-                        curl_setopt($curl, CURLOPT_HTTPHEADER, ['Authorization: Basic ' . $credentials]);
-                        curl_setopt($curl, CURLOPT_HEADER, false);
-                        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-                        $curl_response = curl_exec($curl);
-                        return json_decode($curl_response)->access_token;
-                    }
-                catch (HttpException $e)
-                    {
-                        Log::error($e->getMessage());
-                    }
+                return (string) Http::withBasicAuth($this->consumerkey, $this->consumersecret)
+                    ->acceptJson()
+                    ->connectTimeout(3)
+                    ->timeout(10)
+                    ->retry([100, 500, 1000])
+                    ->get($this->link.config('mpesa.token_link'))
+                    ->throw()
+                    ->json('access_token');
             }
 
     /**

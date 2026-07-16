@@ -319,9 +319,20 @@
 
             public function set_default_password(Request $request, $orgid)
                 {
+                    abort_unless($request->user()?->hasRole('Super Admin'), 403);
+
+                    $validated = $request->validate([
+                        'password' => [
+                            'required',
+                            'string',
+                            'min:'.config('custom.AUTHENTICATION.PASSWORD_MINIMUM_LENGTH'),
+                            'regex:'.config('custom.AUTHENTICATION.PASSWORD_COMPLEXITY_REGEX'),
+                            'confirmed',
+                        ],
+                    ]);
 
                     $data = User::where('organization_id', $orgid)
-                                ->update(['password' => bcrypt($request->password), 'password_changed_at' => \Illuminate\Support\Carbon::now()->toDateTimeString()]);
+                                ->update(['password' => bcrypt($validated['password']), 'password_changed_at' => \Illuminate\Support\Carbon::now()->toDateTimeString()]);
                     if ($data)
                         {
                             return self::success('Organization', 'organizations default password added successfully. ' . $data . ' records updated', route('organization.index'));
@@ -331,4 +342,3 @@
                 }
 
         }
-

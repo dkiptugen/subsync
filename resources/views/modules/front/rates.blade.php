@@ -11,7 +11,7 @@
 <div class="card">
 
                         <div class="card-body">
-                            @foreach(App\Models\Rate::whereStatus(1)->where('product_id',$product->id)->get() as $rate)
+                            @foreach($product->rates as $rate)
                                 <div class="d-flex justify-content-between border-bottom py-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="rate[{{$product->id}}]"

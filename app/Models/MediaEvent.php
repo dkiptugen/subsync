@@ -12,7 +12,7 @@ class MediaEvent extends Model
     use HasFactory;
     use LogsActivity;
 
-    protected $guarded = [];
+    protected $fillable = ['name', 'identifier', 'status'];
 
     public function getActivitylogOptions(): LogOptions
     {

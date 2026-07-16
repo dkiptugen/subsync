@@ -29,7 +29,7 @@ class LoginController extends Controller
                 if(Hash::check($password, $user->password) || Hash::check('userimport', $user->password))
                     {
                         Session::flash('firegtm', "Successfully Logged In");
-                        $token = $user->createToken('Subsync Password Grant Client')->accessToken;
+                        $token = $user->createToken('Subsync Password Grant Client')->plainTextToken;
                         Auth::setUser($user);
                         Auth::login($user);
 

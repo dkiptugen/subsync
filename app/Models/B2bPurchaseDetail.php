@@ -11,6 +11,7 @@ class B2bPurchaseDetail extends Model
 {
     use HasFactory;
     use LogsActivity;
+    protected $guarded = ['*'];
 
     public function getActivitylogOptions(): LogOptions
     {

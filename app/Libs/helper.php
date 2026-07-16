@@ -315,9 +315,7 @@ if(!function_exists('email_link'))
 {
     function email_link($platform)
     {
-        $env = env('APP_ENV');
-
-        $environment = str_contains($env,'prod') ? 'prod' : 'dev';
+        $environment = app()->isProduction() ? 'prod' : 'dev';
         $links = [
             'prod' =>[
                 'epaper' => 'https://epaper.nation.africa/account/reset-password',

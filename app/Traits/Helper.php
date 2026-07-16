@@ -11,16 +11,25 @@ trait Helper
             {
                 if($method == 'post')
                     $data       =   Http::withHeaders(['Content-Type:application/json','Authorization: Bearer '.$token])
+                                        ->connectTimeout(3)
+                                        ->timeout(10)
+                                        ->retry([100, 500], throw: false)
                                         ->withOptions(['verify' => app_path("Resources/cacert.pem"), 'http_errors' => false])
                                         ->withToken($token)
                                         ->post($link,$dt);
                 else if($method == 'put')
                     $data       =   Http::withHeaders(['Content-Type:application/json','Authorization: Bearer '.$token])
+                                        ->connectTimeout(3)
+                                        ->timeout(10)
+                                        ->retry([100, 500], throw: false)
                                         ->withOptions(['verify' => app_path("Resources/cacert.pem"), 'http_errors' => false])
                                         ->withToken($token)
                                         ->put($link,$dt);
                 else if($method == 'get')
                     $data       =   Http::withHeaders(['Content-Type:application/json','Authorization: Bearer '.$token])
+                                        ->connectTimeout(3)
+                                        ->timeout(10)
+                                        ->retry([100, 500], throw: false)
                                         ->withOptions(['verify' => app_path("Resources/cacert.pem"), 'http_errors' => false])
                                         ->withToken($token)
                                         ->get($link,$dt);

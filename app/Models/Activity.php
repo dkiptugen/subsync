@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Activity extends Model
     {
         use HasFactory;
+        protected $guarded = ['*'];
         public $table           =   'activity_log';
         public function user()
             {

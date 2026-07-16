@@ -14,7 +14,7 @@ class DataMigrationUpload extends Model
 
     protected $keyType = 'string';
 
-    protected $guarded = [];
+    protected $fillable = ['type', 'user_id', 'disk', 'path', 'original_name', 'status', 'progress', 'processed_files', 'total_files', 'message', 'error', 'started_at', 'completed_at'];
 
     protected $casts = [
         'started_at' => 'datetime',

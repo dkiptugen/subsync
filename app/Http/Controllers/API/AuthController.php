@@ -24,32 +24,12 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
     use SocialLogin;
     use ResetsPasswords;
-
-    /**
-     * @param \Illuminate\Http\Request $request
-     */
-    public function __construct(Request $request)
-    {
-
-        parent::__construct();
-        $request->headers->set('Accept', 'application/json');
-        if ($request->hasHeader('authorization'))
-        {
-            $this->middleware('auth:api');
-            if (!Auth::check())
-            {
-                return response()->json([
-                    'status' => false,
-                    'error'  => 'Kindly login to access'
-                ], 301);
-            }
-        }
-    }
 
     /**
      * @param Request $request
@@ -87,7 +67,7 @@ class AuthController extends Controller
 
             if (Hash::check($request->password, $user->password))
             {
-                $token            = $user->createToken('Subsync Password Grant Client')->accessToken;
+                $token            = $user->createToken('Subsync Password Grant Client')->plainTextToken;
                 $user->last_login = Carbon::now();
                 $user->save();
                 //Auth::logoutOtherDevices($request->password);
@@ -164,7 +144,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
         if (!is_null($user))
         {
-            $token    = $user->createToken('Subsync Password Grant Client')->accessToken;
+            $token    = $user->createToken('Subsync Password Grant Client')->plainTextToken;
             $response = [
                 'token'      => $token,
                 'expires_in' => config('custom.CUSTOMER.TOKEN_EXPIRY') * 24 * 60 * 60,
@@ -224,7 +204,8 @@ class AuthController extends Controller
             [
                 'name'     => 'required|string|max:255',
                 'email'    => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|confirmed'
+                'password' => 'required|string|confirmed',
+                'allow_marketing' => 'sometimes|boolean',
             ],
             [
                 'email.unique' => 'Email already exists, please Sign in.'
@@ -237,14 +218,16 @@ class AuthController extends Controller
                 'error'  => implode(',', $validator->messages()->all())
             ]);
         }
-        $data                       = $request->all();
-        $data['password']           = Hash::make($request->password);
-        $data['remember_token']     = Str::random(10);
-        $data['verification_token'] = Str::ulid();
-        $data['status']             = 1;
-        $data['can_notify']         = 1;
-        $data['allow_marketing']    = $request->allow_marketing ?? 0;
-        $user                       = User::create($data);
+        $validated = $validator->validated();
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'verification_token' => Str::ulid(),
+            'status' => 1,
+            'can_notify' => 1,
+            'allow_marketing' => (int) ($validated['allow_marketing'] ?? false),
+        ]);
         try
         {
 
@@ -284,7 +267,7 @@ class AuthController extends Controller
             'date_created' => Carbon::now()->format('Y-m-d')
         ]);
         $response = [
-            'token'      => $token->accessToken,
+            'token'      => $token->plainTextToken,
             'expires_in' => config('custom.CUSTOMER.TOKEN_EXPIRY') * 24 * 60 * 60,
             'user'       => $user
         ];
@@ -358,7 +341,7 @@ class AuthController extends Controller
             ]
         );
 
-        $token = $userCreated->createToken('token-name')->accessToken;
+        $token = $userCreated->createToken('token-name')->plainTextToken;
         $userCreated->meta()->insert([
             'user_id'    => $userCreated->id,
             'action'     => 'Successful social login : ' . $request->provider,
@@ -385,82 +368,28 @@ class AuthController extends Controller
      */
     public function social_login_v2(Request $request)
     {
+        $validated = $request->validate([
+            'access_token' => ['required', 'string'],
+            'provider' => ['required', 'in:google,facebook'],
+        ]);
+
         try
         {
-            if (!request()->has('access_token') || request('access_token') == '')
-            {
+            $socialUser = Socialite::driver($validated['provider'])
+                ->userFromToken($validated['access_token']);
+            $email = $socialUser->getEmail();
+
+            if (! $email) {
                 return response()->json([
                     'status' => false,
-                    'error'  => 'access_token is required'
-                ]);
+                    'error' => 'The social account does not provide an email address.',
+                ], 422);
             }
-            if (!request()->has('provider') || request('provider') == '')
-            {
-                return response()->json([
-                    'status' => false,
-                    'error'  => 'access_token is required'
-                ]);
-            }
-            if ($request->provider == 'google')
-            {
 
-                $url = 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' . $request->access_token;
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-                $response = curl_exec($ch);
-                curl_close($ch);
-                $userData = json_decode($response, true);
-
-                if (!isset($userData['error']))
-                {
-                    $email    = $userData['email'] ?? '';
-                    $name     = $userData['given_name'] ?? '' . ' ' . $userData['family_name'] ?? '';
-                    $provider = 'google';
-                    $id       = $userData['sub'] ?? '';
-                    $avatar   = $userData['picture'] ?? '';
-                }
-                else
-                {
-                    return response()->json([
-                        'status' => false,
-                        'data'   => $userData['error']['message']
-                    ]);
-                }
-
-
-            }
-            elseif ($request->provider == 'facebook')
-            {
-                $url = 'https://graph.facebook.com/v15.0/me?fields=id,name,email,picture&access_token=' . $request->access_token;
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-                $response = curl_exec($ch);
-                curl_close($ch);
-                $userData = json_decode($response, true);
-
-
-                if (!isset($userData['error']))
-                {
-                    $email    = $userData['email'];
-                    $name     = $userData['first_name'] . ' ' . $userData['last_name'];
-                    $provider = 'facebook';
-                    $id       = $userData['id'];
-                    $avatar   = $userData['picture'];
-                }
-                else
-                {
-                    return response()->json([
-                        'status' => false,
-                        'data'   => $userData['error']['message']
-                    ]);
-                }
-            }
+            $name = $socialUser->getName() ?: $socialUser->getNickname() ?: Str::before($email, '@');
+            $provider = $validated['provider'];
+            $id = $socialUser->getId();
+            $avatar = $socialUser->getAvatar();
 
             $userCreated = User::firstOrCreate(
                 [
@@ -482,7 +411,7 @@ class AuthController extends Controller
                 ]
             );
 
-            $token = $userCreated->createToken('token-name')->accessToken;
+            $token = $userCreated->createToken('token-name')->plainTextToken;
             $userCreated->meta()->insert([
                 'user_id'    => $userCreated->id,
                 'action'     => 'Successful social login : ' . $request->provider,
@@ -504,10 +433,12 @@ class AuthController extends Controller
         }
         catch (Exception $e)
         {
+            report($e);
+
             return response()->json([
                 'status' => false,
-                'data'   => $e->getMessage()
-            ]);
+                'error' => 'The social authentication token could not be verified.',
+            ], 401);
         }
 
 
@@ -622,7 +553,7 @@ class AuthController extends Controller
 
         foreach ($user->tokens as $token)
         {
-            $token->revoke();
+            $token->delete();
         }
 
         return response()->json([
@@ -640,8 +571,16 @@ class AuthController extends Controller
      */
     public function getUserByEmail(Request $request)
     {
+        $validated = $request->validate([
+            'email' => ['required', 'email'],
+        ]);
 
-        $user = User::where('email', $request->email)->first();
+        abort_unless(
+            $request->user()?->hasRole('Super Admin') || $request->user()?->email === $validated['email'],
+            403
+        );
+
+        $user = User::where('email', $validated['email'])->first();
         if ($user == null)
         {
             return response()->json([
@@ -671,7 +610,7 @@ class AuthController extends Controller
                 'error'  => 'Kindly login to access'
             ], 406);
         }
-        $token = $request->user()->token();
+        $token = $request->user()->currentAccessToken();
         $request->user()->meta()->insert([
             'user_id'    => $request->user()->id,
             'action'     => 'Logout',
@@ -681,7 +620,7 @@ class AuthController extends Controller
             'date_created' => Carbon::now()->format('Y-m-d')
         ]);
 
-        $token->revoke();
+        $token?->delete();
         $response = ['message' => 'You have been successfully logged out!'];
 
         return response()->json([

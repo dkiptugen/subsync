@@ -9,7 +9,7 @@ class ApplePayLogs extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = ['source', 'request_payload'];
 
     protected $casts = [
         'request_payload' => 'array',

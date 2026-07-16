@@ -26,9 +26,9 @@ class ExpiredPasswordController extends Controller
                     'password' => [
                                         'required',
                                         'string',
-                                        'min:'.env("PASSWORD_MINIMUM_LENGTH"),
+                                        'min:'.config('custom.AUTHENTICATION.PASSWORD_MINIMUM_LENGTH'),
                                         'confirmed',
-                                        'regex:'.env('PASSWORD_COMPLEXITY_REGEX')
+                                        'regex:'.config('custom.AUTHENTICATION.PASSWORD_COMPLEXITY_REGEX')
                                    ],
                 ]);
                 if($validate)

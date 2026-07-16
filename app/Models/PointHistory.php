@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class PointHistory extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = ['user_id', 'point_id', 'type', 'points'];
 }

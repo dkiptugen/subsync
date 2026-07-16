@@ -15,7 +15,7 @@ class Coupon extends Model
         use HasFactory;
 
         protected $casts = ['products' => JsonCast::class];
-        protected $guarded = [];
+        protected $fillable = ['code', 'type', 'discount', 'products', 'usage', 'status', 'start_date', 'expiry_date', 'region_id', 'rate_type', 'agent_id', 'agent_email', 'expires', 'multi_use'];
         use LogsActivity;
 
         public function getActivitylogOptions(): LogOptions
