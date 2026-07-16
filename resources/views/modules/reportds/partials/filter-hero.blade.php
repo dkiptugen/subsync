@@ -65,6 +65,7 @@
                 @enderror
             </div>
         @endisset
+
         @if($showStatus ?? false)
             <div class="report-filter-field">
                 <label for="status" class="form-label">Status</label>
