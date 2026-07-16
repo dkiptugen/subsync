@@ -620,6 +620,11 @@ th{
 #dashboard-realtime {
     display: grid;
     gap: 24px;
+    min-width: 0;
+
+    > * {
+        min-width: 0;
+    }
 }
 
 .dashboard-breadcrumb {
@@ -635,6 +640,7 @@ th{
     background: #101628;
     color: $white;
     display: flex;
+    flex-wrap: wrap;
     gap: 24px;
     justify-content: space-between;
     min-height: 220px;
@@ -653,8 +659,13 @@ th{
     }
 
     > * {
+        min-width: 0;
         position: relative;
         z-index: 1;
+    }
+
+    > :first-child {
+        flex: 1 1 440px;
     }
 }
 
@@ -735,9 +746,11 @@ th{
 
 .dashboard-hero-actions {
     display: grid;
+    flex: 1 1 344px;
     gap: 8px;
     grid-template-columns: repeat(2, minmax(160px, 1fr));
-    min-width: 344px;
+    max-width: 560px;
+    min-width: 0;
 }
 
 .dashboard-action {
@@ -758,7 +771,8 @@ th{
 .dashboard-metrics {
     display: grid;
     gap: 16px;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    min-width: 0;
 }
 
 .dashboard-metric {
@@ -768,6 +782,8 @@ th{
     display: grid;
     gap: 8px;
     min-height: 176px;
+    min-width: 0;
+    overflow-wrap: anywhere;
     padding: 24px;
     transition: transform .2s ease, box-shadow .2s ease;
 
@@ -823,16 +839,19 @@ th{
     font-size: 1.75rem;
     font-weight: 700;
     line-height: 1;
+    min-width: 0;
 }
 
 .dashboard-panel {
     background: $white;
+    min-width: 0;
     padding: 24px;
 }
 
 .dashboard-panel-header {
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     justify-content: space-between;
     margin-bottom: 20px;
@@ -866,6 +885,7 @@ th{
     align-items: center;
     border: 1px solid $gray-200;
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
     justify-content: space-between;
     min-height: 76px;
@@ -875,6 +895,7 @@ th{
 .dashboard-transaction-main {
     align-items: center;
     display: flex;
+    flex: 1 1 280px;
     gap: 12px;
     min-width: 0;
 
@@ -888,6 +909,7 @@ th{
     display: grid;
     gap: 6px;
     justify-items: end;
+    min-width: 0;
     white-space: nowrap;
 }
 
@@ -1060,7 +1082,8 @@ th{
 }
 
 .dashboard-health-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    min-width: 0;
 }
 
 .dashboard-health-card {
@@ -1068,6 +1091,8 @@ th{
     display: grid;
     gap: 8px;
     min-height: 164px;
+    min-width: 0;
+    overflow-wrap: anywhere;
 
     span {
         color: $gray-600;
@@ -1091,9 +1116,6 @@ th{
         width: 100%;
     }
 
-    .dashboard-metrics {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
 }
 
 @media (max-width: 767.98px) {
