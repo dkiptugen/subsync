@@ -1,4 +1,4 @@
-@php use Illuminate\Support\Facades\Auth;use Illuminate\Support\Facades\Cache; @endphp
+@php use Illuminate\Support\Facades\Auth; @endphp
     <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     @include('includes.meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="pusher-app-key" content="{{ config('broadcasting.connections.pusher.key') }}">
+    <meta name="pusher-app-cluster" content="{{ config('broadcasting.connections.pusher.options.cluster') }}">
     @yield('header')
 
 </head>
@@ -28,68 +30,33 @@
 
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align">
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+                    <li class="nav-item dropdown"
+                        id="notification-center"
+                        data-user-id="{{ Auth::id() }}"
+                        data-index-url="{{ route('notifications.index') }}"
+                        data-read-url="{{ route('notifications.read_all') }}">
+                        <button class="nav-icon dropdown-toggle btn" type="button" id="alertsDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false" aria-label="Open notifications">
                             <div class="position-relative">
                                 <i class="align-middle" data-feather="bell"></i>
-                                <span class="indicator">4</span>
+                                <span class="indicator d-none" data-notification-count>0</span>
                             </div>
-                        </a>
+                        </button>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
-                            <div class="dropdown-menu-header">
-                                4 New Notifications
+                            <div class="dropdown-menu-header notification-menu-header">
+                                <span data-notification-heading>Notifications</span>
+                                <button type="button" class="btn btn-link btn-sm" data-notifications-read-all>
+                                    Mark all read
+                                </button>
                             </div>
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-danger" data-feather="alert-circle"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Update completed</div>
-                                            <div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
-                                            <div class="text-muted small mt-1">30m ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-warning" data-feather="bell"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Lorem ipsum</div>
-                                            <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
-                                            <div class="text-muted small mt-1">2h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-primary" data-feather="home"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Login from 192.186.1.8</div>
-                                            <div class="text-muted small mt-1">5h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-success" data-feather="user-plus"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">New connection</div>
-                                            <div class="text-muted small mt-1">Christina accepted your request.</div>
-                                            <div class="text-muted small mt-1">14h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
+                            <div class="list-group" data-notification-list>
+                                <div class="notification-empty">
+                                    <i data-feather="bell" aria-hidden="true"></i>
+                                    <span>No notifications yet</span>
+                                </div>
                             </div>
                             <div class="dropdown-menu-footer">
-                                <a href="#" class="text-muted">Show all notifications</a>
+                                <a href="{{ route('profile.index') }}" class="text-muted">View profile settings</a>
                             </div>
                         </div>
                     </li>
@@ -103,16 +70,16 @@
                             <img src="{{ asset('assets/img/avatar.png') }}" class="avatar img-fluid rounded me-1" alt="{{ Auth::user()->name }}" /> <span class="text-dark">{{ Auth::user()->name }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href=""><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                            <a class="dropdown-item" href=""><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
+                            <a class="dropdown-item" href="{{ route('profile.index') }}"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="i"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Log out</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="dropdown-item" type="submit">
+                                    <i class="align-middle me-1" data-feather="log-out"></i> Log out
+                                </button>
+                            </form>
                         </div>
                     </li>
                 </ul>
             </div>
         </nav>
-

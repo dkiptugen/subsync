@@ -617,6 +617,11 @@ th{
     gap: 24px;
 }
 
+#dashboard-realtime {
+    display: grid;
+    gap: 24px;
+}
+
 .dashboard-breadcrumb {
     .breadcrumb {
         align-items: center;
@@ -675,6 +680,57 @@ th{
     color: rgba($white, .78);
     font-size: 1rem;
     max-width: 640px;
+}
+
+.dashboard-live-status {
+    align-items: center;
+    color: rgba($white, .78);
+    display: inline-flex;
+    font-size: .75rem;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.dashboard-live-indicator {
+    background: $warning;
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+}
+
+.dashboard-live-status.is-connected .dashboard-live-indicator {
+    background: $success;
+}
+
+.notification-menu-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    .btn-link {
+        color: $primary;
+        padding: 0;
+        text-decoration: none;
+    }
+}
+
+.notification-empty {
+    align-items: center;
+    color: $gray-600;
+    display: flex;
+    justify-content: center;
+    min-height: 112px;
+    padding: 24px;
+    text-align: center;
+}
+
+.notification-item {
+    border-left: 3px solid transparent;
+}
+
+.notification-item.is-unread {
+    background: rgba($primary, .06);
+    border-left-color: $primary;
 }
 
 .dashboard-hero-actions {

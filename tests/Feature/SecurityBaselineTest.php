@@ -13,6 +13,15 @@ class SecurityBaselineTest extends TestCase
         $this->post('/media-library')->assertRedirect('/login');
     }
 
+    public function test_dashboard_realtime_and_profile_routes_require_authentication(): void
+    {
+        $this->get('/manage/dashboard/snapshot')->assertRedirect('/login');
+        $this->get('/manage/notifications')->assertRedirect('/login');
+        $this->patch('/manage/notifications/read')->assertRedirect('/login');
+        $this->get('/manage/profile')->assertRedirect('/login');
+        $this->put('/manage/profile')->assertRedirect('/login');
+    }
+
     public function test_local_debug_and_cache_routes_are_not_registered_while_testing(): void
     {
         $this->get('/debug')->assertNotFound();

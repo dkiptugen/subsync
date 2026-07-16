@@ -26,6 +26,7 @@ use App\Http\Controllers\LogsController;
 use App\Http\Controllers\MediaEventsController;
 use App\Http\Controllers\MediaLibraryController;
 use App\Http\Controllers\MpesaBlacklistController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\PluginInstallerController;
@@ -50,7 +51,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Pusher\Pusher;
 
 Route::group([
     'middleware' => ['auth', 'role:Super Admin'],
@@ -77,11 +77,14 @@ Route::get('success', function () {
     return view('modules.auth.success', Helper::site_def());
 });
 
-Route::group(['role' => ['admin'], 'middleware' => ['auth'], 'access_level' => ['owner']], function () {
+Route::middleware(['auth', 'is_owner'])->group(function (): void {
 
     Route::middleware(['password.expired'])->prefix('manage')->group(function () {
 
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+        Route::get('/dashboard/snapshot', [DashboardController::class, 'snapshot'])->name('dashboard.snapshot');
+        Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+        Route::patch('/notifications/read', [NotificationController::class, 'readAll'])->name('notifications.read_all');
 
         Route::resource('payment_method', PaymentMethodController::class, ['except' => ['show']]);
         Route::post('/payment_methods/get', [PaymentMethodController::class, 'get'])->name('payment_method.datatable');
@@ -162,8 +165,8 @@ Route::group(['role' => ['admin'], 'middleware' => ['auth'], 'access_level' => [
         Route::get('user/{user}/logs/export', [LogsController::class, 'export_view'])->name('user.logs.export_view');
         Route::post('user/{user}/logs/export', [LogsController::class, 'export'])->name('user.logs.export');
 
-        Route::get('profile', [SubscriberController::class, 'profile'])->name('profile.index');
-        Route::put('profile/{id}/update', [SubscriberController::class, 'profile_update'])->name('profile.update');
+        Route::get('profile', [UserController::class, 'profile'])->name('profile.index');
+        Route::put('profile', [UserController::class, 'profile_update'])->name('profile.update');
 
         Route::resource('organization', OrganizationController::class, ['except' => ['show']]);
         Route::post('/organization/get', [OrganizationController::class, 'get'])->name('organization.datatable');
@@ -276,31 +279,31 @@ if (app()->isLocal()) {
 Route::post('fasthub/callback', [FastHubController::class, 'callback'])->name('fasthub.callback');
 
 if (app()->isLocal()) {
-Route::get('test', function (Request $request) {
-    //        $coupon="TESTMANY1";
-    //        $region = Region::where('code','KE')->first();
-    //        $amount = 100;
-    //        $con =  new \App\Http\Controllers\API\MpesaCallbackController();
-    //        $rate = 3;
-    //        $res = $con->discount_calc($coupon,$amount,$region,4,5613189,$rate);
+    Route::get('test', function (Request $request) {
+        //        $coupon="TESTMANY1";
+        //        $region = Region::where('code','KE')->first();
+        //        $amount = 100;
+        //        $con =  new \App\Http\Controllers\API\MpesaCallbackController();
+        //        $rate = 3;
+        //        $res = $con->discount_calc($coupon,$amount,$region,4,5613189,$rate);
 
-    // $method = \App\Models\PaymentMethod::where('type','fasthub')->first();
-    // $util = new \App\Libs\FastHub($method);
-    // $res = $util->stkPush(100,'255750900766','PW_MWANASPOTI_ZXVCBOYU','C2B','https://dev-subscribe.nation.africa/fasthub/callback');
+        // $method = \App\Models\PaymentMethod::where('type','fasthub')->first();
+        // $util = new \App\Libs\FastHub($method);
+        // $res = $util->stkPush(100,'255750900766','PW_MWANASPOTI_ZXVCBOYU','C2B','https://dev-subscribe.nation.africa/fasthub/callback');
 
-    $bundled = Rate::where('product_id', 38)
-        ->where('status', 1)
-        ->where('category', '!=', 'normal')
-        ->where('name', '!=', 'article')
-        ->where('currency', 'KES')
-        ->orderBy('listorder', 'ASC')
-        ->get();
+        $bundled = Rate::where('product_id', 38)
+            ->where('status', 1)
+            ->where('category', '!=', 'normal')
+            ->where('name', '!=', 'article')
+            ->where('currency', 'KES')
+            ->orderBy('listorder', 'ASC')
+            ->get();
 
-    $temp[] = RateResource::collection($bundled);
+        $temp[] = RateResource::collection($bundled);
 
-    $is_compensatable = (Carbon::parse($request->subscription_date)->gte(today()->subDays(6)) && Carbon::parse($request->subscription_date)->lt(today()));
-    $res = $is_compensatable;
-    dd($bundled);
+        $is_compensatable = (Carbon::parse($request->subscription_date)->gte(today()->subDays(6)) && Carbon::parse($request->subscription_date)->lt(today()));
+        $res = $is_compensatable;
+        dd($bundled);
 
-})->middleware(['auth', 'role:Super Admin']);
+    })->middleware(['auth', 'role:Super Admin']);
 }

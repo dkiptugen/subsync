@@ -311,21 +311,18 @@ class UserController extends Controller
         return view('modules.users.profile', $this->data);
     }
 
-    /**
-     * @return array|RedirectResponse
-     */
-    public function profile_update(UpdateProfile $request, $id)
+    public function profile_update(UpdateProfile $request): array|RedirectResponse
     {
 
         $validateddata = $request->validated();
         if ($validateddata) {
-            $user = User::find($id);
+            $user = $request->user();
             $user->email = strtolower($request->email);
             $user->name = $request->name;
             $user->surname = $request->surname;
             $user->phone = $request->phone_number;
 
-            if ($request->hasAny(['password', 'password_confirmation'])) {
+            if ($request->filled('password') || $request->filled('password_confirmation')) {
                 $request->validate([
                     'password' => [
                         'required', 'same:password_confirmation', 'string',
@@ -338,12 +335,12 @@ class UserController extends Controller
 
             $usr = $user->save();
             if ($usr) {
-                return self::success('User', 'Updated user successfully', route('user.index'));
+                return self::success('Profile', 'Updated profile successfully', route('profile.index'));
             }
 
-            return self::failed('User', 'Failed to update user', route('user.index'));
+            return self::failed('Profile', 'Failed to update profile', route('profile.index'));
         } else {
-            return self::failed('profile', $validateddata, route('profile'));
+            return self::failed('Profile', $validateddata, route('profile.index'));
         }
     }
 

@@ -7,30 +7,34 @@
 <div class="card">
 
         <div class="card-body">
-            <form action="{{ route('profile.update',$user->id) }}" method="post"
+            <form action="{{ route('profile.update') }}" method="post"
                   class="form form-horizontal create-form">
                 @csrf
                 @method('put')
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="name" class="control-label">Name</label>
-                        <input type="text" name="name" id="name" class="form-control" value="{{ $user->name }}">
+                        <label for="name" class="control-label">Name <span aria-hidden="true">*</span></label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required>
+                        @error('name')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                     </div>
                     <div class="col">
                         <label for="surname" class="control-label">Surname</label>
                         <input type="text" name="surname" id="surname" class="form-control"
-                               value="{{ $user->surname }}">
+                               value="{{ old('surname', $user->surname) }}">
+                        @error('surname')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col">
-                        <label for="email" class="control-label">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}">
+                        <label for="email" class="control-label">Email <span aria-hidden="true">*</span></label>
+                        <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $user->email) }}" required>
+                        @error('email')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                     </div>
                     <div class="col">
                         <label for="phone_number" class="control-label">Phone Number</label>
                         <input type="text" name="phone_number" id="phone_number" class="form-control"
-                               value="{{ $user->phone }}">
+                               value="{{ old('phone_number', $user->phone) }}">
+                        @error('phone_number')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                     </div>
 
                 </div>
@@ -39,6 +43,7 @@
                     <div class="col">
                         <label for="password" class="control-label">Password</label>
                         <input type="password" name="password" id="password" class="form-control">
+                        @error('password')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
                     </div>
                     <div class="col">
                         <label for="con_password" class="control-label">Confirm Password</label>
