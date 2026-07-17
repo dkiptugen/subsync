@@ -848,6 +848,19 @@ th{
     padding: 24px;
 }
 
+.dashboard-overview-grid {
+    align-items: stretch;
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+    min-width: 0;
+
+    > .dashboard-panel {
+        height: auto;
+        min-width: 0;
+    }
+}
+
 .dashboard-panel-header {
     align-items: center;
     display: flex;
@@ -1114,6 +1127,10 @@ th{
     .dashboard-hero-actions {
         min-width: 0;
         width: 100%;
+    }
+
+    .dashboard-overview-grid {
+        grid-template-columns: 1fr;
     }
 
 }

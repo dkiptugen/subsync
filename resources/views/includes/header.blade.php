@@ -11,8 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     @include('includes.meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="pusher-app-key" content="{{ config('broadcasting.connections.pusher.key') }}">
-    <meta name="pusher-app-cluster" content="{{ config('broadcasting.connections.pusher.options.cluster') }}">
+    @include('includes.broadcasting-meta')
     @yield('header')
 
 </head>

@@ -14,85 +14,81 @@
         @endforeach
     </section>
 
-    <div class="row g-4">
-        <div class="col-12 col-xl-8">
-            <section class="dashboard-panel h-100" aria-labelledby="recent-transactions-title">
-                <div class="dashboard-panel-header">
-                    <div>
-                        <span class="dashboard-kicker">Payments</span>
-                        <h2 id="recent-transactions-title" class="dashboard-panel-title">Recent Transactions</h2>
-                    </div>
-                    <a href="{{ route('subscription.index') }}" class="btn btn-outline-dark btn-sm">
-                        <i data-feather="arrow-up-right" aria-hidden="true"></i>
-                        View Subscriptions
-                    </a>
+    <div class="dashboard-overview-grid">
+        <section class="dashboard-panel" aria-labelledby="recent-transactions-title">
+            <div class="dashboard-panel-header">
+                <div>
+                    <span class="dashboard-kicker">Payments</span>
+                    <h2 id="recent-transactions-title" class="dashboard-panel-title">Recent Transactions</h2>
                 </div>
+                <a href="{{ route('subscription.index') }}" class="btn btn-outline-dark btn-sm">
+                    <i data-feather="arrow-up-right" aria-hidden="true"></i>
+                    View Subscriptions
+                </a>
+            </div>
 
-                @if($dashboard['recentTransactions']->isNotEmpty())
-                    <div class="dashboard-transaction-list">
-                        @foreach($dashboard['recentTransactions'] as $transaction)
-                            <div class="dashboard-transaction">
-                                <div class="dashboard-transaction-main">
-                                    <span class="dashboard-transaction-icon">
-                                        <i data-feather="credit-card" aria-hidden="true"></i>
-                                    </span>
-                                    <div>
-                                        <strong>{{ $transaction->receipt ?: $transaction->identifier ?: 'Pending receipt' }}</strong>
-                                        <span>
-                                            {{ $transaction->user?->name ?: $transaction->user?->email ?: 'Unassigned customer' }}
-                                            &middot; {{ $transaction->payment_method?->name ?: 'Payment method pending' }}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="dashboard-transaction-meta">
-                                    <strong>{{ $transaction->currency ?: 'KES' }} {{ number_format((float) $transaction->amount_paid, 2) }}</strong>
-                                    <span class="dashboard-status dashboard-status-{{ (int) $transaction->status }}">
-                                        {{ (int) $transaction->status === 1 ? 'Paid' : ((int) $transaction->status === 2 ? 'Failed' : 'Pending') }}
+            @if($dashboard['recentTransactions']->isNotEmpty())
+                <div class="dashboard-transaction-list">
+                    @foreach($dashboard['recentTransactions'] as $transaction)
+                        <div class="dashboard-transaction">
+                            <div class="dashboard-transaction-main">
+                                <span class="dashboard-transaction-icon">
+                                    <i data-feather="credit-card" aria-hidden="true"></i>
+                                </span>
+                                <div>
+                                    <strong>{{ $transaction->receipt ?: $transaction->identifier ?: 'Pending receipt' }}</strong>
+                                    <span>
+                                        {{ $transaction->user?->name ?: $transaction->user?->email ?: 'Unassigned customer' }}
+                                        &middot; {{ $transaction->payment_method?->name ?: 'Payment method pending' }}
                                     </span>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="dashboard-empty">
-                        <i data-feather="inbox" aria-hidden="true"></i>
-                        <strong>No transactions yet</strong>
-                        <span>Payments will appear here as soon as subscriptions begin processing.</span>
-                    </div>
-                @endif
-            </section>
-        </div>
-
-        <div class="col-12 col-xl-4">
-            <section class="dashboard-panel h-100" aria-labelledby="revenue-title">
-                <div class="dashboard-panel-header">
-                    <div>
-                        <span class="dashboard-kicker">Month to date</span>
-                        <h2 id="revenue-title" class="dashboard-panel-title">Revenue Pulse</h2>
-                    </div>
+                            <div class="dashboard-transaction-meta">
+                                <strong>{{ $transaction->currency ?: 'KES' }} {{ number_format((float) $transaction->amount_paid, 2) }}</strong>
+                                <span class="dashboard-status dashboard-status-{{ (int) $transaction->status }}">
+                                    {{ (int) $transaction->status === 1 ? 'Paid' : ((int) $transaction->status === 2 ? 'Failed' : 'Pending') }}
+                                </span>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-
-                <div class="dashboard-revenue">
-                    <span>Total paid</span>
-                    <strong>{{ number_format($dashboard['revenue']['paid'], 2) }}</strong>
+            @else
+                <div class="dashboard-empty">
+                    <i data-feather="inbox" aria-hidden="true"></i>
+                    <strong>No transactions yet</strong>
+                    <span>Payments will appear here as soon as subscriptions begin processing.</span>
                 </div>
+            @endif
+        </section>
 
-                <div class="dashboard-health-list">
-                    <div class="dashboard-health-item">
-                        <span>Pending payments</span>
-                        <strong>{{ number_format($dashboard['revenue']['pending']) }}</strong>
-                    </div>
-                    <div class="dashboard-health-item">
-                        <span>Failed payments</span>
-                        <strong>{{ number_format($dashboard['revenue']['failed']) }}</strong>
-                    </div>
-                    <div class="dashboard-health-item">
-                        <span>Awaiting approval</span>
-                        <strong>{{ number_format($dashboard['revenue']['approvals']) }}</strong>
-                    </div>
+        <section class="dashboard-panel" aria-labelledby="revenue-title">
+            <div class="dashboard-panel-header">
+                <div>
+                    <span class="dashboard-kicker">Month to date</span>
+                    <h2 id="revenue-title" class="dashboard-panel-title">Revenue Pulse</h2>
                 </div>
-            </section>
-        </div>
+            </div>
+
+            <div class="dashboard-revenue">
+                <span>Total paid</span>
+                <strong>{{ number_format($dashboard['revenue']['paid'], 2) }}</strong>
+            </div>
+
+            <div class="dashboard-health-list">
+                <div class="dashboard-health-item">
+                    <span>Pending payments</span>
+                    <strong>{{ number_format($dashboard['revenue']['pending']) }}</strong>
+                </div>
+                <div class="dashboard-health-item">
+                    <span>Failed payments</span>
+                    <strong>{{ number_format($dashboard['revenue']['failed']) }}</strong>
+                </div>
+                <div class="dashboard-health-item">
+                    <span>Awaiting approval</span>
+                    <strong>{{ number_format($dashboard['revenue']['approvals']) }}</strong>
+                </div>
+            </div>
+        </section>
     </div>
 
     <section class="dashboard-panel" aria-labelledby="operations-title">
