@@ -28,7 +28,6 @@ const publishConnectionState = (state) => {
 };
 
 if (appKey) {
-    Pusher.logToConsole = true;
     window.Pusher = Pusher;
     const echoOptions = {
         broadcaster: "pusher",

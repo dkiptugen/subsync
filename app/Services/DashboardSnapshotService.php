@@ -13,10 +13,16 @@ use Illuminate\Support\Collection;
 
 class DashboardSnapshotService
 {
+    public function __construct(private readonly DashboardAnalyticsService $analytics) {}
+
     /**
      * @return array{
      *     metrics: array<int, array{label: string, value: string, helper: string, icon: string, tone: string, route: string}>,
      *     revenue: array{paid: float, pending: int, failed: int, approvals: int},
+     *     charts: array{
+     *         cumulativeRevenue: array{labels: array<int, string>, values: array<int, float>, current: float},
+     *         churnRate: array{labels: array<int, string>, values: array<int, float>, current: float}
+     *     },
      *     recentTransactions: Collection<int, Transaction>,
      *     operationalHealth: array<int, array{label: string, value: string, detail: string, icon: string}>,
      *     quickActions: array<int, array{label: string, route: string, icon: string}>
@@ -27,6 +33,7 @@ class DashboardSnapshotService
         return [
             'metrics' => $this->metrics(),
             'revenue' => $this->revenueSnapshot(),
+            'charts' => $this->analytics->get(),
             'recentTransactions' => $this->recentTransactions(),
             'operationalHealth' => $this->operationalHealth(),
             'quickActions' => $this->quickActions(),

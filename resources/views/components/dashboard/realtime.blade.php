@@ -14,6 +14,98 @@
         @endforeach
     </section>
 
+    <div class="dashboard-chart-grid">
+        <section class="dashboard-panel dashboard-chart-panel" aria-labelledby="cumulative-revenue-title">
+            <div class="dashboard-panel-header">
+                <div>
+                    <span class="dashboard-kicker">Last 12 months</span>
+                    <h2 id="cumulative-revenue-title" class="dashboard-panel-title">Cumulative Revenue</h2>
+                </div>
+                <div class="dashboard-chart-summary">
+                    <span>Paid to date</span>
+                    <strong>{{ number_format($dashboard['charts']['cumulativeRevenue']['current'], 2) }}</strong>
+                </div>
+            </div>
+
+            <p class="dashboard-chart-description">Successful payments accumulated through the end of each month.</p>
+
+            <div class="dashboard-chart-visual">
+                <canvas data-dashboard-chart="cumulative-revenue"
+                        data-chart-labels='@json($dashboard['charts']['cumulativeRevenue']['labels'])'
+                        data-chart-values='@json($dashboard['charts']['cumulativeRevenue']['values'])'
+                        role="img"
+                        aria-label="Cumulative paid revenue for each of the last 12 months"></canvas>
+            </div>
+
+            <details class="dashboard-chart-data">
+                <summary>View cumulative revenue data</summary>
+                <div class="table-responsive">
+                    <table class="table table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Month</th>
+                                <th scope="col" class="text-right">Paid revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($dashboard['charts']['cumulativeRevenue']['labels'] as $index => $label)
+                                <tr>
+                                    <th scope="row">{{ $label }}</th>
+                                    <td class="text-right">{{ number_format($dashboard['charts']['cumulativeRevenue']['values'][$index], 2) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+        </section>
+
+        <section class="dashboard-panel dashboard-chart-panel" aria-labelledby="churn-rate-title">
+            <div class="dashboard-panel-header">
+                <div>
+                    <span class="dashboard-kicker">Last 12 months</span>
+                    <h2 id="churn-rate-title" class="dashboard-panel-title">Churn Rate</h2>
+                </div>
+                <div class="dashboard-chart-summary">
+                    <span>Current month</span>
+                    <strong>{{ number_format($dashboard['charts']['churnRate']['current'], 2) }}%</strong>
+                </div>
+            </div>
+
+            <p class="dashboard-chart-description">Recurring subscriptions cancelled during the month as a share of those active at its start.</p>
+
+            <div class="dashboard-chart-visual">
+                <canvas data-dashboard-chart="churn-rate"
+                        data-chart-labels='@json($dashboard['charts']['churnRate']['labels'])'
+                        data-chart-values='@json($dashboard['charts']['churnRate']['values'])'
+                        role="img"
+                        aria-label="Monthly recurring subscription churn rate for each of the last 12 months"></canvas>
+            </div>
+
+            <details class="dashboard-chart-data">
+                <summary>View churn rate data</summary>
+                <div class="table-responsive">
+                    <table class="table table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th scope="col">Month</th>
+                                <th scope="col" class="text-right">Churn rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($dashboard['charts']['churnRate']['labels'] as $index => $label)
+                                <tr>
+                                    <th scope="row">{{ $label }}</th>
+                                    <td class="text-right">{{ number_format($dashboard['charts']['churnRate']['values'][$index], 2) }}%</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </details>
+        </section>
+    </div>
+
     <div class="dashboard-overview-grid">
         <section class="dashboard-panel" aria-labelledby="recent-transactions-title">
             <div class="dashboard-panel-header">
