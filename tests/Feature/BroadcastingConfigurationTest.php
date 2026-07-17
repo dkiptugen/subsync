@@ -24,4 +24,12 @@ class BroadcastingConfigurationTest extends TestCase
         $this->assertStringContainsString('name="pusher-app-port" content="443"', $html);
         $this->assertStringContainsString('name="pusher-app-scheme" content="https"', $html);
     }
+
+    public function test_dashboard_uses_the_versioned_echo_bundle_from_the_mix_manifest(): void
+    {
+        $html = view('includes.footer')->render();
+
+        $this->assertStringContainsString('/assets/js/app.js?id=', $html);
+        $this->assertStringNotContainsString('/assets/js/app.js?v=', $html);
+    }
 }
