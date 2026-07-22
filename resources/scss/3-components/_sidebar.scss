@@ -155,6 +155,27 @@ a.sidebar-link {
   }
 }
 
+.sidebar-section-toggle {
+  .sidebar-section-chevron {
+    margin-left: auto;
+    transition: transform .2s ease-in-out;
+  }
+
+  &[aria-expanded="true"] .sidebar-section-chevron {
+    transform: rotate(180deg);
+  }
+}
+
+.sidebar-section > .sidebar-dropdown {
+  padding: 0 0 .25rem .75rem;
+
+  > .sidebar-item > .sidebar-link {
+    font-size: .875rem;
+    padding-bottom: .5rem;
+    padding-top: .5rem;
+  }
+}
+
 // Badge
 .sidebar-badge {
   position: absolute;
